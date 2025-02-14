@@ -44,6 +44,8 @@ public class Ventana extends JFrame{
 		this.add(this.login());
 		this.repaint();
 		
+		//esto es un cambio
+		
 	}
 	
 	//MÉTODOS
