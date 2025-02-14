@@ -44,8 +44,6 @@ public class Ventana extends JFrame{
 		this.add(this.login());
 		this.repaint();
 		
-		//esto es un cambio
-		
 	}
 	
 	//MÉTODOS
@@ -108,4 +106,4 @@ public class Ventana extends JFrame{
 		
 	}
 
-}
+}//Commit
