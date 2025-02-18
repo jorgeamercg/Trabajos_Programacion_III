@@ -7,9 +7,11 @@ import java.awt.Dimension;
 import java.awt.Font;
 
 import javax.swing.JButton;
+import javax.swing.JCheckBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
+import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 
 //CLASE
@@ -17,8 +19,9 @@ public class Ventana extends JFrame{
 	
 	//CREACIÓN DE OBJETO
 	
-	//Fuente personalizada
+	//Fuentes personalizadas
 	Font etiquetas = new Font("Romana", Font.ROMAN_BASELINE, 22);
+	Font etiquetas2 = new Font("Romana", Font.ROMAN_BASELINE, 10);
 
 	//CONSTRUCTOR
 	public Ventana(String title) {
@@ -64,17 +67,17 @@ public class Ventana extends JFrame{
 		login.setLayout(null);
 		
 		//Etiquetas
-		JLabel etiqueta1 = new JLabel("BIENVENIDO");
+		JLabel etiqueta1 = new JLabel("Iniciar Sesión");
 		etiqueta1.setSize(160, 40);
-		etiqueta1.setLocation(160, 10);
+		etiqueta1.setLocation(160, 35);
 		etiqueta1.setFont(etiquetas);
 		etiqueta1.setHorizontalAlignment(JLabel.CENTER);
 		etiqueta1.setBackground(Color.YELLOW);
 		etiqueta1.setOpaque(true);
 		login.add(etiqueta1);
 		
-		JLabel etiqueta2 = new JLabel("Usuario");
-		etiqueta2.setBounds(60, 150, 160, 30);
+		JLabel etiqueta2 = new JLabel("Email");
+		etiqueta2.setBounds(190, 120, 100, 30);
 		/*etiqueta2.setSize(80, 30);*/
 		/*etiqueta2.setLocation(60, 150);*/
 		etiqueta2.setFont(etiquetas);
@@ -83,22 +86,56 @@ public class Ventana extends JFrame{
 		etiqueta2.setOpaque(true);
 		login.add(etiqueta2);
 		
+		JLabel etiqueta3 = new JLabel("Contraseña");
+		etiqueta3.setBounds(160, 220, 160, 30);
+		etiqueta3.setFont(etiquetas);
+		etiqueta3.setHorizontalAlignment(JLabel.CENTER);
+		etiqueta3.setBackground(Color.WHITE);
+		etiqueta3.setOpaque(true);
+		login.add(etiqueta3);
+		
 		//Caja de texto
 		JTextField email = new JTextField();
-		email.setBounds(60, 200, 260, 30);
+		email.setBounds(110, 170, 260, 30);
 		email.setFont(etiquetas);
 		email.setBackground(Color.cyan);
 		email.setOpaque(true);
 		login.add(email);
 		
-		//Botón
+		//Caja de contraseña
+		JPasswordField contraseña = new JPasswordField();
+		contraseña.setBounds(110, 270, 260, 30);
+		contraseña.setFont(etiquetas);
+		contraseña.setBackground(Color.cyan);
+		contraseña.setOpaque(true);
+		login.add(contraseña);
+		
+		//Botones
 		JButton access = new JButton("Acceder");
-		access.setBounds(60, 300, 260, 60);
+		access.setBounds(165, 350, 150, 40);
 		access.setFont(etiquetas);
 		etiqueta2.setHorizontalAlignment(JLabel.CENTER);
 		access.setBackground(Color.ORANGE);
 		access.setOpaque(true);
 		login.add(access);
+		
+		JButton c_olvidada = new JButton("¿Olvidó su contraseña?");
+		c_olvidada.setBounds(227, 310, 143, 20);
+		c_olvidada.setFont(etiquetas2);
+		c_olvidada.setHorizontalAlignment(JLabel.CENTER);
+		c_olvidada.setBackground(new Color(0, 128, 128));
+		c_olvidada.setOpaque(true);
+		login.add(c_olvidada);
+		
+		//Casilla de verificación
+		JCheckBox recordar;
+		recordar = new JCheckBox("Recordarme");
+		recordar.setBounds(75, 310, 143, 20);
+		recordar.setFont(etiquetas2);
+		recordar.setHorizontalAlignment(JLabel.CENTER);
+		recordar.setBackground(new Color(0, 128, 128));
+		recordar.setOpaque(true);
+		login.add(recordar);
 		
 		login.revalidate();
 		
@@ -106,4 +143,4 @@ public class Ventana extends JFrame{
 		
 	}
 
-}//Commit
+}
