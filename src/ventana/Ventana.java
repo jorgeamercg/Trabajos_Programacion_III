@@ -17,6 +17,8 @@ import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
 
@@ -36,7 +38,7 @@ public class Ventana extends JFrame{
 		//Atributos
 		this.setTitle(title);
 		this.setVisible(true);
-		this.setSize(500, 500);
+		this.setSize(1000, 500);
 		
 		this.setResizable(true);
 		this.setLayout(null);
@@ -57,8 +59,11 @@ public class Ventana extends JFrame{
 		/*//Registrarse
 		this.add(this.registro());*/
 		
-		//Calculadora
-		this.add(this.calculadora());
+		/*//Calculadora
+		this.add(this.calculadora());*/
+		
+		//Usuarios
+		this.add(this.usuarios());
 		
 		this.repaint();
 		this.revalidate();
@@ -526,5 +531,114 @@ public class Ventana extends JFrame{
 		return calculadora;
 		
 	}
-
+	
+	public JPanel usuarios() {
+		
+		//CREACIÓN DE OBJETOS
+		
+		//Panel
+		JPanel usuarios = new JPanel();
+		usuarios.setLocation(0, 0);
+		usuarios.setSize(1000, 500);
+		usuarios.setOpaque(true);
+		usuarios.setBackground(new Color(0, 128, 128));
+		usuarios.setVisible(true);
+		usuarios.setLayout(null);
+		
+		//Etiquetas
+		JLabel etiqueta1 = new JLabel("Usuarios");
+		etiqueta1.setSize(160, 40);
+		etiqueta1.setLocation(420, 10);
+		etiqueta1.setFont(etiquetas);
+		etiqueta1.setHorizontalAlignment(JLabel.CENTER);
+		etiqueta1.setBackground(Color.YELLOW);
+		etiqueta1.setOpaque(true);
+		etiqueta1.setBorder(BorderFactory.createLineBorder(Color.black));
+		usuarios.add(etiqueta1);
+		
+		JLabel text1 = new JLabel("Total de usuarios: 35");
+		text1.setBounds(50, 110, 250, 40);
+		text1.setFont(etiquetas);
+		text1.setHorizontalAlignment(JLabel.CENTER);
+		text1.setBackground(Color.ORANGE);
+		text1.setOpaque(true);
+		text1.setBorder(BorderFactory.createLineBorder(Color.black));
+		usuarios.add(text1);
+		
+		JLabel widget = new JLabel();
+		widget.setBounds(30, 60, 220, 100);
+		widget.setOpaque(true);
+		widget.setBorder(BorderFactory.createLineBorder(Color.black,2));
+		login().add(widget);
+		
+		//Botones
+		JButton export = new JButton("Exportar");
+		export.setBounds(690, 110, 120, 40);
+		export.setBorder(BorderFactory.createLineBorder(Color.black,2));
+		usuarios.add(export);
+		
+		JButton add = new JButton("Añadir");
+		add.setBounds(820, 110, 120, 40);
+		add.setBorder(BorderFactory.createLineBorder(Color.black,2));
+		usuarios.add(add);
+		
+		//Tabla
+		String[] columnNames = {
+				"First Name",
+				"Last Name",
+				"Game",
+				"Age",
+				"Vegetarian"
+				};
+		
+		Object[][] data = {
+				{"Kathy", "Smith", "Snowboarding", 1995, true},
+				{"John", "Doe", "Rowing", 2002, true},
+				{"Sue", "Black", "Knitting", 2015, false},
+				{"Jane", "White", "Speed reading", 1999, true},
+				{"Joe", "Brown", "Pool", 2019, false},
+				{"Kathy", "Smith", "Snowboarding", 1995, true},
+				{"John", "Doe", "Rowing", 2002, true},
+				{"Sue", "Black", "Knitting", 2015, false},
+				{"Jane", "White", "Speed reading", 1999, true},
+				{"Joe", "Brown", "Pool", 2019, false},
+				{"Kathy", "Smith", "Snowboarding", 1995, true},
+				{"John", "Doe", "Rowing", 2002, true},
+				{"Sue", "Black", "Knitting", 2015, false},
+				{"Jane", "White", "Speed reading", 1999, true},
+				{"Joe", "Brown", "Pool", 2019, false},
+				{"Kathy", "Smith", "Snowboarding", 1995, true},
+				{"John", "Doe", "Rowing", 2002, true},
+				{"Sue", "Black", "Knitting", 2015, false},
+				{"Jane", "White", "Speed reading", 1999, true},
+				{"Joe", "Brown", "Pool", 2019, false},
+				{"Kathy", "Smith", "Snowboarding", 1995, true},
+				{"John", "Doe", "Rowing", 2002, true},
+				{"Sue", "Black", "Knitting", 2015, false},
+				{"Jane", "White", "Speed reading", 1999, true},
+				{"Joe", "Brown", "Pool", 2019, false},
+				{"Kathy", "Smith", "Snowboarding", 1995, true},
+				{"John", "Doe", "Rowing", 2002, true},
+				{"Sue", "Black", "Knitting", 2015, false},
+				{"Jane", "White", "Speed reading", 1999, true},
+				{"Joe", "Brown", "Pool", 2019, false},
+				{"Kathy", "Smith", "Snowboarding", 1995, true},
+				{"John", "Doe", "Rowing", 2002, true},
+				{"Sue", "Black", "Knitting", 2015, false},
+				{"Jane", "White", "Speed reading", 1999, true},
+				{"Joe", "Brown", "Pool", 2019, false},
+				};
+		
+		JTable table = new JTable(data, columnNames);
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setSize(930, 200);
+		scrollPane.setLocation(30, 200);
+		usuarios.add(scrollPane);
+		
+		usuarios.revalidate();
+		
+		return usuarios;
+		
+	}
+	
 }
