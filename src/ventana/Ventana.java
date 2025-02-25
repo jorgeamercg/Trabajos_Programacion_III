@@ -6,7 +6,6 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.GridLayout;
-
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -14,6 +13,7 @@ import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
@@ -21,6 +21,7 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
+import javax.swing.UIManager;
 
 //CLASE
 public class Ventana extends JFrame{
@@ -30,7 +31,6 @@ public class Ventana extends JFrame{
 	//Fuentes personalizadas
 	Font etiquetas = new Font("Romana", Font.ROMAN_BASELINE, 22);
 	Font etiquetas2 = new Font("Romana 2", Font.ROMAN_BASELINE, 10);
-	/*Font etiquetas3 = new Font("Romana 3", Font.ROMAN_BASELINE, 10);*/
 
 	//CONSTRUCTOR
 	public Ventana(String title) {
@@ -38,7 +38,7 @@ public class Ventana extends JFrame{
 		//Atributos
 		this.setTitle(title);
 		this.setVisible(true);
-		this.setSize(1000, 500);
+		this.setSize(500, 500);
 		
 		this.setResizable(true);
 		this.setLayout(null);
@@ -53,8 +53,8 @@ public class Ventana extends JFrame{
 		this.setMinimumSize(new Dimension(400, 400));
 		this.setMaximumSize(new Dimension(600, 600));
 		
-		/*//Iniciar Sesión
-		this.add(this.login());*/
+		//Iniciar Sesión
+		this.add(this.login());
 		
 		/*//Registrarse
 		this.add(this.registro());*/
@@ -62,11 +62,11 @@ public class Ventana extends JFrame{
 		/*//Calculadora
 		this.add(this.calculadora());*/
 		
-		//Usuarios
+		/*//Usuarios
 		this.add(this.usuarios());
 		
 		this.repaint();
-		this.revalidate();
+		this.revalidate();*/
 	}
 	
 	//MÉTODOS
@@ -98,7 +98,7 @@ public class Ventana extends JFrame{
 		login.add(etiqueta1);
 		
 		JLabel etiqueta2 = new JLabel("Email");
-		etiqueta2.setBounds(190, 120, 100, 30);
+		etiqueta2.setBounds(190, 170, 100, 30);
 		/*etiqueta2.setSize(80, 30);*/
 		/*etiqueta2.setLocation(60, 150);*/
 		etiqueta2.setFont(etiquetas);
@@ -108,16 +108,28 @@ public class Ventana extends JFrame{
 		login.add(etiqueta2);
 		
 		JLabel etiqueta3 = new JLabel("Contraseña");
-		etiqueta3.setBounds(160, 220, 160, 30);
+		etiqueta3.setBounds(160, 270, 160, 30);
 		etiqueta3.setFont(etiquetas);
 		etiqueta3.setHorizontalAlignment(JLabel.CENTER);
 		etiqueta3.setBackground(Color.WHITE);
 		etiqueta3.setOpaque(true);
 		login.add(etiqueta3);
 		
+		JLabel usuario = new JLabel(new ImageIcon("usuario.png"));//Tipo imagen
+		usuario.setBounds(192, 75, 96, 96);
+		login.add(usuario);
+		
+		JLabel correo = new JLabel(new ImageIcon("correo.png"));//Tipo imagen
+		usuario.setBounds(375, 224, 24, 24);
+		login.add(correo);
+		
+		JLabel pass = new JLabel(new ImageIcon("pass.png"));//Tipo imagen
+		usuario.setBounds(375, 324, 24, 24);
+		login.add(pass);
+		
 		//Caja de texto
 		JTextField email = new JTextField();
-		email.setBounds(110, 170, 260, 30);
+		email.setBounds(110, 220, 260, 30);
 		email.setFont(etiquetas2);
 		email.setBackground(Color.cyan);
 		email.setOpaque(true);
@@ -125,7 +137,7 @@ public class Ventana extends JFrame{
 		
 		//Caja de contraseña
 		JPasswordField contraseña = new JPasswordField();
-		contraseña.setBounds(110, 270, 260, 30);
+		contraseña.setBounds(110, 320, 260, 30);
 		contraseña.setFont(etiquetas);
 		contraseña.setBackground(Color.cyan);
 		contraseña.setOpaque(true);
@@ -133,15 +145,24 @@ public class Ventana extends JFrame{
 		
 		//Botones
 		JButton access = new JButton("Acceder");
-		access.setBounds(165, 350, 150, 40);
+		access.setBounds(165, 400, 150, 40);
 		access.setFont(etiquetas);
 		access.setHorizontalAlignment(JLabel.CENTER);
 		access.setBackground(Color.ORANGE);
 		access.setOpaque(true);
 		login.add(access);
+		access.addMouseListener(new java.awt.event.MouseAdapter() {//Cambio de color al pasar el mouse (hover)
+		    public void mouseEntered(java.awt.event.MouseEvent evt) {
+		        access.setBackground(Color.GREEN);
+		    }
+
+		    public void mouseExited(java.awt.event.MouseEvent evt) {
+		        access.setBackground(Color.ORANGE);
+		    }
+		});
 		
 		JButton c_olvidada = new JButton("¿Olvidó su contraseña?");
-		c_olvidada.setBounds(227, 310, 143, 20);
+		c_olvidada.setBounds(227, 360, 143, 20);
 		c_olvidada.setFont(etiquetas2);
 		c_olvidada.setHorizontalAlignment(JLabel.CENTER);
 		c_olvidada.setBackground(new Color(0, 128, 128));
@@ -151,7 +172,7 @@ public class Ventana extends JFrame{
 		//Casilla de verificación
 		JCheckBox recordar;
 		recordar = new JCheckBox("Recordarme");
-		recordar.setBounds(75, 310, 143, 20);
+		recordar.setBounds(75, 360, 143, 20);
 		recordar.setFont(etiquetas2);
 		recordar.setHorizontalAlignment(JLabel.CENTER);
 		recordar.setBackground(new Color(0, 128, 128));
