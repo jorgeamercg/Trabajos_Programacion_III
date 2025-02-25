@@ -10,13 +10,18 @@ import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
 import javax.swing.JCheckBox;
+import javax.swing.JCheckBoxMenuItem;
 import javax.swing.JComboBox;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JRadioButton;
+import javax.swing.JRadioButtonMenuItem;
 import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
@@ -53,6 +58,46 @@ public class Ventana extends JFrame{
 		this.setMinimumSize(new Dimension(400, 400));
 		this.setMaximumSize(new Dimension(600, 600));
 		
+		//Barra de menús
+		JMenuBar barra = new JMenuBar();
+		
+		JMenu menu1 = new JMenu("Archivo");
+		JMenu menu2 = new JMenu("Ayuda");
+		
+		JMenuItem op_new = new JMenuItem("Nuevo");
+		JMenuItem op_open = new JMenuItem("Abrir");
+		JMenuItem op_save = new JMenuItem("Guardar");
+		JMenuItem op_close = new JMenuItem("Cerrar");
+		
+		menu1.add(op_new);
+		menu1.add(op_open);
+		menu1.add(op_save);
+		menu1.add(op_close);
+		
+		JMenu menu3 = new JMenu("Segundo nivel");
+		menu1.add(menu3);
+		
+		JMenuItem op_1 = new JMenuItem("Opción 1");
+		JMenuItem op_2 = new JMenuItem("Opción 2");
+		JMenuItem op_3 = new JMenuItem("Opción 3");
+		JMenuItem op_4 = new JMenuItem("Opción 4");
+		
+		menu3.add(op_1);
+		menu3.add(op_2);
+		menu3.add(op_3);
+		menu3.add(op_4);
+		
+		JRadioButtonMenuItem op_help = new JRadioButtonMenuItem ("Manual de usuario");
+		JCheckBoxMenuItem op_support = new JCheckBoxMenuItem ("Soporte");
+		
+		menu2.add(op_help);
+		menu2.add(op_support);
+		
+		barra.add(menu1);
+		barra.add(menu2);
+		
+		this.setJMenuBar(barra);
+		
 		//Iniciar Sesión
 		this.add(this.login());
 		
@@ -63,10 +108,10 @@ public class Ventana extends JFrame{
 		this.add(this.calculadora());*/
 		
 		/*//Usuarios
-		this.add(this.usuarios());
+		this.add(this.usuarios());*/
 		
 		this.repaint();
-		this.revalidate();*/
+		this.revalidate();
 	}
 	
 	//MÉTODOS
@@ -120,11 +165,11 @@ public class Ventana extends JFrame{
 		login.add(usuario);
 		
 		JLabel correo = new JLabel(new ImageIcon("correo.png"));//Tipo imagen
-		usuario.setBounds(375, 224, 24, 24);
+		correo.setBounds(375, 224, 24, 24);
 		login.add(correo);
 		
 		JLabel pass = new JLabel(new ImageIcon("pass.png"));//Tipo imagen
-		usuario.setBounds(375, 324, 24, 24);
+		pass.setBounds(375, 324, 24, 24);
 		login.add(pass);
 		
 		//Caja de texto
@@ -145,7 +190,7 @@ public class Ventana extends JFrame{
 		
 		//Botones
 		JButton access = new JButton("Acceder");
-		access.setBounds(165, 400, 150, 40);
+		access.setBounds(165, 390, 150, 40);
 		access.setFont(etiquetas);
 		access.setHorizontalAlignment(JLabel.CENTER);
 		access.setBackground(Color.ORANGE);
