@@ -38,6 +38,7 @@ public class Ventana extends JFrame{
 	//Fuentes personalizadas
 	Font etiquetas = new Font("Romana", Font.ROMAN_BASELINE, 22);
 	Font etiquetas2 = new Font("Romana 2", Font.ROMAN_BASELINE, 10);
+	Font etiquetas3 = new Font("Romana 2", Font.ROMAN_BASELINE, 17);
 
 	//CONSTRUCTOR
 	public Ventana(String title) {
@@ -112,11 +113,15 @@ public class Ventana extends JFrame{
 		/*//Usuarios
 		this.add(this.usuarios());*/
 		
-		//Calculadora con Layout
-		this.add(this.calculadoraLayout());
+		/*//Calculadora con Layouts
+		this.add(this.calculadoraLayouts());*/
+		
+		//Interfaz con Layouts
+		this.add(this.interfazLayouts());
 		
 		this.repaint();
 		this.revalidate();
+		
 	}
 	
 	//MÉTODOS
@@ -712,9 +717,8 @@ public class Ventana extends JFrame{
 		
 	}
 	
-	public JPanel calculadoraLayout() {
+	public JPanel calculadoraLayouts() {
 		
-
 		//CREACIÓN DE OBJETOS
 		
 		//Paneles
@@ -940,4 +944,182 @@ public class Ventana extends JFrame{
 		return calculadora;
 		
 	}
+	
+	public JPanel interfazLayouts() {
+		
+		//PANELES
+		
+		//Interfaz
+		
+		JPanel interfaz = new JPanel();
+		interfaz.setLocation(0, 0);
+		interfaz.setSize(500, 500);
+		interfaz.setOpaque(true);
+		interfaz.setBackground(Color.lightGray);
+		interfaz.setVisible(true);
+		
+		//Interés
+
+		JPanel interés = new JPanel();
+		interfaz.setLocation(0, 0);
+		interfaz.setSize(500, 500);
+		interés.setOpaque(true);
+		interés.setBackground(Color.GREEN);
+		interés.setVisible(true);
+		interés.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+		interés.setLayout(new BorderLayout());//BorderLayout
+		interfaz.add(interés);
+		
+		JPanel interés_título = new JPanel();
+		interés_título.setOpaque(true);
+		interés_título.setBackground(Color.GREEN);
+		interés_título.setVisible(true);
+		interés_título.setLayout(new FlowLayout(FlowLayout.LEFT));
+		interés.add(interés_título, BorderLayout.NORTH);//Agregar a BorderLayout del panel interés
+		
+		JPanel interés_contenido = new JPanel();
+		interés_contenido.setOpaque(true);
+		interés_contenido.setBackground(Color.GREEN);
+		interés_contenido.setVisible(true);
+		interés_contenido.setLayout(new GridLayout(3, 2, 5, 5));//GridLayout
+		interés.add(interés_contenido, BorderLayout.CENTER);//Agregar a BorderLayout del panel interés
+		
+		JPanel interés_botones = new JPanel();
+		interés_botones.setOpaque(true);
+		interés_botones.setBackground(Color.GREEN);
+		interés_botones.setVisible(true);
+		interés_botones.setLayout(new FlowLayout(FlowLayout.CENTER));
+		interés.add(interés_botones, BorderLayout.SOUTH);//Agregar a BorderLayout del panel interés
+		
+		//Resultados
+		
+		JPanel resultados = new JPanel();
+		resultados.setLocation(100, 100);
+		resultados.setSize(500, 100);
+		resultados.setOpaque(true);
+		resultados.setBackground(Color.YELLOW);
+		resultados.setVisible(true);
+		resultados.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+		resultados.setLayout(new GridLayout(2, 2));//GridLayout
+		interfaz.add(resultados);
+		
+		//Etiquetas
+		
+		JLabel título_interfaz = new JLabel("Interés");//Interfaz
+		resultados.setLocation(0, 0);
+		resultados.setSize(50, 50);
+		Font fuente_título_interfaz = new Font("Romana", Font.BOLD, 20);
+		título_interfaz.setFont(fuente_título_interfaz);
+		título_interfaz.setForeground(Color.RED);
+		título_interfaz.setHorizontalAlignment(JLabel.CENTER);
+		título_interfaz.setBackground(Color.lightGray);
+		título_interfaz.setOpaque(true);
+		interfaz.add(título_interfaz);
+		
+		JLabel título_interés = new JLabel("Calcular Interés");//Interés
+		Font fuente_título_interés = new Font("Romana", Font.BOLD, 17);
+		título_interés.setFont(fuente_título_interés);
+		título_interés.setHorizontalAlignment(JLabel.CENTER);
+		título_interés.setBackground(Color.GREEN);
+		título_interés.setOpaque(true);
+		interés_título.add(título_interés);
+		
+		JLabel capital = new JLabel("Capital:");
+		capital.setFont(etiquetas3);
+		capital.setHorizontalAlignment(JLabel.CENTER);
+		capital.setBackground(Color.GREEN);
+		capital.setOpaque(true);
+		interés_contenido.add(capital);
+		
+		JLabel capital_texto = new JLabel("1500");
+		capital_texto.setFont(etiquetas3);
+		capital_texto.setHorizontalAlignment(JLabel.LEFT);
+		capital_texto.setBackground(Color.WHITE);
+		capital_texto.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+		capital_texto.setOpaque(true);
+		interés_contenido.add(capital_texto);
+		
+		JLabel tiempo = new JLabel("Tiempo:");
+		tiempo.setFont(etiquetas3);
+		tiempo.setHorizontalAlignment(JLabel.CENTER);
+		tiempo.setBackground(Color.GREEN);
+		tiempo.setOpaque(true);
+		interés_contenido.add(tiempo);
+		
+		JLabel tiempo_texto = new JLabel("2");
+		tiempo_texto.setFont(etiquetas3);
+		tiempo_texto.setHorizontalAlignment(JLabel.LEFT);
+		tiempo_texto.setBackground(Color.WHITE);
+		tiempo_texto.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+		tiempo_texto.setOpaque(true);
+		interés_contenido.add(tiempo_texto);
+		
+		JLabel tasa_interés = new JLabel("Tasa interés:");
+		tasa_interés.setFont(etiquetas3);
+		tasa_interés.setHorizontalAlignment(JLabel.CENTER);
+		tasa_interés.setBackground(Color.GREEN);
+		tasa_interés.setOpaque(true);
+		interés_contenido.add(tasa_interés);
+		
+		JLabel tasa_interés_texto = new JLabel("0.1");
+		tasa_interés_texto.setFont(etiquetas3);
+		tasa_interés_texto.setHorizontalAlignment(JLabel.LEFT);
+		tasa_interés_texto.setBackground(Color.WHITE);
+		tasa_interés_texto.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+		tasa_interés_texto.setOpaque(true);
+		interés_contenido.add(tasa_interés_texto);
+		
+		JLabel interés_resultados = new JLabel("Interés:");//Resultados
+		interés_resultados.setFont(etiquetas3);
+		interés_resultados.setHorizontalAlignment(JLabel.CENTER);
+		interés_resultados.setBackground(Color.YELLOW);
+		interés_resultados.setOpaque(true);
+		resultados.add(interés_resultados);
+		
+		JLabel interés_texto = new JLabel("315.0000000000002");
+		interés_texto.setFont(etiquetas3);
+		interés_texto.setHorizontalAlignment(JLabel.LEFT);
+		interés_texto.setBackground(Color.WHITE);
+		interés_texto.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+		interés_texto.setOpaque(true);
+		resultados.add(interés_texto);
+		
+		JLabel monto = new JLabel("Monto:");
+		monto.setFont(etiquetas3);
+		monto.setHorizontalAlignment(JLabel.CENTER);
+		monto.setBackground(Color.YELLOW);
+		monto.setOpaque(true);
+		monto.add(capital);
+		
+		JLabel monto_texto = new JLabel("1815.0000000000002");
+		monto_texto.setFont(etiquetas3);
+		monto_texto.setHorizontalAlignment(JLabel.LEFT);
+		monto_texto.setBackground(Color.WHITE);
+		monto_texto.setBorder(BorderFactory.createLineBorder(Color.BLACK, 1));
+		monto_texto.setOpaque(true);
+		resultados.add(monto_texto);
+		
+		//Botones
+		
+		JButton calcular = new JButton("Calcular");//Interés
+		calcular.setFont(etiquetas3);
+		calcular.setForeground(Color.WHITE);
+		calcular.setHorizontalAlignment(JLabel.CENTER);
+		calcular.setBackground(Color.BLACK);
+		calcular.setOpaque(true);
+		interés_botones.add(calcular);
+		
+		JButton cancelar = new JButton("Cancelar");
+		cancelar.setFont(etiquetas3);
+		cancelar.setForeground(Color.WHITE);
+		cancelar.setHorizontalAlignment(JLabel.CENTER);
+		cancelar.setBackground(Color.BLACK);
+		cancelar.setOpaque(true);
+		interés_botones.add(cancelar);
+		
+		interfaz.revalidate();
+		
+		return interfaz;
+	}
+	
 }
