@@ -1,7 +1,9 @@
 //PACKAGE
+
 package ventana;
 
 //CLASE
+
 public class Interfaz {
 
 	public static void main(String[] args) {

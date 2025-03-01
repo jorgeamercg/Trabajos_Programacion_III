@@ -1,13 +1,16 @@
 //PACKAGE
+
 package ventana;
 
-import java.awt.BorderLayout;
 //LIBRERÍAS A INCLUIR
+
+import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Toolkit;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -28,44 +31,64 @@ import javax.swing.JScrollPane;
 import javax.swing.JTable;
 import javax.swing.JTextArea;
 import javax.swing.JTextField;
-import javax.swing.UIManager;
 
 //CLASE
+
 public class Ventana extends JFrame{
 	
-	//CREACIÓN DE OBJETO
+	//CREACIÓN DE OBJETOS
 	
 	//Fuentes personalizadas
+	
 	Font etiquetas = new Font("Romana", Font.ROMAN_BASELINE, 22);
+	
 	Font etiquetas2 = new Font("Romana 2", Font.ROMAN_BASELINE, 10);
-	Font etiquetas3 = new Font("Romana 2", Font.ROMAN_BASELINE, 17);
+	
+	Font etiquetas3 = new Font("Romana 3", Font.ROMAN_BASELINE, 17);
 
 	//CONSTRUCTOR
+	
 	public Ventana(String title) {
 		
-		//Atributos
+		//ATRIBUTOS
+		
+		this.setIconImage(Toolkit.getDefaultToolkit().getImage("icons8-planeta-24.png"));//Ícono Personalizado
 		this.setTitle(title);
 		this.setVisible(true);
 		this.setSize(515, 560);
-		
 		this.setResizable(true);
 		this.setLayout(null);
 		
-		//Acción al cerrar la aplicación
+		//ACCIÓN AL CERRAR LA APLICACIÓN
+		
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		//Elemento sobre el que se colocará el item
+		//ELEMENTO SOBRE EL QUE SE COLOCARÁ EL ITEM
+		
 		this.setLocationRelativeTo(null);
 		
-		//Limitación de la edición del tamaño de la ventana
+		//LIMITACIÓN DE LA EDICIÓN DEL TAMAÑO
+		
 		this.setMinimumSize(new Dimension(400, 400));
 		this.setMaximumSize(new Dimension(600, 600));
 		
-		//Barra de menús
+		//BARRA DE MENÚS
+		
+		//Barra
+		
 		JMenuBar barra = new JMenuBar();
+		
+		this.setJMenuBar(barra);
+		
+		//Opciones en la barra
 		
 		JMenu menu1 = new JMenu("Archivo");
 		JMenu menu2 = new JMenu("Ayuda");
+		
+		barra.add(menu1);
+		barra.add(menu2);
+		
+		//Opciones en menu1
 		
 		JMenuItem op_new = new JMenuItem("Nuevo");
 		JMenuItem op_open = new JMenuItem("Abrir");
@@ -77,7 +100,7 @@ public class Ventana extends JFrame{
 		menu1.add(op_save);
 		menu1.add(op_close);
 		
-		JMenu menu3 = new JMenu("Segundo nivel");
+		JMenu menu3 = new JMenu("Segundo nivel");//Submenú en menu1
 		menu1.add(menu3);
 		
 		JMenuItem op_1 = new JMenuItem("Opción 1");
@@ -90,36 +113,46 @@ public class Ventana extends JFrame{
 		menu3.add(op_3);
 		menu3.add(op_4);
 		
+		//Opciones en menu2
+		
 		JRadioButtonMenuItem op_help = new JRadioButtonMenuItem ("Manual de usuario");
 		JCheckBoxMenuItem op_support = new JCheckBoxMenuItem ("Soporte");
 		
 		menu2.add(op_help);
 		menu2.add(op_support);
 		
-		barra.add(menu1);
-		barra.add(menu2);
-		
-		this.setJMenuBar(barra);
+		//INTERFACES
 		
 		/*//Iniciar Sesión
+		
 		this.add(this.login());*/
 		
 		/*//Registrarse
+		
 		this.add(this.registro());*/
 		
 		/*//Calculadora
+		
 		this.add(this.calculadora());*/
 		
 		/*//Usuarios
+		
 		this.add(this.usuarios());*/
 		
 		/*//Calculadora con Layouts
+		
 		this.add(this.calculadoraLayouts());*/
 		
-		//Interfaz con Layouts
-		this.add(this.interfazLayouts());
+		/*//Interfaz con Layouts
+		
+		this.add(this.interfazLayouts());*/
+		
+		//Logo de la aplicación
+		
+		this.add(this.logoAplicación());
 		
 		this.repaint();
+		
 		this.revalidate();
 		
 	}
@@ -127,6 +160,11 @@ public class Ventana extends JFrame{
 	//MÉTODOS
 	
 	//Gráficos
+	
+	//MÉTODOS
+	
+	//Gráficos
+	
 	public JPanel login() {
 		
 		//CREACIÓN DE OBJETOS
@@ -719,9 +757,10 @@ public class Ventana extends JFrame{
 	
 	public JPanel calculadoraLayouts() {
 		
-		//CREACIÓN DE OBJETOS
+		//PANELES
 		
-		//Paneles
+		//Calculadora
+		
 		JPanel calculadora = new JPanel();
 		calculadora.setLocation(0, 0);
 		calculadora.setSize(500, 500);
@@ -730,35 +769,47 @@ public class Ventana extends JFrame{
 		calculadora.setVisible(true);
 		calculadora.setLayout(new BorderLayout());//BorderLayout
 		
+		//Pantalla
+		
 		JPanel pantalla = new JPanel();
 		pantalla.setLocation(0, 0);
 		pantalla.setSize(500, 100);
 		pantalla.setOpaque(true);
 		pantalla.setBackground(Color.WHITE);
+		pantalla.setBorder(BorderFactory.createLineBorder(Color.BLACK, 10));
 		pantalla.setVisible(true);
 		pantalla.setLayout(new FlowLayout());
+		
+		calculadora.add(pantalla, BorderLayout.NORTH);//Agregar al BorderLayout del panel calculadora
+		
+		//Teclas
 		
 		JPanel teclas = new JPanel();
 		teclas.setLocation(0, 0);
 		teclas.setSize(500, 400);
 		teclas.setOpaque(true);
 		teclas.setBackground(Color.BLACK);
+		teclas.setBorder(BorderFactory.createLineBorder(Color.BLACK, 9));
 		teclas.setVisible(true);
-		teclas.setLayout(new GridLayout(5, 4));//GridLayout
+		teclas.setLayout(new GridLayout(5, 4, 10, 10));//GridLayout
+		
+		calculadora.add(teclas, BorderLayout.CENTER);//Agregar al BorderLayout del panel calculadora
+		
+		//ETIQUETAS
 		
 		//Pantalla
+		
 		JLabel pantalla1 = new JLabel("777.0");
-		//pantalla1.setBounds(21, 20, 443, 50);
 		pantalla1.setFont(etiquetas);
 		pantalla1.setHorizontalAlignment(JLabel.CENTER);
 		pantalla1.setBackground(Color.WHITE);
 		pantalla1.setOpaque(true);
 		pantalla.add(pantalla1);
-		calculadora.add(pantalla, BorderLayout.NORTH);//BorderLayout
 		
 		//Teclas
+		
 		JButton b1 = new JButton("CE");
-		//b1.setBounds(21, 75, 107, 70);
+		/*b1.setBounds(21, 75, 107, 70);*/
 		b1.setFont(etiquetas);
 		b1.setHorizontalAlignment(JLabel.CENTER);
 		b1.setBackground(Color.YELLOW);
@@ -767,7 +818,7 @@ public class Ventana extends JFrame{
 		teclas.add(b1);
 		
 		JButton b2 = new JButton();
-		//b2.setBounds(133, 75, 107, 70);
+		/*b2.setBounds(133, 75, 107, 70);*/
 		b2.setFont(etiquetas);
 		b2.setHorizontalAlignment(JLabel.CENTER);
 		b2.setBackground(Color.lightGray);
@@ -776,7 +827,7 @@ public class Ventana extends JFrame{
 		teclas.add(b2);
 		
 		JButton b3 = new JButton();
-		//b3.setBounds(245, 75, 107, 70);
+		/*b3.setBounds(245, 75, 107, 70);*/
 		b3.setFont(etiquetas);
 		b3.setHorizontalAlignment(JLabel.CENTER);
 		b3.setBackground(Color.lightGray);
@@ -785,7 +836,7 @@ public class Ventana extends JFrame{
 		teclas.add(b3);
 		
 		JButton b4 = new JButton();
-		//b4.setBounds(357, 75, 107, 70);
+		/*b4.setBounds(357, 75, 107, 70);*/
 		b4.setFont(etiquetas);
 		b4.setHorizontalAlignment(JLabel.CENTER);
 		b4.setBackground(Color.lightGray);
@@ -794,7 +845,7 @@ public class Ventana extends JFrame{
 		teclas.add(b4);
 		
 		JButton b5 = new JButton("7");
-		//b5.setBounds(21, 150, 107, 70);
+		/*b5.setBounds(21, 150, 107, 70);*/
 		b5.setFont(etiquetas);
 		b5.setHorizontalAlignment(JLabel.CENTER);
 		b5.setBackground(Color.lightGray);
@@ -803,7 +854,7 @@ public class Ventana extends JFrame{
 		teclas.add(b5);
 		
 		JButton b6 = new JButton("8");
-		//b6.setBounds(133, 150, 107, 70);
+		/*b6.setBounds(133, 150, 107, 70);*/
 		b6.setFont(etiquetas);
 		b6.setHorizontalAlignment(JLabel.CENTER);
 		b6.setBackground(Color.lightGray);
@@ -812,7 +863,7 @@ public class Ventana extends JFrame{
 		teclas.add(b6);
 		
 		JButton b7 = new JButton("9");
-		//b7.setBounds(245, 150, 107, 70);
+		/*b7.setBounds(245, 150, 107, 70);*/
 		b7.setFont(etiquetas);
 		b7.setHorizontalAlignment(JLabel.CENTER);
 		b7.setBackground(Color.lightGray);
@@ -821,7 +872,7 @@ public class Ventana extends JFrame{
 		teclas.add(b7);
 		
 		JButton b8 = new JButton("/");
-		//b8.setBounds(357, 150, 107, 70);
+		/*b8.setBounds(357, 150, 107, 70);*/
 		b8.setFont(etiquetas);
 		b8.setHorizontalAlignment(JLabel.CENTER);
 		b8.setBackground(Color.ORANGE);
@@ -830,7 +881,7 @@ public class Ventana extends JFrame{
 		teclas.add(b8);
 		
 		JButton b9 = new JButton("4");
-		//b9.setBounds(21, 225, 107, 70);
+		/*b9.setBounds(21, 225, 107, 70);*/
 		b9.setFont(etiquetas);
 		b9.setHorizontalAlignment(JLabel.CENTER);
 		b9.setBackground(Color.lightGray);
@@ -839,7 +890,7 @@ public class Ventana extends JFrame{
 		teclas.add(b9);
 		
 		JButton b10 = new JButton("5");
-		//b10.setBounds(133, 225, 107, 70);
+		/*b10.setBounds(133, 225, 107, 70);*/
 		b10.setFont(etiquetas);
 		b10.setHorizontalAlignment(JLabel.CENTER);
 		b10.setBackground(Color.lightGray);
@@ -848,7 +899,7 @@ public class Ventana extends JFrame{
 		teclas.add(b10);
 		
 		JButton b11 = new JButton("6");
-		//b11.setBounds(245, 225, 107, 70);
+		/*b11.setBounds(245, 225, 107, 70);*/
 		b11.setFont(etiquetas);
 		b11.setHorizontalAlignment(JLabel.CENTER);
 		b11.setBackground(Color.lightGray);
@@ -857,7 +908,7 @@ public class Ventana extends JFrame{
 		teclas.add(b11);
 		
 		JButton b12 = new JButton("*");
-		//b12.setBounds(357, 225, 107, 70);
+		/*b12.setBounds(357, 225, 107, 70);*/
 		b12.setFont(etiquetas);
 		b12.setHorizontalAlignment(JLabel.CENTER);
 		b12.setBackground(Color.ORANGE);
@@ -866,7 +917,7 @@ public class Ventana extends JFrame{
 		teclas.add(b12);
 		
 		JButton b13 = new JButton("1");
-		//b13.setBounds(21, 300, 107, 70);
+		/*b13.setBounds(21, 300, 107, 70);*/
 		b13.setFont(etiquetas);
 		b13.setHorizontalAlignment(JLabel.CENTER);
 		b13.setBackground(Color.lightGray);
@@ -875,7 +926,7 @@ public class Ventana extends JFrame{
 		teclas.add(b13);
 		
 		JButton b14 = new JButton("2");
-		//b14.setBounds(133, 300, 107, 70);
+		/*b14.setBounds(133, 300, 107, 70);*/
 		b14.setFont(etiquetas);
 		b14.setHorizontalAlignment(JLabel.CENTER);
 		b14.setBackground(Color.lightGray);
@@ -884,7 +935,7 @@ public class Ventana extends JFrame{
 		teclas.add(b14);
 		
 		JButton b15 = new JButton("3");
-		//b15.setBounds(245, 300, 107, 70);
+		/*b15.setBounds(245, 300, 107, 70);*/
 		b15.setFont(etiquetas);
 		b15.setHorizontalAlignment(JLabel.CENTER);
 		b15.setBackground(Color.lightGray);
@@ -893,7 +944,7 @@ public class Ventana extends JFrame{
 		teclas.add(b15);
 		
 		JButton b16 = new JButton("-");
-		//b16.setBounds(357, 300, 107, 70);
+		/*b16.setBounds(357, 300, 107, 70);*/
 		b16.setFont(etiquetas);
 		b16.setHorizontalAlignment(JLabel.CENTER);
 		b16.setBackground(Color.ORANGE);
@@ -902,7 +953,7 @@ public class Ventana extends JFrame{
 		teclas.add(b16);
 		
 		JButton b17 = new JButton("0");
-		//b17.setBounds(21, 375, 107, 70);
+		/*b17.setBounds(21, 375, 107, 70);*/
 		b17.setFont(etiquetas);
 		b17.setHorizontalAlignment(JLabel.CENTER);
 		b17.setBackground(Color.lightGray);
@@ -911,7 +962,7 @@ public class Ventana extends JFrame{
 		teclas.add(b17);
 		
 		JButton b18 = new JButton(".");
-		//b18.setBounds(133, 375, 107, 70);
+		/*b18.setBounds(133, 375, 107, 70);*/
 		b18.setFont(etiquetas);
 		b18.setHorizontalAlignment(JLabel.CENTER);
 		b18.setBackground(Color.lightGray);
@@ -920,7 +971,7 @@ public class Ventana extends JFrame{
 		teclas.add(b18);
 		
 		JButton b19 = new JButton("=");
-		//b19.setBounds(245, 375, 107, 70);
+		/*b19.setBounds(245, 375, 107, 70);*/
 		b19.setFont(etiquetas);
 		b19.setHorizontalAlignment(JLabel.CENTER);
 		b19.setBackground(Color.ORANGE);
@@ -929,15 +980,13 @@ public class Ventana extends JFrame{
 		teclas.add(b19);
 		
 		JButton b20 = new JButton("+");
-		b20.setBounds(357, 375, 107, 70);
+		/*b20.setBounds(357, 375, 107, 70);*/
 		b20.setFont(etiquetas);
 		b20.setHorizontalAlignment(JLabel.CENTER);
 		b20.setBackground(Color.ORANGE);
 		b20.setOpaque(true);
 		b20.setBorder(BorderFactory.createLineBorder(Color.white, 2));
 		teclas.add(b20);
-		
-		calculadora.add(teclas, BorderLayout.CENTER);//BorderLayout
 		
 		calculadora.revalidate();
 		
@@ -1003,9 +1052,11 @@ public class Ventana extends JFrame{
 		resultados.setLayout(new GridLayout(2, 2));//GridLayout
 		interfaz.add(resultados);
 		
-		//Etiquetas
+		//ETIQUETAS
 		
-		JLabel título_interfaz = new JLabel("Interés");//Interfaz
+		//Interfaz
+		
+		JLabel título_interfaz = new JLabel("Interés");
 		resultados.setLocation(0, 0);
 		resultados.setSize(50, 50);
 		Font fuente_título_interfaz = new Font("Romana", Font.BOLD, 20);
@@ -1016,7 +1067,9 @@ public class Ventana extends JFrame{
 		título_interfaz.setOpaque(true);
 		interfaz.add(título_interfaz);
 		
-		JLabel título_interés = new JLabel("Calcular Interés");//Interés
+		//Interés
+		
+		JLabel título_interés = new JLabel("Calcular Interés");
 		Font fuente_título_interés = new Font("Romana", Font.BOLD, 17);
 		título_interés.setFont(fuente_título_interés);
 		título_interés.setHorizontalAlignment(JLabel.CENTER);
@@ -1069,7 +1122,9 @@ public class Ventana extends JFrame{
 		tasa_interés_texto.setOpaque(true);
 		interés_contenido.add(tasa_interés_texto);
 		
-		JLabel interés_resultados = new JLabel("Interés:");//Resultados
+		//Resultados
+		
+		JLabel interés_resultados = new JLabel("Interés:");
 		interés_resultados.setFont(etiquetas3);
 		interés_resultados.setHorizontalAlignment(JLabel.CENTER);
 		interés_resultados.setBackground(Color.YELLOW);
@@ -1099,9 +1154,11 @@ public class Ventana extends JFrame{
 		monto_texto.setOpaque(true);
 		resultados.add(monto_texto);
 		
-		//Botones
+		//BOTONES
 		
-		JButton calcular = new JButton("Calcular");//Interés
+		//Interés
+		
+		JButton calcular = new JButton("Calcular");
 		calcular.setFont(etiquetas3);
 		calcular.setForeground(Color.WHITE);
 		calcular.setHorizontalAlignment(JLabel.CENTER);
@@ -1120,6 +1177,45 @@ public class Ventana extends JFrame{
 		interfaz.revalidate();
 		
 		return interfaz;
+		
+	}
+	
+	public JPanel logoAplicación() {
+		
+		//PANEL
+		
+		//Interfaz
+		
+		JPanel interfaz = new JPanel();
+		interfaz.setBounds(0, 0, 500, 500);
+		interfaz.setOpaque(true);
+		interfaz.setBackground(new Color(0, 128, 128));
+		interfaz.setVisible(true);
+		interfaz.setLayout(null);
+		
+		//ETIQUETAS
+		
+		//Interfaz
+		
+		JLabel Nota = new JLabel("Logo de la aplicación");//Nota
+		Nota.setBounds(140, 120, 220, 35);
+		Font Fuente_Nota = new Font("Romana", Font.BOLD, 20);
+		Nota.setFont(Fuente_Nota);
+		Nota.setForeground(Color.RED);
+		Nota.setHorizontalAlignment(JLabel.CENTER);
+		Nota.setBackground(Color.lightGray);
+		Nota.setBorder(BorderFactory.createLineBorder(Color.BLACK, 2));
+		Nota.setOpaque(true);
+		interfaz.add(Nota);
+	
+		JLabel Logo_Aplicación = new JLabel(new ImageIcon("icons8-planeta-96.png"));//Logo de la aplicación
+		Logo_Aplicación.setBounds(200, 180, 96, 96);
+		interfaz.add(Logo_Aplicación);
+		
+		interfaz.revalidate();
+		
+		return interfaz;
+		
 	}
 	
 }
