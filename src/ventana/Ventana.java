@@ -2,6 +2,8 @@
 
 package ventana;
 
+import java.awt.BasicStroke;
+
 //LIBRERÍAS A INCLUIR
 
 import java.awt.BorderLayout;
@@ -9,8 +11,15 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.Font;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
 import javax.swing.JButton;
@@ -55,7 +64,7 @@ public class Ventana extends JFrame{
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage("icons8-planeta-24.png"));//Ícono Personalizado
 		this.setTitle(title);
 		this.setVisible(true);
-		this.setSize(515, 560);
+		this.setSize(1000, 620);
 		this.setResizable(true);
 		this.setLayout(null);
 		
@@ -147,9 +156,9 @@ public class Ventana extends JFrame{
 		
 		this.add(this.interfazLayouts());*/
 		
-		//Logo de la aplicación
+		/*//Logo de la aplicación
 		
-		this.add(this.logoAplicación());
+		this.add(this.logoAplicación());*/
 		
 		this.repaint();
 		
@@ -1215,6 +1224,64 @@ public class Ventana extends JFrame{
 		interfaz.revalidate();
 		
 		return interfaz;
+		
+	}
+	
+	@Override
+	public void paint (Graphics g) {
+		
+		super.paint(g);
+		
+		Graphics2D g2 = (Graphics2D) g;
+		
+		g2.setColor(Color.red);
+		g2.drawRect(80, 80, 400, 400);
+		g2.fillRect(200, 200, 200, 200);
+		g2.clearRect(220, 220, 50, 50);
+		
+		g2.setColor(Color.blue);
+		g2.fillRoundRect(300, 80, 200, 200, 10, 10);
+		
+		g2.setColor(Color.green);
+		g2.setStroke(new BasicStroke(10));
+		g2.drawLine(100, 100, 900, 500);
+		
+		g2.setStroke(new BasicStroke(5));
+		g2.setColor(new Color(229, 114, 126));
+		g2.drawOval(400, 400, 90, 90);
+		g2.fillOval(400, 450, 75, 150);
+		
+		g2.setColor(new Color(207, 147, 240));
+		g2.drawArc(600, 200, 200, 200, 1, -180);
+		g2.fillArc(600, 200, 200, 200, 1, 180);
+		
+		/*g2.setColor(new Color(51, 167, 241, 0.5));//El 0.5 es el Canal Alfa del RGB (transparencia del texto)*/
+		g2.setColor(Color.decode("#33A7F1"));
+		g2.setFont(etiquetas);
+		g2.drawString("Hola Mundo", 350, 200);
+		
+		BufferedImage image;
+		try {
+			image = ImageIO.read(new File("icons8-saturno-60.png"));
+			
+			g2.drawImage(image,
+					800,
+					250,
+					100,
+					100, Color.gray, null);
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
+		int [] xs = {100, 100, 400};
+		int [] ys = {100, 200, 400};
+		
+		g2.drawPolygon(xs, ys, 3);
+		int [] xs2 = {600, 500, 100};
+		int [] ys2 = {600, 200, 150};
+		
+		/*g2.fillPolygon(xs2, ys2, 3);*/
+		
+		/*this.repaint();*/
 		
 	}
 	
