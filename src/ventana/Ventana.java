@@ -2,15 +2,13 @@
 
 package ventana;
 
-import java.awt.BasicStroke;
-
 //LIBRERÍAS A INCLUIR
 
-import java.awt.BorderLayout;
-import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.FlowLayout;
+import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -18,7 +16,7 @@ import java.awt.Toolkit;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
-
+import java.awt.BasicStroke;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.ButtonGroup;
@@ -64,8 +62,9 @@ public class Ventana extends JFrame{
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage("icons8-planeta-24.png"));//Ícono Personalizado
 		this.setTitle(title);
 		this.setVisible(true);
-		this.setSize(1000, 620);
+		this.setSize(650, 620);
 		this.setResizable(true);
+		//this.setBackground(Color.BLACK);
 		this.setLayout(null);
 		
 		//ACCIÓN AL CERRAR LA APLICACIÓN
@@ -1234,6 +1233,8 @@ public class Ventana extends JFrame{
 		
 		Graphics2D g2 = (Graphics2D) g;
 		
+		/*//DISEÑO CON LIBRERÍA GRAPHICS
+		
 		g2.setColor(Color.red);
 		g2.drawRect(80, 80, 400, 400);
 		g2.fillRect(200, 200, 200, 200);
@@ -1255,7 +1256,7 @@ public class Ventana extends JFrame{
 		g2.drawArc(600, 200, 200, 200, 1, -180);
 		g2.fillArc(600, 200, 200, 200, 1, 180);
 		
-		/*g2.setColor(new Color(51, 167, 241, 0.5));//El 0.5 es el Canal Alfa del RGB (transparencia del texto)*/
+		//g2.setColor(new Color(51, 167, 241, 0.5));//El 0.5 es el Canal Alfa del RGB (transparencia del texto)
 		g2.setColor(Color.decode("#33A7F1"));
 		g2.setFont(etiquetas);
 		g2.drawString("Hola Mundo", 350, 200);
@@ -1272,16 +1273,93 @@ public class Ventana extends JFrame{
 		}catch (IOException e) {
 			e.printStackTrace();
 		}
+		
 		int [] xs = {100, 100, 400};
 		int [] ys = {100, 200, 400};
-		
 		g2.drawPolygon(xs, ys, 3);
 		int [] xs2 = {600, 500, 100};
 		int [] ys2 = {600, 200, 150};
+		//g2.fillPolygon(xs2, ys2, 3);*/
 		
-		/*g2.fillPolygon(xs2, ys2, 3);*/
+		//DIBUJO DE CASA CON CERCO
 		
-		/*this.repaint();*/
+		//Cielo
+		
+		g2.setColor(new Color(51, 221, 255));
+		g2.fillRect(0, 0, 650, 620);
+		
+		//Sol
+		
+		g2.setColor(new Color(250, 192, 59));
+		g2.fillArc(27, 50, 100, 100, 1, 360);
+		
+		//Tierra
+		
+		g2.setColor(new Color(118, 84, 5));//Oscura
+		g2.fillRect(0, 590, 650, 30);
+		g2.setColor(new Color(193, 137, 10));//Clara
+		g2.fillRect(0, 560, 650, 30);
+		
+		//Pasto
+		
+		g2.setColor(new Color(43, 188, 11));//Claro
+		g2.fillRect(0, 530, 650, 30);
+		g2.setColor(new Color(24, 91, 9));//Oscuro
+		g2.fillRect(0, 515, 650, 15);
+		
+		//Cerco
+		
+		g2.setColor(new Color(147, 98, 11));//Maderos verticales
+		g2.fillRect(0, 400, 40, 115);
+		g2.fillRect(45, 400, 40, 115);
+		g2.fillRect(90, 400, 40, 115);
+		g2.fillRect(135, 400, 40, 115);
+		g2.fillRect(180, 400, 40, 115);
+		g2.fillRect(225, 400, 40, 115);
+		g2.fillRect(270, 400, 40, 115);
+		g2.fillRect(315, 400, 40, 115);
+		g2.fillRect(360, 400, 40, 115);
+		g2.fillRect(405, 400, 40, 115);
+		g2.fillRect(450, 400, 40, 115);
+		g2.fillRect(495, 400, 40, 115);
+		g2.fillRect(540, 400, 40, 115);
+		g2.fillRect(585, 400, 40, 115);
+		g2.fillRect(630, 400, 20, 115);
+		g2.setColor(new Color(105, 71, 11));//Maderos horizontales
+		g2.fillRect(0, 410, 650, 15);
+		g2.fillRect(0, 450, 650, 15);
+		g2.fillRect(0, 490, 650, 15);
+		
+		//Casa
+		
+		g2.setColor(new Color(250, 233, 125));//Paredes
+		g2.fillRect(135, 300, 375, 215);
+		g2.setColor(new Color(105, 71, 11));//Marco de la puerta
+		g2.fillRect(290, 415, 60, 100);
+		g2.setColor(new Color(147, 98, 11));//Puerta
+		g2.fillRect(295, 420, 50, 95);
+		g2.setColor(Color.white);//Chapa
+		g2.fillArc(335, 470, 5, 5, 1, 360);
+		g2.setColor(new Color(166, 30, 9));//Marcos externos de las ventanas
+		g2.fillRect(170, 370, 90, 60);
+		g2.fillRect(380, 370, 90, 60);
+		g2.setColor(Color.white);
+		g2.fillRect(175, 375, 80, 50);//Ventanas
+		g2.fillRect(200, 375, 5, 50);
+		g2.fillRect(385, 375, 80, 50);
+		g2.setColor(new Color(166, 30, 9));//Marcos internos de las ventanas
+		g2.fillRect(213, 375, 5, 50);
+		g2.fillRect(423, 375, 5, 50);
+		g2.fillRect(170, 398, 90, 2);
+		g2.fillRect(380, 398, 90, 2);
+		g2.setColor(Color.GRAY);//Chimenea
+		g2.fillRect(440, 180, 50, 120);
+		g2.setColor(new Color(166, 30, 9));//Techo
+		int [] xs = {100, 318, 540};
+		int [] ys = {300, 150, 300};
+		g2.fillPolygon(xs, ys, 3);
+		
+		//this.repaint();
 		
 	}
 	
