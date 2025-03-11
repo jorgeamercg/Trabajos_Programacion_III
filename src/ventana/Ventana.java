@@ -13,6 +13,8 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -62,7 +64,7 @@ public class Ventana extends JFrame{
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage("icons8-planeta-24.png"));//Ícono Personalizado
 		this.setTitle(title);
 		this.setVisible(true);
-		this.setSize(637, 471);
+		this.setSize(510, 550);
 		this.setResizable(true);
 		//this.setBackground(Color.BLACK);
 		this.setLayout(null);
@@ -135,9 +137,9 @@ public class Ventana extends JFrame{
 		
 		this.add(this.login());*/
 		
-		/*//Registrarse
+		//Registrarse
 		
-		this.add(this.registro());*/
+		this.add(this.registro());
 		
 		/*//Calculadora
 		
@@ -262,6 +264,50 @@ public class Ventana extends JFrame{
 		    }
 		});
 		
+		access.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				//System.out.println("Hola");
+				
+				if (email.getText().equals("")) {
+					
+					email.setBorder(BorderFactory.createLineBorder(Color.red, 5));
+					
+				}
+				else {
+					
+					email.setBorder(BorderFactory.createLineBorder(Color.green, 5));
+					
+				}
+				
+			}
+			
+		});
+		
+		access.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				String passText = new String(contraseña.getPassword());
+				
+				if (passText.equals("")) {
+					
+					contraseña.setBorder(BorderFactory.createLineBorder(Color.red, 5));
+					
+				}
+				else {
+					
+					contraseña.setBorder(BorderFactory.createLineBorder(Color.green, 5));
+					
+				}
+				
+			}
+			
+		});
+		
 		JButton c_olvidada = new JButton("¿Olvidó su contraseña?");
 		c_olvidada.setBounds(227, 360, 143, 20);
 		c_olvidada.setFont(etiquetas2);
@@ -285,7 +331,7 @@ public class Ventana extends JFrame{
 		return login;
 		
 	}
-	
+
 	public JPanel registro() {
 		
 		//CREACIÓN DE OBJETOS
@@ -368,6 +414,72 @@ public class Ventana extends JFrame{
 		access.setBackground(Color.ORANGE);
 		access.setOpaque(true);
 		registro.add(access);
+		
+		access.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				System.out.println("Hola");
+				
+				if (email.getText().equals("")) {
+					
+					email.setBorder(BorderFactory.createLineBorder(Color.red, 5));
+					
+				}
+				else {
+					
+					email.setBorder(BorderFactory.createLineBorder(Color.green, 5));
+					
+				}
+				
+			}
+			
+		});
+		
+		access.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				System.out.println("Hola");
+				
+				if (biografia.getText().equals("")) {
+					
+					biografia.setBorder(BorderFactory.createLineBorder(Color.red, 5));
+					
+				}
+				else {
+					
+					biografia.setBorder(BorderFactory.createLineBorder(Color.green, 5));
+					
+				}
+				
+			}
+			
+		});
+		
+		access.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				System.out.println("Hola");
+				
+				if (email.getText().equals("")) {
+					
+					email.setBorder(BorderFactory.createLineBorder(Color.red, 5));
+					
+				}
+				else {
+					
+					email.setBorder(BorderFactory.createLineBorder(Color.green, 5));
+					
+				}
+				
+			}
+			
+		});
 		
 		//Casillas de verificación
 		ButtonGroup deportes = new ButtonGroup();
@@ -1446,7 +1558,7 @@ public class Ventana extends JFrame{
 			e.printStackTrace();
 		}*/
 		
-		//DIBUJO DE VIDEOJUEGO MARIO BROS 2
+		/*//DIBUJO DE VIDEOJUEGO MARIO BROS 2
 		
 		//Cielo
 		
@@ -1490,7 +1602,7 @@ public class Ventana extends JFrame{
 					60, null);
 		}catch (IOException e) {
 			e.printStackTrace();
-		}
+		}*/
 		
 		//this.repaint();
 		
