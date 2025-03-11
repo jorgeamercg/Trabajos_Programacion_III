@@ -62,7 +62,7 @@ public class Ventana extends JFrame{
 		this.setIconImage(Toolkit.getDefaultToolkit().getImage("icons8-planeta-24.png"));//Ícono Personalizado
 		this.setTitle(title);
 		this.setVisible(true);
-		this.setSize(650, 620);
+		this.setSize(637, 471);
 		this.setResizable(true);
 		//this.setBackground(Color.BLACK);
 		this.setLayout(null);
@@ -1281,7 +1281,7 @@ public class Ventana extends JFrame{
 		int [] ys2 = {600, 200, 150};
 		//g2.fillPolygon(xs2, ys2, 3);*/
 		
-		//DIBUJO DE CASA CON CERCO
+		/*//DIBUJO DE CASA CON CERCO
 		
 		//Cielo
 		
@@ -1357,7 +1357,94 @@ public class Ventana extends JFrame{
 		g2.setColor(new Color(166, 30, 9));//Techo
 		int [] xs = {100, 318, 540};
 		int [] ys = {300, 150, 300};
-		g2.fillPolygon(xs, ys, 3);
+		g2.fillPolygon(xs, ys, 3);*/
+		
+		//DIBUJO DE VIDEOJUEGO MARIO BROS
+		
+		//Cielo
+		
+		g2.setColor(Color.decode("#a2f0ff"));
+		g2.fillRect(0, 0, 630, 464);
+		
+		//Piso
+		
+		g2.setColor(Color.decode("#ff9766"));//Oscuro y con líneas
+		g2.fillRect(0, 408, 630, 56);
+		g2.setColor(Color.BLACK);
+		g2.setStroke(new BasicStroke(7));
+		g2.drawLine(0, 427, 60, 465);
+		g2.drawLine(40, 427, 100, 465);
+		g2.drawLine(80, 427, 140, 465);
+		g2.drawLine(120, 427, 180, 465);
+		g2.drawLine(160, 427, 220, 465);
+		g2.drawLine(200, 427, 260, 465);
+		g2.drawLine(240, 427, 300, 465);
+		g2.drawLine(280, 427, 340, 465);
+		g2.drawLine(320, 427, 380, 465);
+		g2.drawLine(360, 427, 420, 465);
+		g2.drawLine(400, 427, 460, 465);
+		g2.drawLine(440, 427, 500, 465);
+		g2.drawLine(480, 427, 540, 465);
+		g2.drawLine(520, 427, 580, 465);
+		g2.drawLine(560, 427, 620, 465);
+		g2.drawLine(600, 427, 660, 465);
+		g2.setColor(Color.BLACK);//Claro
+		g2.fillRect(0, 408, 630, 17);
+		g2.setColor(Color.decode("#ffc0b5"));
+		g2.fillRect(0, 411, 630, 11);
+		
+		//Muro Verde
+		
+		g2.setColor(Color.BLACK);
+		g2.fillRect(530, 288, 120, 120);
+		g2.setColor(Color.decode("#00dd5b"));
+		g2.fillRect(533, 292, 115, 115);
+		g2.setColor(Color.decode("#0a5f1f"));
+		g2.fillRect(533, 402, 115, 5);
+		g2.setColor(Color.BLACK);
+		g2.fillArc(535, 295, 15, 15, 0, 360);
+		g2.setColor(Color.decode("#bdcbcd"));
+		g2.fillArc(537, 297, 11, 11, 0, 360);
+		g2.setColor(Color.BLACK);
+		g2.setStroke(new BasicStroke(2));
+		g2.drawLine(538, 306, 547, 299);
+		g2.setColor(Color.BLACK);
+		g2.fillArc(535, 390, 15, 15, 0, 360);
+		g2.setColor(Color.decode("#bdcbcd"));
+		g2.fillArc(537, 392, 11, 11, 0, 360);
+		g2.setColor(Color.BLACK);
+		g2.setStroke(new BasicStroke(2));
+		g2.drawLine(538, 401, 547, 394);
+		
+		//Tubería
+		
+		g2.setColor(Color.BLACK);
+		g2.fillRect(310, 288, 90, 35);
+		g2.setColor(Color.decode("#008a00"));
+		g2.fillRect(312, 291, 86, 29);
+		g2.setColor(Color.BLACK);
+		g2.fillRect(315, 322, 81, 86);
+		g2.setColor(Color.decode("#008a00"));
+		g2.fillRect(317, 323, 77, 84);
+		g2.setColor(Color.WHITE);
+		g2.fillRect(330, 291, 7, 29);
+		g2.setColor(Color.WHITE);
+		g2.fillRect(335, 323, 7, 84);
+		
+		//Mario
+		
+		BufferedImage image;
+		try {
+			image = ImageIO.read(new File("Mario.png"));
+			
+			g2.drawImage(image,
+					210,
+					350,
+					35,
+					60, null);
+		}catch (IOException e) {
+			e.printStackTrace();
+		}
 		
 		//this.repaint();
 		
