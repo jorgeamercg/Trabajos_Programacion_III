@@ -1359,7 +1359,7 @@ public class Ventana extends JFrame{
 		int [] ys = {300, 150, 300};
 		g2.fillPolygon(xs, ys, 3);*/
 		
-		//DIBUJO DE VIDEOJUEGO MARIO BROS
+		/*//DIBUJO DE VIDEOJUEGO MARIO BROS
 		
 		//Cielo
 		
@@ -1439,6 +1439,52 @@ public class Ventana extends JFrame{
 			
 			g2.drawImage(image,
 					210,
+					350,
+					35,
+					60, null);
+		}catch (IOException e) {
+			e.printStackTrace();
+		}*/
+		
+		//DIBUJO DE VIDEOJUEGO MARIO BROS 2
+		
+		//Cielo
+		
+		g2.setColor(Color.decode("#0665c0"));
+		g2.fillRect(0, 0, 630, 464);
+		
+		//Piso
+		
+		g2.setColor(Color.decode("#cf9e5f"));//Tierra
+		g2.fillRect(0, 408, 630, 56);
+		g2.setColor(Color.BLACK);//Pasto
+		g2.fillRect(0, 408, 630, 17);
+		g2.setColor(Color.decode("#18b22a"));
+		g2.fillRect(0, 411, 630, 11);
+		
+		//Tubería
+		
+		g2.setColor(Color.BLACK);
+		g2.fillRect(310, 288, 90, 35);
+		g2.setColor(Color.decode("#6e6bb7"));
+		g2.fillRect(312, 291, 86, 29);
+		g2.setColor(Color.BLACK);
+		g2.fillRect(315, 322, 81, 86);
+		g2.setColor(Color.decode("#6e6bb7"));
+		g2.fillRect(317, 323, 77, 84);
+		g2.setColor(Color.WHITE);
+		g2.fillRect(330, 291, 7, 29);
+		g2.setColor(Color.WHITE);
+		g2.fillRect(335, 323, 7, 84);
+		
+		//Mario
+		
+		BufferedImage image;
+		try {
+			image = ImageIO.read(new File("Mario.png"));
+			
+			g2.drawImage(image,
+					275,
 					350,
 					35,
 					60, null);
