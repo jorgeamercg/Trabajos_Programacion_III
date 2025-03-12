@@ -8,7 +8,9 @@ import java.awt.Dimension;
 import java.awt.FlowLayout;
 import java.awt.BorderLayout;
 import java.awt.Font;
+import java.awt.Frame;
 import java.awt.Color;
+import java.awt.Component;
 import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
@@ -31,6 +33,7 @@ import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.ImageIcon;
 import javax.swing.JPanel;
 import javax.swing.JPasswordField;
@@ -54,6 +57,8 @@ public class Ventana extends JFrame{
 	Font etiquetas2 = new Font("Romana 2", Font.ROMAN_BASELINE, 10);
 	
 	Font etiquetas3 = new Font("Romana 3", Font.ROMAN_BASELINE, 17);
+
+	protected Component frame;
 
 	//CONSTRUCTOR
 	
@@ -133,13 +138,13 @@ public class Ventana extends JFrame{
 		
 		//INTERFACES
 		
-		/*//Iniciar Sesión
+		//Iniciar Sesión
 		
-		this.add(this.login());*/
+		this.add(this.login());
 		
-		//Registrarse
+		/*//Registrarse
 		
-		this.add(this.registro());
+		this.add(this.registro());*/
 		
 		/*//Calculadora
 		
@@ -180,16 +185,18 @@ public class Ventana extends JFrame{
 		//CREACIÓN DE OBJETOS
 		
 		//Panel
+		
 		JPanel login = new JPanel();
 		login.setLocation(0, 0);
 		login.setSize(500, 500);
 		login.setOpaque(true);
-		/*login.setBackground(Color.RED);*/
+		//login.setBackground(Color.RED);
 		login.setBackground(new Color(0, 128, 128));
 		login.setVisible(true);
 		login.setLayout(null);
 		
 		//Etiquetas
+		
 		JLabel etiqueta1 = new JLabel("Iniciar Sesión");
 		etiqueta1.setSize(160, 40);
 		etiqueta1.setLocation(160, 35);
@@ -202,8 +209,8 @@ public class Ventana extends JFrame{
 		
 		JLabel etiqueta2 = new JLabel("Email");
 		etiqueta2.setBounds(190, 170, 100, 30);
-		/*etiqueta2.setSize(80, 30);*/
-		/*etiqueta2.setLocation(60, 150);*/
+		//etiqueta2.setSize(80, 30);
+		//etiqueta2.setLocation(60, 150);
 		etiqueta2.setFont(etiquetas);
 		etiqueta2.setHorizontalAlignment(JLabel.CENTER);
 		etiqueta2.setBackground(Color.WHITE);
@@ -231,6 +238,7 @@ public class Ventana extends JFrame{
 		login.add(pass);
 		
 		//Caja de texto
+		
 		JTextField email = new JTextField();
 		email.setBounds(110, 220, 260, 30);
 		email.setFont(etiquetas2);
@@ -239,6 +247,7 @@ public class Ventana extends JFrame{
 		login.add(email);
 		
 		//Caja de contraseña
+		
 		JPasswordField contraseña = new JPasswordField();
 		contraseña.setBounds(110, 320, 260, 30);
 		contraseña.setFont(etiquetas);
@@ -247,6 +256,7 @@ public class Ventana extends JFrame{
 		login.add(contraseña);
 		
 		//Botones
+		
 		JButton access = new JButton("Acceder");
 		access.setBounds(165, 390, 150, 40);
 		access.setFont(etiquetas);
@@ -263,15 +273,17 @@ public class Ventana extends JFrame{
 		        access.setBackground(Color.ORANGE);
 		    }
 		});
-		
+		//ActionListener
 		access.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				//System.out.println("Hola");
+				Boolean validación_email = false, validación_contraseña = false;
 				
-				if (email.getText().equals("")) {
+				//System.out.println("Correcto");
+				
+				if (email.getText().equals("")) {//validación de llenado de casilla de email
 					
 					email.setBorder(BorderFactory.createLineBorder(Color.red, 5));
 					
@@ -280,18 +292,11 @@ public class Ventana extends JFrame{
 					
 					email.setBorder(BorderFactory.createLineBorder(Color.green, 5));
 					
+					validación_email = true;
+					
 				}
 				
-			}
-			
-		});
-		
-		access.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				String passText = new String(contraseña.getPassword());
+				String passText = new String(contraseña.getPassword());//validación de llenado de casilla de contraseña
 				
 				if (passText.equals("")) {
 					
@@ -301,6 +306,84 @@ public class Ventana extends JFrame{
 				else {
 					
 					contraseña.setBorder(BorderFactory.createLineBorder(Color.green, 5));
+					
+					validación_contraseña = true;
+					
+				}
+				
+				if (validación_email && validación_contraseña) {//Mensajes de alerta
+					
+					if (email.getText().equals("jorgeamg@gmail.com")) {
+						
+						if (passText.equals("qwerty")) {
+							
+							//System.out.println("Acceso permitido: Bienvenido");
+							
+							JOptionPane.showMessageDialog(frame,
+								    "Acceso permitido: Bienvenido",
+								    "Acceso",
+								    JOptionPane.PLAIN_MESSAGE);
+							
+						}
+						else {
+							
+							//System.out.println("Contraseña incorrecta: Intente una vez más");
+							
+							JOptionPane.showMessageDialog(frame,
+								    "Contraseña incorrecta: Intente una vez más",
+								    "Contraseña",
+								    JOptionPane.ERROR_MESSAGE);
+							
+						}
+						
+					}
+					else {
+						
+						//System.out.println("Email incorrecto: Escriba uno válido");
+						
+						JOptionPane.showMessageDialog(frame,
+							    "Email incorrecto: Escriba uno válido",
+							    "Email",
+							    JOptionPane.ERROR_MESSAGE);
+						
+					}	
+				}
+				else {
+					
+					if (validación_email) {
+						
+						if (email.getText().equals("jorgeamg@gmail.com")) {
+							
+							//System.out.println("Información faltante: Ingrese una contraseña");
+							
+							JOptionPane.showMessageDialog(frame,
+								    "Información faltante: Ingrese una contraseña",
+								    "Información",
+								    JOptionPane.ERROR_MESSAGE);
+							
+						}
+						else {
+							
+							//System.out.println("Email incorrecto: Escriba uno válido");
+							
+							JOptionPane.showMessageDialog(frame,
+								    "Email incorrecto: Escriba uno válido",
+								    "Email",
+								    JOptionPane.ERROR_MESSAGE);
+							
+						}
+						
+					}
+					else {
+						
+						//System.out.println("Información faltante: Ingrese un email");
+						
+						JOptionPane.showMessageDialog(frame,
+							    "Información faltante: Ingrese un email",
+							    "Información",
+							    JOptionPane.ERROR_MESSAGE);
+						
+					}
 					
 				}
 				
@@ -317,6 +400,7 @@ public class Ventana extends JFrame{
 		login.add(c_olvidada);
 		
 		//Casilla de verificación
+		
 		JCheckBox recordar;
 		recordar = new JCheckBox("Recordarme");
 		recordar.setBounds(75, 360, 143, 20);
@@ -337,6 +421,7 @@ public class Ventana extends JFrame{
 		//CREACIÓN DE OBJETOS
 		
 		//Panel
+		
 		JPanel registro = new JPanel();
 		registro.setLocation(0, 0);
 		registro.setSize(500, 500);
@@ -346,6 +431,7 @@ public class Ventana extends JFrame{
 		registro.setLayout(null);
 		
 		//Etiquetas
+		
 		JLabel etiqueta1 = new JLabel("Registrarse");
 		etiqueta1.setSize(160, 30);
 		etiqueta1.setLocation(160, 20);
@@ -391,6 +477,7 @@ public class Ventana extends JFrame{
 		registro.add(etiqueta5);
 		
 		//Caja de texto
+		
 		JTextField email = new JTextField();
 		email.setBounds(110, 100, 260, 30);
 		email.setFont(etiquetas2);
@@ -399,6 +486,7 @@ public class Ventana extends JFrame{
 		registro.add(email);
 		
 		//Área de texto
+		
 		JTextArea biografia = new JTextArea();
 		biografia.setBounds(110, 160, 260, 80);
 		biografia.setFont(etiquetas2);
@@ -407,6 +495,7 @@ public class Ventana extends JFrame{
 		registro.add(biografia);
 		
 		//Botón
+		
 		JButton access = new JButton("Crear cuenta");
 		access.setBounds(140, 400, 200, 30);
 		access.setFont(etiquetas);
@@ -414,15 +503,13 @@ public class Ventana extends JFrame{
 		access.setBackground(Color.ORANGE);
 		access.setOpaque(true);
 		registro.add(access);
-		
+		//ActionListener
 		access.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				System.out.println("Hola");
-				
-				if (email.getText().equals("")) {
+				if (email.getText().equals("")) {//validación de llenado de casilla de email
 					
 					email.setBorder(BorderFactory.createLineBorder(Color.red, 5));
 					
@@ -433,18 +520,7 @@ public class Ventana extends JFrame{
 					
 				}
 				
-			}
-			
-		});
-		
-		access.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				System.out.println("Hola");
-				
-				if (biografia.getText().equals("")) {
+				if (biografia.getText().equals("")) {//validación de llenado de área de texto: biografía
 					
 					biografia.setBorder(BorderFactory.createLineBorder(Color.red, 5));
 					
@@ -454,34 +530,12 @@ public class Ventana extends JFrame{
 					biografia.setBorder(BorderFactory.createLineBorder(Color.green, 5));
 					
 				}
-				
-			}
-			
-		});
-		
-		access.addActionListener(new ActionListener() {
-			
-			@Override
-			public void actionPerformed(ActionEvent e) {
-				
-				System.out.println("Hola");
-				
-				if (email.getText().equals("")) {
-					
-					email.setBorder(BorderFactory.createLineBorder(Color.red, 5));
-					
-				}
-				else {
-					
-					email.setBorder(BorderFactory.createLineBorder(Color.green, 5));
-					
-				}
-				
 			}
 			
 		});
 		
 		//Casillas de verificación
+		
 		ButtonGroup deportes = new ButtonGroup();
 		
 		JCheckBox futbol;
@@ -518,6 +572,7 @@ public class Ventana extends JFrame{
 		deportes.add(basquetbol);
 		
 		//Caja de opciones
+		
 		String [] colonias_dataset = {"Centro", "Villas del Encanto", "Pedregal", "Agua Escondida", "Balandra", "Camino real"};
 		
 		JComboBox colonias = new JComboBox(colonias_dataset);
@@ -528,6 +583,7 @@ public class Ventana extends JFrame{
 		registro.revalidate();
 		
 		//Botones radiales
+		
 		ButtonGroup terminos = new ButtonGroup();
 		
 		JRadioButton terms1 = new JRadioButton("Acepto los términos", true);
