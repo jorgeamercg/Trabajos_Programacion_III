@@ -399,6 +399,25 @@ public class Ventana extends JFrame{
 		c_olvidada.setOpaque(true);
 		login.add(c_olvidada);
 		
+		JButton registrarse = new JButton("Registrarse");
+		registrarse.setBounds(190, 450, 100, 20);
+		registrarse.setFont(etiquetas2);
+		registrarse.setHorizontalAlignment(JLabel.CENTER);
+		registrarse.setBackground(new Color(0, 128, 128));
+		registrarse.setOpaque(true);
+		login.add(registrarse);
+		//ActionListener
+		registrarse.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				administrador("Registro");
+				
+			}
+			
+		});
+		
 		//Casilla de verificación
 		
 		JCheckBox recordar;
@@ -494,7 +513,7 @@ public class Ventana extends JFrame{
 		biografia.setOpaque(true);
 		registro.add(biografia);
 		
-		//Botón
+		//Botones
 		
 		JButton access = new JButton("Crear cuenta");
 		access.setBounds(140, 400, 200, 30);
@@ -530,6 +549,25 @@ public class Ventana extends JFrame{
 					biografia.setBorder(BorderFactory.createLineBorder(Color.green, 5));
 					
 				}
+			}
+			
+		});
+		
+		JButton Iniciar_Sesión = new JButton("Iniciar Sesión");
+		Iniciar_Sesión.setBounds(190, 450, 100, 20);
+		Iniciar_Sesión.setFont(etiquetas2);
+		Iniciar_Sesión.setHorizontalAlignment(JLabel.CENTER);
+		Iniciar_Sesión.setBackground(Color.WHITE);
+		Iniciar_Sesión.setOpaque(true);
+		registro.add(Iniciar_Sesión);
+		//ActionListener
+		Iniciar_Sesión.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				administrador("Iniciar sesión");
+				
 			}
 			
 		});
@@ -1664,4 +1702,23 @@ public class Ventana extends JFrame{
 		
 	}
 	
+	public void administrador(String blanco) {
+		
+		this.getContentPane().removeAll();
+		
+		if (blanco.equals("Registro")) {
+			
+			this.add(this.registro());
+			
+		}
+		if (blanco.equals("Iniciar sesión")) {
+			
+			this.add(this.login());
+		}
+		
+		this.repaint();
+		
+		this.revalidate();
+		
+	}
 }
