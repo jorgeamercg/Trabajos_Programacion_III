@@ -99,9 +99,11 @@ public class Ventana extends JFrame{
 		
 		JMenu menu1 = new JMenu("Archivo");
 		JMenu menu2 = new JMenu("Ayuda");
+		JMenu menu4 = new JMenu("Cuenta");
 		
 		barra.add(menu1);
 		barra.add(menu2);
+		barra.add(menu4);
 		
 		//Opciones en menu1
 		
@@ -135,6 +137,34 @@ public class Ventana extends JFrame{
 		
 		menu2.add(op_help);
 		menu2.add(op_support);
+		
+		//Opciones en menu4
+		
+		JMenuItem Iniciar_Sesión = new JMenuItem("Iniciar Sesión");
+		Iniciar_Sesión.addActionListener(new ActionListener() {////ActionListener
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				administrador("Iniciar sesión");
+				
+			}
+			
+		});
+		JMenuItem Registrarse = new JMenuItem("Registrarse");
+		Registrarse.addActionListener(new ActionListener() {//ActionListener
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				administrador("Registro");
+				
+			}
+			
+		});
+		
+		menu4.add(Iniciar_Sesión);
+		menu4.add(Registrarse);
 		
 		//INTERFACES
 		
