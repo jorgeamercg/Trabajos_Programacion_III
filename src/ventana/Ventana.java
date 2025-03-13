@@ -139,8 +139,38 @@ public class Ventana extends JFrame{
 		JCheckBoxMenuItem op_support = new JCheckBoxMenuItem ("Soporte");
 		
 		JMenuItem Cómo_Crear = new JMenuItem("¿Cómo crear un usuario?");
+		Cómo_Crear.addActionListener(new ActionListener() {////ActionListener
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				administrador("Cómo crear a un usuario");
+				
+			}
+			
+		});
 		JMenuItem Cómo_Acceder = new JMenuItem("¿Cómo acceder al sistema?");
+		Cómo_Acceder.addActionListener(new ActionListener() {////ActionListener
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				administrador("Cómo acceder al sistema");
+				
+			}
+			
+		});
 		JMenuItem Cómo_Recuperar = new JMenuItem("¿Qué pasa si olvidé mi contraseña?");
+		Cómo_Recuperar.addActionListener(new ActionListener() {////ActionListener
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				administrador("Cómo recuperar contraseña");
+				
+			}
+			
+		});
 		
 		menu2.add(op_help);
 		menu2.add(op_support);
@@ -190,8 +220,38 @@ public class Ventana extends JFrame{
 		
 		//Opciones en menu5
 		JMenuItem Alta = new JMenuItem("Alta");
+		Alta.addActionListener(new ActionListener() {////ActionListener
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				administrador("Alta de usuario");
+				
+			}
+			
+		});
 		JMenuItem Baja = new JMenuItem("Baja");
+		Baja.addActionListener(new ActionListener() {////ActionListener
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				administrador("Baja de usuario");
+				
+			}
+			
+		});
 		JMenuItem Consultar = new JMenuItem("Consultar");
+		Consultar.addActionListener(new ActionListener() {////ActionListener
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				administrador("Consultar");
+				
+			}
+			
+		});
 		
 		menu5.add(Alta);
 		menu5.add(Baja);
@@ -1805,6 +1865,10 @@ public class Ventana extends JFrame{
 		if (blanco.equals("Baja de usuario")) {
 			
 			this.add(this.bajaUsuario());
+		}
+		if (blanco.equals("Consultar")) {
+			
+			this.add(this.usuarios());
 		}
 		if (blanco.equals("Cómo crear a un usuario")) {
 			
