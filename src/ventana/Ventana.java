@@ -100,10 +100,12 @@ public class Ventana extends JFrame{
 		JMenu menu1 = new JMenu("Archivo");
 		JMenu menu2 = new JMenu("Ayuda");
 		JMenu menu4 = new JMenu("Cuenta");
+		JMenu menu5 = new JMenu("Usuarios");
 		
 		barra.add(menu1);
 		barra.add(menu2);
 		barra.add(menu4);
+		barra.add(menu5);
 		
 		//Opciones en menu1
 		
@@ -133,14 +135,22 @@ public class Ventana extends JFrame{
 		//Opciones en menu2
 		
 		JRadioButtonMenuItem op_help = new JRadioButtonMenuItem ("Manual de usuario");
+		
 		JCheckBoxMenuItem op_support = new JCheckBoxMenuItem ("Soporte");
+		
+		JMenuItem Cómo_Crear = new JMenuItem("¿Cómo crear un usuario?");
+		JMenuItem Cómo_Acceder = new JMenuItem("¿Cómo acceder al sistema?");
+		JMenuItem Cómo_Recuperar = new JMenuItem("¿Qué pasa si olvidé mi contraseña?");
 		
 		menu2.add(op_help);
 		menu2.add(op_support);
+		menu2.add(Cómo_Crear);
+		menu2.add(Cómo_Acceder);
+		menu2.add(Cómo_Recuperar);
 		
 		//Opciones en menu4
 		
-		JMenuItem Iniciar_Sesión = new JMenuItem("Iniciar Sesión");
+		JMenuItem Iniciar_Sesión = new JMenuItem("Iniciar sesión");
 		Iniciar_Sesión.addActionListener(new ActionListener() {////ActionListener
 			
 			@Override
@@ -162,9 +172,30 @@ public class Ventana extends JFrame{
 			}
 			
 		});
+		JMenuItem Recuperación = new JMenuItem("Recuperación de cuenta");
+		Recuperación.addActionListener(new ActionListener() {////ActionListener
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				administrador("Recuperar cuenta");
+				
+			}
+			
+		});
 		
 		menu4.add(Iniciar_Sesión);
 		menu4.add(Registrarse);
+		menu4.add(Recuperación);
+		
+		//Opciones en menu5
+		JMenuItem Alta = new JMenuItem("Alta");
+		JMenuItem Baja = new JMenuItem("Baja");
+		JMenuItem Consultar = new JMenuItem("Consultar");
+		
+		menu5.add(Alta);
+		menu5.add(Baja);
+		menu5.add(Consultar);
 		
 		//INTERFACES
 		
@@ -196,15 +227,35 @@ public class Ventana extends JFrame{
 		
 		this.add(this.logoAplicación());*/
 		
+		/*//Recuperación de cuenta
+		
+		this.add(this.recuperaciónCuenta());*/
+		
+		/*//Dar de alta a un usuario
+		
+		this.add(this.altaUsuario());*/
+		
+		/*//Dar de baja a un usuario
+		
+		this.add(this.bajaUsuario());*/
+		
+		/*//Crear a un usuario
+		
+		this.add(this.cómoCrearUsuario());*/
+		
+		/*//Cómo acceder al sistema
+		
+		this.add(this.cómoAccederSistema());*/
+		
+		/*//Cómo recuperar constraseña
+		
+		this.add(this.cómoRecuperarContraseña());*/
+		
 		this.repaint();
 		
 		this.revalidate();
 		
 	}
-	
-	//MÉTODOS
-	
-	//Gráficos
 	
 	//MÉTODOS
 	
@@ -436,8 +487,7 @@ public class Ventana extends JFrame{
 		registrarse.setBackground(new Color(0, 128, 128));
 		registrarse.setOpaque(true);
 		login.add(registrarse);
-		//ActionListener
-		registrarse.addActionListener(new ActionListener() {
+		registrarse.addActionListener(new ActionListener() {//ActionListener
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -590,8 +640,7 @@ public class Ventana extends JFrame{
 		Iniciar_Sesión.setBackground(Color.WHITE);
 		Iniciar_Sesión.setOpaque(true);
 		registro.add(Iniciar_Sesión);
-		//ActionListener
-		Iniciar_Sesión.addActionListener(new ActionListener() {
+		Iniciar_Sesión.addActionListener(new ActionListener() {//ActionListener
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
@@ -1745,10 +1794,280 @@ public class Ventana extends JFrame{
 			
 			this.add(this.login());
 		}
-		
+		if (blanco.equals("Recuperar cuenta")) {
+					
+					this.add(this.recuperaciónCuenta());
+				}
+		if (blanco.equals("Alta de usuario")) {
+			
+			this.add(this.altaUsuario());
+		}
+		if (blanco.equals("Baja de usuario")) {
+			
+			this.add(this.bajaUsuario());
+		}
+		if (blanco.equals("Cómo crear a un usuario")) {
+			
+			this.add(this.cómoCrearUsuario());
+		}
+		if (blanco.equals("Cómo acceder al sistema")) {
+			
+			this.add(this.cómoAccederSistema());
+		}
+		if (blanco.equals("Cómo recuperar contraseña")) {
+			
+			this.add(this.cómoRecuperarContraseña());
+		}
 		this.repaint();
 		
 		this.revalidate();
 		
 	}
+
+	public JPanel recuperaciónCuenta() {
+		
+		//CREACIÓN DE OBJETOS
+		
+		//Panel
+		
+		JPanel recuperaciónCuenta = new JPanel();
+		recuperaciónCuenta.setLocation(0, 0);
+		recuperaciónCuenta.setSize(500, 500);
+		recuperaciónCuenta.setOpaque(true);
+		recuperaciónCuenta.setBackground(Color.WHITE);
+		recuperaciónCuenta.setVisible(true);
+		recuperaciónCuenta.setLayout(null);
+		
+		//Etiquetas
+		
+		JLabel etiqueta1 = new JLabel("Recuperación de cuenta");
+		etiqueta1.setSize(470, 30);
+		etiqueta1.setLocation(13, 20);
+		etiqueta1.setFont(etiquetas);
+		etiqueta1.setHorizontalAlignment(JLabel.CENTER);
+		etiqueta1.setBackground(Color.GREEN);
+		etiqueta1.setOpaque(true);
+		etiqueta1.setBorder(BorderFactory.createLineBorder(Color.black));
+		recuperaciónCuenta.add(etiqueta1);
+		
+		//Área de texto
+		
+		JTextArea biografia = new JTextArea();
+		biografia.setBounds(110, 80, 260, 300);
+		biografia.setFont(etiquetas2);
+		biografia.setBackground(Color.cyan);
+		biografia.setOpaque(true);
+		recuperaciónCuenta.add(biografia);
+
+		recuperaciónCuenta.revalidate();
+		
+		return recuperaciónCuenta;
+		
+	}
+	
+	public JPanel altaUsuario() {
+			
+		//CREACIÓN DE OBJETOS
+		
+		//Panel
+		
+		JPanel altaUsuario = new JPanel();
+		altaUsuario.setLocation(0, 0);
+		altaUsuario.setSize(500, 500);
+		altaUsuario.setOpaque(true);
+		altaUsuario.setBackground(Color.WHITE);
+		altaUsuario.setVisible(true);
+		altaUsuario.setLayout(null);
+		
+		//Etiquetas
+		
+		JLabel etiqueta1 = new JLabel("Dar de alta a un usuario");
+		etiqueta1.setSize(470, 30);
+		etiqueta1.setLocation(13, 20);
+		etiqueta1.setFont(etiquetas);
+		etiqueta1.setHorizontalAlignment(JLabel.CENTER);
+		etiqueta1.setBackground(Color.GREEN);
+		etiqueta1.setOpaque(true);
+		etiqueta1.setBorder(BorderFactory.createLineBorder(Color.black));
+		altaUsuario.add(etiqueta1);
+		
+		//Área de texto
+		
+		JTextArea biografia = new JTextArea();
+		biografia.setBounds(110, 80, 260, 300);
+		biografia.setFont(etiquetas2);
+		biografia.setBackground(Color.cyan);
+		biografia.setOpaque(true);
+		altaUsuario.add(biografia);
+	
+		altaUsuario.revalidate();
+		
+		return altaUsuario;
+	
+	}
+		
+	public JPanel bajaUsuario() {
+		
+		//CREACIÓN DE OBJETOS
+		
+		//Panel
+		
+		JPanel bajaUsuario = new JPanel();
+		bajaUsuario.setLocation(0, 0);
+		bajaUsuario.setSize(500, 500);
+		bajaUsuario.setOpaque(true);
+		bajaUsuario.setBackground(Color.WHITE);
+		bajaUsuario.setVisible(true);
+		bajaUsuario.setLayout(null);
+		
+		//Etiquetas
+		
+		JLabel etiqueta1 = new JLabel("Dar de baja a un usuario");
+		etiqueta1.setSize(470, 30);
+		etiqueta1.setLocation(13, 20);
+		etiqueta1.setFont(etiquetas);
+		etiqueta1.setHorizontalAlignment(JLabel.CENTER);
+		etiqueta1.setBackground(Color.GREEN);
+		etiqueta1.setOpaque(true);
+		etiqueta1.setBorder(BorderFactory.createLineBorder(Color.black));
+		bajaUsuario.add(etiqueta1);
+		
+		//Área de texto
+		
+		JTextArea biografia = new JTextArea();
+		biografia.setBounds(110, 80, 260, 300);
+		biografia.setFont(etiquetas2);
+		biografia.setBackground(Color.cyan);
+		biografia.setOpaque(true);
+		bajaUsuario.add(biografia);
+	
+		bajaUsuario.revalidate();
+		
+		return bajaUsuario;
+		
+	}
+	
+	public JPanel cómoCrearUsuario() {
+		
+		//CREACIÓN DE OBJETOS
+		
+		//Panel
+		
+		JPanel cómoCrearUsuario = new JPanel();
+		cómoCrearUsuario.setLocation(0, 0);
+		cómoCrearUsuario.setSize(500, 500);
+		cómoCrearUsuario.setOpaque(true);
+		cómoCrearUsuario.setBackground(Color.WHITE);
+		cómoCrearUsuario.setVisible(true);
+		cómoCrearUsuario.setLayout(null);
+		
+		//Etiquetas
+		
+		JLabel etiqueta1 = new JLabel("Crear a un usuario");
+		etiqueta1.setSize(470, 30);
+		etiqueta1.setLocation(13, 20);
+		etiqueta1.setFont(etiquetas);
+		etiqueta1.setHorizontalAlignment(JLabel.CENTER);
+		etiqueta1.setBackground(Color.GREEN);
+		etiqueta1.setOpaque(true);
+		etiqueta1.setBorder(BorderFactory.createLineBorder(Color.black));
+		cómoCrearUsuario.add(etiqueta1);
+		
+		//Área de texto
+		
+		JTextArea biografia = new JTextArea();
+		biografia.setBounds(110, 80, 260, 300);
+		biografia.setFont(etiquetas2);
+		biografia.setBackground(Color.cyan);
+		biografia.setOpaque(true);
+		cómoCrearUsuario.add(biografia);
+	
+		cómoCrearUsuario.revalidate();
+		
+		return cómoCrearUsuario;
+	
+	}
+		
+	public JPanel cómoAccederSistema() {
+	
+		//CREACIÓN DE OBJETOS
+		
+		//Panel
+		
+		JPanel cómoAccederSistema = new JPanel();
+		cómoAccederSistema.setLocation(0, 0);
+		cómoAccederSistema.setSize(500, 500);
+		cómoAccederSistema.setOpaque(true);
+		cómoAccederSistema.setBackground(Color.WHITE);
+		cómoAccederSistema.setVisible(true);
+		cómoAccederSistema.setLayout(null);
+		
+		//Etiquetas
+		
+		JLabel etiqueta1 = new JLabel("Cómo acceder al sistema");
+		etiqueta1.setSize(470, 30);
+		etiqueta1.setLocation(13, 20);
+		etiqueta1.setFont(etiquetas);
+		etiqueta1.setHorizontalAlignment(JLabel.CENTER);
+		etiqueta1.setBackground(Color.GREEN);
+		etiqueta1.setOpaque(true);
+		etiqueta1.setBorder(BorderFactory.createLineBorder(Color.black));
+		cómoAccederSistema.add(etiqueta1);
+		
+		//Área de texto
+		
+		JTextArea biografia = new JTextArea();
+		biografia.setBounds(110, 80, 260, 300);
+		biografia.setFont(etiquetas2);
+		biografia.setBackground(Color.cyan);
+		biografia.setOpaque(true);
+		cómoAccederSistema.add(biografia);
+
+		cómoAccederSistema.revalidate();
+		
+		return cómoAccederSistema;
+		
+	}
+	
+	public JPanel cómoRecuperarContraseña() {
+		
+		//CREACIÓN DE OBJETOS
+		
+		//Panel
+		
+		JPanel cómoRecuperarContraseña = new JPanel();
+		cómoRecuperarContraseña.setLocation(0, 0);
+		cómoRecuperarContraseña.setSize(500, 500);
+		cómoRecuperarContraseña.setOpaque(true);
+		cómoRecuperarContraseña.setBackground(Color.WHITE);
+		cómoRecuperarContraseña.setVisible(true);
+		cómoRecuperarContraseña.setLayout(null);
+		
+		//Etiquetas
+		
+		JLabel etiqueta1 = new JLabel("Cómo recuperar contraseña");
+		etiqueta1.setSize(470, 30);
+		etiqueta1.setLocation(13, 20);
+		etiqueta1.setFont(etiquetas);
+		etiqueta1.setHorizontalAlignment(JLabel.CENTER);
+		etiqueta1.setBackground(Color.GREEN);
+		etiqueta1.setOpaque(true);
+		etiqueta1.setBorder(BorderFactory.createLineBorder(Color.black));
+		cómoRecuperarContraseña.add(etiqueta1);
+		
+		//Área de texto
+		
+		JTextArea biografia = new JTextArea();
+		biografia.setBounds(110, 80, 260, 300);
+		biografia.setFont(etiquetas2);
+		biografia.setBackground(Color.cyan);
+		biografia.setOpaque(true);
+		cómoRecuperarContraseña.add(biografia);
+
+		cómoRecuperarContraseña.revalidate();
+		
+		return cómoRecuperarContraseña;
+		
+	}
+	
 }
