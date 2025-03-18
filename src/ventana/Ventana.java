@@ -20,6 +20,7 @@ import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.util.Random;
 import java.awt.BasicStroke;
 import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
@@ -57,6 +58,8 @@ public class Ventana extends JFrame{
 	Font etiquetas2 = new Font("Romana 2", Font.ROMAN_BASELINE, 10);
 	
 	Font etiquetas3 = new Font("Romana 3", Font.ROMAN_BASELINE, 17);
+	
+	Random Rand = new Random();
 
 	protected Component frame;
 
@@ -259,9 +262,9 @@ public class Ventana extends JFrame{
 		
 		//INTERFACES
 		
-		//Iniciar Sesión
+		/*//Iniciar Sesión
 		
-		this.add(this.login());
+		this.add(this.login());*/
 		
 		/*//Registrarse
 		
@@ -310,6 +313,10 @@ public class Ventana extends JFrame{
 		/*//Cómo recuperar constraseña
 		
 		this.add(this.cómoRecuperarContraseña());*/
+		
+		//Crear botones aleatoriamente
+		
+		this.add(this.botonesAleatorios());
 		
 		this.repaint();
 		
@@ -2493,4 +2500,43 @@ public class Ventana extends JFrame{
 		
 	}
 
+	public JPanel botonesAleatorios() {
+		
+		JPanel botonesAleatorios = new JPanel ();
+		botonesAleatorios.setSize(1000, 600);
+		botonesAleatorios.setLocation(0, 0);
+		botonesAleatorios.setLayout(null);
+		botonesAleatorios.setOpaque(true);
+		botonesAleatorios.setBackground(Color.GREEN);
+		
+		JButton principal = new JButton("Presióname");
+		principal.setBounds(170, 205, 150, 80);
+		principal.setFont(etiquetas3);
+		principal.setHorizontalAlignment(JLabel.CENTER);
+		principal.setBackground(Color.ORANGE);
+		botonesAleatorios.add(principal);
+		principal.addActionListener(new ActionListener() {//ActionListener
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				JButton principal = new JButton("Presióname");
+				principal.setSize(Rand.nextInt(150), Rand.nextInt(80));
+				principal.setLocation(Rand.nextInt(170), Rand.nextInt(205));
+				principal.setHorizontalAlignment(JLabel.CENTER);
+				principal.setBackground(new Color(Rand.nextInt(255), Rand.nextInt(255), Rand.nextInt(255)));
+				botonesAleatorios.add(principal);
+				
+				botonesAleatorios.repaint();
+				
+			}
+			
+		});
+		
+		botonesAleatorios.revalidate();
+		
+		return botonesAleatorios;
+		
+	}
+	
 }
