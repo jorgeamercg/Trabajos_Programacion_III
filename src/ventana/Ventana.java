@@ -2520,12 +2520,25 @@ public class Ventana extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				JButton principal = new JButton("Presióname");
-				principal.setSize(Rand.nextInt(150), Rand.nextInt(80));
-				principal.setLocation(Rand.nextInt(170), Rand.nextInt(205));
-				principal.setHorizontalAlignment(JLabel.CENTER);
-				principal.setBackground(new Color(Rand.nextInt(255), Rand.nextInt(255), Rand.nextInt(255)));
-				botonesAleatorios.add(principal);
+				JButton aleatorio = new JButton("Botón: " + Rand.nextInt(255));
+				aleatorio.setSize(Rand.nextInt(150), Rand.nextInt(80));
+				aleatorio.setLocation(Rand.nextInt(170), Rand.nextInt(205));
+				aleatorio.setHorizontalAlignment(JLabel.CENTER);
+				aleatorio.setBackground(new Color(Rand.nextInt(255), Rand.nextInt(255), Rand.nextInt(255)));
+				botonesAleatorios.add(aleatorio);
+				aleatorio.addActionListener(new ActionListener() {//ActionListener
+					
+					@Override
+					public void actionPerformed(ActionEvent f) {
+						
+						JOptionPane.showMessageDialog(frame,
+								((JButton) f.getSource()).getText(),
+							    "Nombre del Botón",
+							    JOptionPane.PLAIN_MESSAGE);
+						
+					}
+					
+				});
 				
 				botonesAleatorios.repaint();
 				
