@@ -694,7 +694,7 @@ public class Ventana extends JFrame{
 		});
 		
 		JButton Iniciar_Sesión = new JButton("Iniciar Sesión");
-		Iniciar_Sesión.setBounds(190, 450, 100, 20);
+		Iniciar_Sesión.setBounds(190, 435, 100, 20);
 		Iniciar_Sesión.setFont(etiquetas2);
 		Iniciar_Sesión.setHorizontalAlignment(JLabel.CENTER);
 		Iniciar_Sesión.setBackground(Color.WHITE);
@@ -711,6 +711,23 @@ public class Ventana extends JFrame{
 			
 		});
 		
+		JButton volver = new JButton("Volver");
+		volver.setBounds(190, 460, 100, 20);
+		volver.setFont(etiquetas3);
+		volver.setHorizontalAlignment(JLabel.CENTER);
+		volver.setBackground(Color.ORANGE);
+		registro.add(volver);
+		volver.addActionListener(new ActionListener() {//ActionListener
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				administrador("Regresar a la ventana principal");
+				
+			}
+			
+		});
+
 		//Casillas de verificación
 		
 		ButtonGroup deportes = new ButtonGroup();
@@ -1006,7 +1023,7 @@ public class Ventana extends JFrame{
 		//Panel
 		JPanel usuarios = new JPanel();
 		usuarios.setLocation(0, 0);
-		usuarios.setSize(1000, 500);
+		usuarios.setSize(500, 500);
 		usuarios.setOpaque(true);
 		usuarios.setBackground(new Color(0, 128, 128));
 		usuarios.setVisible(true);
@@ -1015,7 +1032,7 @@ public class Ventana extends JFrame{
 		//Etiquetas
 		JLabel etiqueta1 = new JLabel("Usuarios");
 		etiqueta1.setSize(160, 40);
-		etiqueta1.setLocation(420, 10);
+		etiqueta1.setLocation(170, 20);
 		etiqueta1.setFont(etiquetas);
 		etiqueta1.setHorizontalAlignment(JLabel.CENTER);
 		etiqueta1.setBackground(Color.YELLOW);
@@ -1024,8 +1041,8 @@ public class Ventana extends JFrame{
 		usuarios.add(etiqueta1);
 		
 		JLabel text1 = new JLabel("Total de usuarios: 35");
-		text1.setBounds(50, 110, 250, 40);
-		text1.setFont(etiquetas);
+		text1.setBounds(15, 110, 200, 30);
+		text1.setFont(etiquetas3);
 		text1.setHorizontalAlignment(JLabel.CENTER);
 		text1.setBackground(Color.ORANGE);
 		text1.setOpaque(true);
@@ -1040,16 +1057,34 @@ public class Ventana extends JFrame{
 		
 		//Botones
 		JButton export = new JButton("Exportar");
-		export.setBounds(690, 110, 120, 40);
+		export.setBounds(120, 155, 120, 30);
 		export.setBorder(BorderFactory.createLineBorder(Color.black,2));
 		usuarios.add(export);
 		
 		JButton add = new JButton("Añadir");
-		add.setBounds(820, 110, 120, 40);
+		add.setBounds(260, 155, 120, 30);
 		add.setBorder(BorderFactory.createLineBorder(Color.black,2));
 		usuarios.add(add);
 		
+		JButton volver = new JButton("Volver");
+		volver.setBounds(190, 450, 100, 20);
+		volver.setFont(etiquetas3);
+		volver.setHorizontalAlignment(JLabel.CENTER);
+		volver.setBackground(Color.ORANGE);
+		usuarios.add(volver);
+		volver.addActionListener(new ActionListener() {//ActionListener
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				administrador("Regresar a la ventana principal");
+				
+			}
+			
+		});
+		
 		//Tabla
+		
 		String[] columnNames = {
 				"First Name",
 				"Last Name",
@@ -1098,8 +1133,8 @@ public class Ventana extends JFrame{
 		
 		JTable table = new JTable(data, columnNames);
 		JScrollPane scrollPane = new JScrollPane(table);
-		scrollPane.setSize(930, 200);
-		scrollPane.setLocation(30, 200);
+		scrollPane.setSize(485, 200);
+		scrollPane.setLocation(5, 200);
 		usuarios.add(scrollPane);
 		
 		usuarios.revalidate();
@@ -1856,8 +1891,8 @@ public class Ventana extends JFrame{
 		}
 		if (blanco.equals("Recuperar cuenta")) {
 					
-					this.add(this.recuperaciónCuenta());
-				}
+			this.add(this.recuperaciónCuenta());
+		}
 		if (blanco.equals("Alta de usuario")) {
 			
 			this.add(this.altaUsuario());
@@ -1882,6 +1917,11 @@ public class Ventana extends JFrame{
 			
 			this.add(this.cómoRecuperarContraseña());
 		}
+		if (blanco.equals("Regresar a la ventana principal")) {
+			
+			this.add(this.ventanaPrincipal());
+		}
+		
 		this.repaint();
 		
 		this.revalidate();
@@ -1914,15 +1954,49 @@ public class Ventana extends JFrame{
 		etiqueta1.setBorder(BorderFactory.createLineBorder(Color.black));
 		recuperaciónCuenta.add(etiqueta1);
 		
-		//Área de texto
+		JLabel etiqueta2 = new JLabel("Ingrese su correo electrónico de restablecimiento:");
+		etiqueta2.setSize(300, 20);
+		etiqueta2.setLocation(90, 100);
+		etiqueta2.setFont(etiquetas2);
+		etiqueta2.setHorizontalAlignment(JLabel.CENTER);
+		etiqueta2.setBackground(Color.WHITE);
+		recuperaciónCuenta.add(etiqueta2);
 		
-		JTextArea biografia = new JTextArea();
-		biografia.setBounds(110, 80, 260, 300);
-		biografia.setFont(etiquetas2);
-		biografia.setBackground(Color.cyan);
-		biografia.setOpaque(true);
-		recuperaciónCuenta.add(biografia);
-
+		//Caja de texto
+		
+		JTextField email = new JTextField();
+		email.setBounds(110, 150, 260, 30);
+		email.setFont(etiquetas2);
+		email.setBackground(Color.cyan);
+		email.setOpaque(true);
+		recuperaciónCuenta.add(email);
+		
+		//Botones
+		
+		JButton enviar = new JButton("Enviar");
+		enviar.setBounds(200, 200, 90, 20);
+		enviar.setFont(etiquetas3);
+		enviar.setHorizontalAlignment(JLabel.CENTER);
+		enviar.setBackground(Color.ORANGE);
+		recuperaciónCuenta.add(enviar);
+		
+		JButton volver = new JButton("Volver");
+		volver.setBounds(195, 450, 100, 20);
+		volver.setFont(etiquetas3);
+		volver.setHorizontalAlignment(JLabel.CENTER);
+		volver.setBackground(Color.ORANGE);
+		recuperaciónCuenta.add(volver);
+		volver.addActionListener(new ActionListener() {//ActionListener
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				administrador("Regresar a la ventana principal");
+				
+			}
+			
+		});
+		
 		recuperaciónCuenta.revalidate();
 		
 		return recuperaciónCuenta;
@@ -1955,14 +2029,102 @@ public class Ventana extends JFrame{
 		etiqueta1.setBorder(BorderFactory.createLineBorder(Color.black));
 		altaUsuario.add(etiqueta1);
 		
-		//Área de texto
+		JLabel etiqueta2 = new JLabel("Ingrese el correo electrónico:");
+		etiqueta2.setSize(300, 20);
+		etiqueta2.setLocation(90, 100);
+		etiqueta2.setFont(etiquetas2);
+		etiqueta2.setHorizontalAlignment(JLabel.CENTER);
+		etiqueta2.setBackground(Color.WHITE);
+		altaUsuario.add(etiqueta2);
 		
-		JTextArea biografia = new JTextArea();
-		biografia.setBounds(110, 80, 260, 300);
-		biografia.setFont(etiquetas2);
-		biografia.setBackground(Color.cyan);
-		biografia.setOpaque(true);
-		altaUsuario.add(biografia);
+		//Caja de texto
+		
+		JTextField email = new JTextField();
+		email.setBounds(110, 125, 260, 30);
+		email.setFont(etiquetas2);
+		email.setBackground(Color.cyan);
+		email.setOpaque(true);
+		altaUsuario.add(email);
+		
+		//Botones
+		
+		JButton alta = new JButton("Dar de alta");
+		alta.setBounds(190, 165, 100, 20);
+		alta.setFont(etiquetas2);
+		alta.setHorizontalAlignment(JLabel.CENTER);
+		alta.setBackground(Color.ORANGE);
+		altaUsuario.add(alta);
+		
+		JButton volver = new JButton("Volver");
+		volver.setBounds(190, 450, 100, 20);
+		volver.setFont(etiquetas3);
+		volver.setHorizontalAlignment(JLabel.CENTER);
+		volver.setBackground(Color.ORANGE);
+		altaUsuario.add(volver);
+		volver.addActionListener(new ActionListener() {//ActionListener
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				administrador("Regresar a la ventana principal");
+				
+			}
+			
+		});
+		
+		//Tabla
+		
+		String[] columnNames = {
+				"First Name",
+				"Last Name",
+				"Game",
+				"Age",
+				"Vegetarian"
+				};
+		
+		Object[][] data = {
+				{"Kathy", "Smith", "Snowboarding", 1995, true},
+				{"John", "Doe", "Rowing", 2002, true},
+				{"Sue", "Black", "Knitting", 2015, false},
+				{"Jane", "White", "Speed reading", 1999, true},
+				{"Joe", "Brown", "Pool", 2019, false},
+				{"Kathy", "Smith", "Snowboarding", 1995, true},
+				{"John", "Doe", "Rowing", 2002, true},
+				{"Sue", "Black", "Knitting", 2015, false},
+				{"Jane", "White", "Speed reading", 1999, true},
+				{"Joe", "Brown", "Pool", 2019, false},
+				{"Kathy", "Smith", "Snowboarding", 1995, true},
+				{"John", "Doe", "Rowing", 2002, true},
+				{"Sue", "Black", "Knitting", 2015, false},
+				{"Jane", "White", "Speed reading", 1999, true},
+				{"Joe", "Brown", "Pool", 2019, false},
+				{"Kathy", "Smith", "Snowboarding", 1995, true},
+				{"John", "Doe", "Rowing", 2002, true},
+				{"Sue", "Black", "Knitting", 2015, false},
+				{"Jane", "White", "Speed reading", 1999, true},
+				{"Joe", "Brown", "Pool", 2019, false},
+				{"Kathy", "Smith", "Snowboarding", 1995, true},
+				{"John", "Doe", "Rowing", 2002, true},
+				{"Sue", "Black", "Knitting", 2015, false},
+				{"Jane", "White", "Speed reading", 1999, true},
+				{"Joe", "Brown", "Pool", 2019, false},
+				{"Kathy", "Smith", "Snowboarding", 1995, true},
+				{"John", "Doe", "Rowing", 2002, true},
+				{"Sue", "Black", "Knitting", 2015, false},
+				{"Jane", "White", "Speed reading", 1999, true},
+				{"Joe", "Brown", "Pool", 2019, false},
+				{"Kathy", "Smith", "Snowboarding", 1995, true},
+				{"John", "Doe", "Rowing", 2002, true},
+				{"Sue", "Black", "Knitting", 2015, false},
+				{"Jane", "White", "Speed reading", 1999, true},
+				{"Joe", "Brown", "Pool", 2019, false},
+				};
+		
+		JTable table = new JTable(data, columnNames);
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setSize(485, 200);
+		scrollPane.setLocation(5, 200);
+		altaUsuario.add(scrollPane);
 	
 		altaUsuario.revalidate();
 		
@@ -1996,14 +2158,102 @@ public class Ventana extends JFrame{
 		etiqueta1.setBorder(BorderFactory.createLineBorder(Color.black));
 		bajaUsuario.add(etiqueta1);
 		
-		//Área de texto
+		JLabel etiqueta2 = new JLabel("Ingrese el correo electrónico:");
+		etiqueta2.setSize(300, 20);
+		etiqueta2.setLocation(90, 100);
+		etiqueta2.setFont(etiquetas2);
+		etiqueta2.setHorizontalAlignment(JLabel.CENTER);
+		etiqueta2.setBackground(Color.WHITE);
+		bajaUsuario.add(etiqueta2);
 		
-		JTextArea biografia = new JTextArea();
-		biografia.setBounds(110, 80, 260, 300);
-		biografia.setFont(etiquetas2);
-		biografia.setBackground(Color.cyan);
-		biografia.setOpaque(true);
-		bajaUsuario.add(biografia);
+		//Caja de texto
+		
+		JTextField email = new JTextField();
+		email.setBounds(110, 125, 260, 30);
+		email.setFont(etiquetas2);
+		email.setBackground(Color.cyan);
+		email.setOpaque(true);
+		bajaUsuario.add(email);
+		
+		//Botones
+		
+		JButton baja = new JButton("Dar de baja");
+		baja.setBounds(190, 165, 100, 20);
+		baja.setFont(etiquetas2);
+		baja.setHorizontalAlignment(JLabel.CENTER);
+		baja.setBackground(Color.ORANGE);
+		bajaUsuario.add(baja);
+		
+		JButton volver = new JButton("Volver");
+		volver.setBounds(190, 450, 100, 20);
+		volver.setFont(etiquetas3);
+		volver.setHorizontalAlignment(JLabel.CENTER);
+		volver.setBackground(Color.ORANGE);
+		bajaUsuario.add(volver);
+		volver.addActionListener(new ActionListener() {//ActionListener
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				administrador("Regresar a la ventana principal");
+				
+			}
+			
+		});
+		
+		//Tabla
+		
+		String[] columnNames = {
+				"First Name",
+				"Last Name",
+				"Game",
+				"Age",
+				"Vegetarian"
+				};
+		
+		Object[][] data = {
+				{"Kathy", "Smith", "Snowboarding", 1995, true},
+				{"John", "Doe", "Rowing", 2002, true},
+				{"Sue", "Black", "Knitting", 2015, false},
+				{"Jane", "White", "Speed reading", 1999, true},
+				{"Joe", "Brown", "Pool", 2019, false},
+				{"Kathy", "Smith", "Snowboarding", 1995, true},
+				{"John", "Doe", "Rowing", 2002, true},
+				{"Sue", "Black", "Knitting", 2015, false},
+				{"Jane", "White", "Speed reading", 1999, true},
+				{"Joe", "Brown", "Pool", 2019, false},
+				{"Kathy", "Smith", "Snowboarding", 1995, true},
+				{"John", "Doe", "Rowing", 2002, true},
+				{"Sue", "Black", "Knitting", 2015, false},
+				{"Jane", "White", "Speed reading", 1999, true},
+				{"Joe", "Brown", "Pool", 2019, false},
+				{"Kathy", "Smith", "Snowboarding", 1995, true},
+				{"John", "Doe", "Rowing", 2002, true},
+				{"Sue", "Black", "Knitting", 2015, false},
+				{"Jane", "White", "Speed reading", 1999, true},
+				{"Joe", "Brown", "Pool", 2019, false},
+				{"Kathy", "Smith", "Snowboarding", 1995, true},
+				{"John", "Doe", "Rowing", 2002, true},
+				{"Sue", "Black", "Knitting", 2015, false},
+				{"Jane", "White", "Speed reading", 1999, true},
+				{"Joe", "Brown", "Pool", 2019, false},
+				{"Kathy", "Smith", "Snowboarding", 1995, true},
+				{"John", "Doe", "Rowing", 2002, true},
+				{"Sue", "Black", "Knitting", 2015, false},
+				{"Jane", "White", "Speed reading", 1999, true},
+				{"Joe", "Brown", "Pool", 2019, false},
+				{"Kathy", "Smith", "Snowboarding", 1995, true},
+				{"John", "Doe", "Rowing", 2002, true},
+				{"Sue", "Black", "Knitting", 2015, false},
+				{"Jane", "White", "Speed reading", 1999, true},
+				{"Joe", "Brown", "Pool", 2019, false},
+				};
+		
+		JTable table = new JTable(data, columnNames);
+		JScrollPane scrollPane = new JScrollPane(table);
+		scrollPane.setSize(485, 200);
+		scrollPane.setLocation(5, 200);
+		bajaUsuario.add(scrollPane);
 	
 		bajaUsuario.revalidate();
 		
@@ -2039,12 +2289,34 @@ public class Ventana extends JFrame{
 		
 		//Área de texto
 		
-		JTextArea biografia = new JTextArea();
+		JTextArea biografia = new JTextArea("Hacer click en el menú: Usuarios, ubicado en la \n"
+				+ "barra de navegación; y después en la opción: \n"
+				+ "Alta, ahí la interfaz lo guiará \n"
+				+ "en el proceso de creación de un usuario.");
 		biografia.setBounds(110, 80, 260, 300);
 		biografia.setFont(etiquetas2);
 		biografia.setBackground(Color.cyan);
 		biografia.setOpaque(true);
 		cómoCrearUsuario.add(biografia);
+		
+		//Botones
+		
+		JButton volver = new JButton("Volver");
+		volver.setBounds(190, 450, 100, 20);
+		volver.setFont(etiquetas3);
+		volver.setHorizontalAlignment(JLabel.CENTER);
+		volver.setBackground(Color.ORANGE);
+		cómoCrearUsuario.add(volver);
+		volver.addActionListener(new ActionListener() {//ActionListener
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				administrador("Regresar a la ventana principal");
+				
+			}
+			
+		});
 	
 		cómoCrearUsuario.revalidate();
 		
@@ -2080,12 +2352,34 @@ public class Ventana extends JFrame{
 		
 		//Área de texto
 		
-		JTextArea biografia = new JTextArea();
+		JTextArea biografia = new JTextArea("Hacer click en el menú: Cuenta, ubicado en la \n"
+				+ "barra de navegación; y después en la opción: \n"
+				+ "Iniciar sesión, ahí la interfaz lo guiará \n"
+				+ "en el proceso de acceso al sistema.");
 		biografia.setBounds(110, 80, 260, 300);
 		biografia.setFont(etiquetas2);
 		biografia.setBackground(Color.cyan);
 		biografia.setOpaque(true);
 		cómoAccederSistema.add(biografia);
+		
+		//Botones
+		
+		JButton volver = new JButton("Volver");
+		volver.setBounds(190, 450, 100, 20);
+		volver.setFont(etiquetas3);
+		volver.setHorizontalAlignment(JLabel.CENTER);
+		volver.setBackground(Color.ORANGE);
+		cómoAccederSistema.add(volver);
+		volver.addActionListener(new ActionListener() {//ActionListener
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				administrador("Regresar a la ventana principal");
+				
+			}
+			
+		});
 
 		cómoAccederSistema.revalidate();
 		
@@ -2121,12 +2415,34 @@ public class Ventana extends JFrame{
 		
 		//Área de texto
 		
-		JTextArea biografia = new JTextArea();
+		JTextArea biografia = new JTextArea("Hacer click en el menú: Cuenta, ubicado en la \n"
+				+ "barra de navegación; y después en la opción: \n"
+				+ "Recuperación de cuenta, ahí la interfaz lo guiará \n"
+				+ "en el proceso de recuperación de contraseña.");
 		biografia.setBounds(110, 80, 260, 300);
 		biografia.setFont(etiquetas2);
 		biografia.setBackground(Color.cyan);
 		biografia.setOpaque(true);
 		cómoRecuperarContraseña.add(biografia);
+		
+		//Botones
+		
+		JButton volver = new JButton("Volver");
+		volver.setBounds(190, 450, 100, 20);
+		volver.setFont(etiquetas3);
+		volver.setHorizontalAlignment(JLabel.CENTER);
+		volver.setBackground(Color.ORANGE);
+		cómoRecuperarContraseña.add(volver);
+		volver.addActionListener(new ActionListener() {//ActionListener
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				administrador("Regresar a la ventana principal");
+				
+			}
+			
+		});
 
 		cómoRecuperarContraseña.revalidate();
 		
@@ -2134,4 +2450,47 @@ public class Ventana extends JFrame{
 		
 	}
 	
+	public JPanel ventanaPrincipal() {
+		
+		//CREACIÓN DE OBJETOS
+		
+		//Panel
+		
+		JPanel ventanaPrincipal = new JPanel();
+		ventanaPrincipal.setLocation(0, 0);
+		ventanaPrincipal.setSize(500, 500);
+		ventanaPrincipal.setOpaque(true);
+		ventanaPrincipal.setBackground(Color.WHITE);
+		ventanaPrincipal.setVisible(true);
+		ventanaPrincipal.setLayout(null);
+		
+		//Etiquetas
+		
+		JLabel etiqueta1 = new JLabel("Bienvenido");
+		etiqueta1.setSize(470, 30);
+		etiqueta1.setLocation(13, 20);
+		etiqueta1.setFont(etiquetas);
+		etiqueta1.setHorizontalAlignment(JLabel.CENTER);
+		etiqueta1.setBackground(Color.lightGray);
+		etiqueta1.setOpaque(true);
+		etiqueta1.setBorder(BorderFactory.createLineBorder(Color.black));
+		ventanaPrincipal.add(etiqueta1);
+		
+		//Área de texto
+		
+		JTextArea biografia = new JTextArea("Seleccione alguna opción de algún menú \n"
+				+ "en la barra de navegación, según la acción \n"
+				+ "que desee realizar.");
+		biografia.setBounds(110, 80, 260, 300);
+		biografia.setFont(etiquetas2);
+		biografia.setBackground(Color.cyan);
+		biografia.setOpaque(true);
+		ventanaPrincipal.add(biografia);
+
+		ventanaPrincipal.revalidate();
+		
+		return ventanaPrincipal;
+		
+	}
+
 }
