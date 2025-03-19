@@ -15,6 +15,7 @@ import java.awt.Graphics;
 import java.awt.Graphics2D;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.Window;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.image.BufferedImage;
@@ -2502,6 +2503,41 @@ public class Ventana extends JFrame{
 
 	public JPanel botonesAleatorios() {
 		
+		/*//BOTONES ALEATORIOS
+		
+		JPanel botonesAleatorios = new JPanel ();
+		botonesAleatorios.setSize(1000, 600);
+		botonesAleatorios.setLocation(0, 0);
+		botonesAleatorios.setLayout(null);
+		botonesAleatorios.setOpaque(true);
+		botonesAleatorios.setBackground(Color.GREEN);
+		
+		JButton principal = new JButton("Presióname");
+		principal.setBounds(170, 205, 150, 80);
+		principal.setFont(etiquetas3);
+		principal.setHorizontalAlignment(JLabel.CENTER);
+		principal.setBackground(Color.ORANGE);
+		botonesAleatorios.add(principal);
+		principal.addActionListener(new ActionListener() {//ActionListener
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				JButton principal = new JButton("Presióname");
+				principal.setSize(Rand.nextInt(150), Rand.nextInt(80));
+				principal.setLocation(Rand.nextInt(170), Rand.nextInt(205));
+				principal.setHorizontalAlignment(JLabel.CENTER);
+				principal.setBackground(new Color(Rand.nextInt(255), Rand.nextInt(255), Rand.nextInt(255)));
+				botonesAleatorios.add(principal);
+				
+				botonesAleatorios.repaint();
+				
+			}
+			
+		});*/
+		
+		/*//ALERTAS EN BOTONES ALEATORIOS
+		
 		JPanel botonesAleatorios = new JPanel ();
 		botonesAleatorios.setSize(1000, 600);
 		botonesAleatorios.setLocation(0, 0);
@@ -2540,6 +2576,62 @@ public class Ventana extends JFrame{
 					
 				});
 				
+				botonesAleatorios.repaint();
+				
+			}
+			
+		});*/
+		
+		//ELIMINAR BOTÓN ALEATORIO CON SHOWCONFIRMDIALOG
+		
+		JPanel botonesAleatorios = new JPanel ();//Se crea un panel
+		botonesAleatorios.setSize(1000, 600);//Se le establece el tamaño de la ventana al panel
+		botonesAleatorios.setLocation(0, 0);
+		botonesAleatorios.setLayout(null);
+		botonesAleatorios.setBackground(Color.GREEN);
+		
+		JButton principal = new JButton("Presióname");//Se crea el botón principal
+		principal.setBounds(170, 205, 150, 80);
+		principal.setFont(etiquetas3);
+		principal.setHorizontalAlignment(JLabel.CENTER);
+		principal.setBackground(Color.ORANGE);
+		botonesAleatorios.add(principal);
+		principal.addActionListener(new ActionListener() {//ActionListener al hacer click al botón principal
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				JButton aleatorio = new JButton("Botón: " + Rand.nextInt(255));//Se crea el botón con nombre aleatorio
+				aleatorio.setSize(Rand.nextInt(150), Rand.nextInt(80));//Se establece de manera aleatoria el tamaño del botón
+				aleatorio.setLocation(Rand.nextInt(170), Rand.nextInt(205));//Se establece de manera aleatoria la ubicación del botón
+				aleatorio.setHorizontalAlignment(JLabel.CENTER);//Se alinea al centro el texto del botón
+				aleatorio.setBackground(new Color(Rand.nextInt(255), Rand.nextInt(255), Rand.nextInt(255)));//Se establece de manera aleatoria el color del botón
+				botonesAleatorios.add(aleatorio);//Se añade el botón al panel
+				aleatorio.addActionListener(new ActionListener() {//ActionListener al hacer click al botón con nombre aleatorio
+					
+					@Override
+					public void actionPerformed(ActionEvent f) {
+						
+						int Selección = JOptionPane.showConfirmDialog(frame,//Se genera un ShowConfirmDialog
+							    ((JButton) f.getSource()).getText() + ": ¿Desea Eliminar el Botón?",
+							    "Eliminar el Botón",
+							    JOptionPane.YES_NO_OPTION);
+						
+						if (Selección == JOptionPane.YES_OPTION) {//De acuerdo a la respuesta seleccionada en el ShowConfirmDialog
+							botonesAleatorios.remove(aleatorio);//Si es "Sí", se elimina el botón
+							
+							botonesAleatorios.revalidate();
+							
+							botonesAleatorios.repaint();
+						}
+						else {
+							((Window) frame).dispose();//Si es "No", se cierra la ventana
+						}
+						
+					}
+					
+				});
+		
 				botonesAleatorios.repaint();
 				
 			}
