@@ -14,13 +14,39 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 import java.awt.Toolkit;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 //CLASE
 
 public class RompecabezasNumérico {
 
 	private JFrame frame;
-
+	
+	String[] númerosTablero = {"1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", ""};
+		   
+	List<String> listaNúmerosTablero = Arrays.asList(númerosTablero);
+	
+	JButton btnNewButton;
+	JButton btnNewButton_1;
+	JButton btnNewButton_2;
+	JButton btnNewButton_3;
+	JButton btnNewButton_4;
+	JButton btnNewButton_5;
+	JButton btnNewButton_6;
+	JButton btnNewButton_7;
+	JButton btnNewButton_8;
+	JButton btnNewButton_9;
+	JButton btnNewButton_10;
+	JButton btnNewButton_11;
+	JButton btnNewButton_12;
+	JButton btnNewButton_13;
+	JButton btnNewButton_14;
+	JButton btnNewButton_15;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -80,6 +106,16 @@ public class RompecabezasNumérico {
 		reiniciar.setBackground(Color.ORANGE);
 		reiniciar.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
 		marcoInferior.add(reiniciar);
+		reiniciar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				Collections.shuffle(listaNúmerosTablero);//Revolver números en el tablero
+				
+				}
+			
+			});
 		
 		//MARCO DE LA IZQUIERDA
 		
@@ -95,69 +131,503 @@ public class RompecabezasNumérico {
 		frame.getContentPane().add(tablero, BorderLayout.CENTER);
 		tablero.setLayout(new GridLayout(4, 4, 10, 10));
 		
-		JButton btnNewButton = new JButton("1");//Botón 1
+		Collections.shuffle(listaNúmerosTablero);//Revolver números en el tablero
+		btnNewButton.setText(listaNúmerosTablero.get(0));
+		btnNewButton_1.setText(listaNúmerosTablero.get(1));
+		btnNewButton_2.setText(listaNúmerosTablero.get(2));
+		btnNewButton_3.setText(listaNúmerosTablero.get(3));
+		btnNewButton_4.setText(listaNúmerosTablero.get(4));
+		btnNewButton_5.setText(listaNúmerosTablero.get(5));
+		btnNewButton_6.setText(listaNúmerosTablero.get(6));
+		btnNewButton_7.setText(listaNúmerosTablero.get(7));
+		btnNewButton_8.setText(listaNúmerosTablero.get(8));
+		btnNewButton_9.setText(listaNúmerosTablero.get(9));
+		btnNewButton_10.setText(listaNúmerosTablero.get(10));
+		btnNewButton_11.setText(listaNúmerosTablero.get(11));
+		btnNewButton_12.setText(listaNúmerosTablero.get(12));
+		btnNewButton_13.setText(listaNúmerosTablero.get(13));
+		btnNewButton_14.setText(listaNúmerosTablero.get(14));
+		btnNewButton_15.setText(listaNúmerosTablero.get(15));
+
+		btnNewButton = new JButton(númerosTablero[0]);//Botón 1
+		//btnNewButton.setText(listaNúmerosTablero.get(0));
 		btnNewButton.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton);
+		btnNewButton.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				 if(btnNewButton_1.getText().equals("")) {
+					 btnNewButton_1.setText(btnNewButton.getText());
+					 btnNewButton.setText("");
+				 }
+				 else if(btnNewButton_4.getText().equals("")) {
+					 btnNewButton_4.setText(btnNewButton.getText());
+					 btnNewButton.setText("");
+				 }
+				 
+				 tablero.revalidate();
+				 
+				 tablero.repaint();
+				 
+				}
+			
+			});
 		
-		JButton btnNewButton_1 = new JButton("2");//Botón 2
+		btnNewButton_1 = new JButton(númerosTablero[1]);//Botón 2
+		//btnNewButton_1.setText(listaNúmerosTablero.get(1));
 		btnNewButton_1.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton_1);
+		btnNewButton_2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				 if(btnNewButton.getText().equals("")) {
+					 btnNewButton.setText(btnNewButton_1.getText());
+					 btnNewButton_1.setText("");
+				 }
+				 else if(btnNewButton_2.getText().equals("")) {
+					 btnNewButton_2.setText(btnNewButton_1.getText());
+					 btnNewButton_1.setText("");
+				 }
+				 else if(btnNewButton_5.getText().equals("")) {
+					 btnNewButton_5.setText(btnNewButton_1.getText());
+					 btnNewButton_1.setText("");
+				 }
+				 
+				 tablero.revalidate();
+				 
+				 tablero.repaint();
+				 
+				}
+			
+			});
 		
-		JButton btnNewButton_2 = new JButton("3");//Botón 3
+		btnNewButton_2 = new JButton(númerosTablero[2]);//Botón 3
+		//btnNewButton_2.setText(listaNúmerosTablero.get(2));
 		btnNewButton_2.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton_2);
+		btnNewButton_2.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				 if(btnNewButton_1.getText().equals("")) {
+					 btnNewButton_1.setText(btnNewButton_2.getText());
+					 btnNewButton_2.setText("");
+				 }
+				 else if(btnNewButton_3.getText().equals("")) {
+					 btnNewButton_3.setText(btnNewButton_2.getText());
+					 btnNewButton_2.setText("");
+				 }
+				 else if(btnNewButton_6.getText().equals("")) {
+					 btnNewButton_6.setText(btnNewButton_2.getText());
+					 btnNewButton_2.setText("");
+				 }
+				 
+				 tablero.revalidate();
+				 
+				 tablero.repaint();
+				 
+				}
+			
+			});
 		
-		JButton btnNewButton_3 = new JButton("4");//Botón 4
+		btnNewButton_3 = new JButton(númerosTablero[3]);//Botón 4
+		//btnNewButton_3.setText(listaNúmerosTablero.get(3));
 		btnNewButton_3.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton_3);
+		btnNewButton_3.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				 if(btnNewButton_2.getText().equals("")) {
+					 btnNewButton_2.setText(btnNewButton_3.getText());
+					 btnNewButton_3.setText("");
+				 }
+				 else if(btnNewButton_7.getText().equals("")) {
+					 btnNewButton_7.setText(btnNewButton_3.getText());
+					 btnNewButton_3.setText("");
+				 }
+				 
+				 tablero.revalidate();
+				 
+				 tablero.repaint();
+				 
+				}
+			
+			});
 		
-		JButton btnNewButton_4 = new JButton("5");//Botón 5
+		btnNewButton_4 = new JButton(númerosTablero[4]);//Botón 5
+		//btnNewButton_4.setText(listaNúmerosTablero.get(4));
 		btnNewButton_4.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton_4);
+		btnNewButton_4.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				 if(btnNewButton.getText().equals("")) {
+					 btnNewButton.setText(btnNewButton_4.getText());
+					 btnNewButton_4.setText("");
+				 }
+				 else if(btnNewButton_5.getText().equals("")) {
+					 btnNewButton_5.setText(btnNewButton_4.getText());
+					 btnNewButton_4.setText("");
+				 }
+				 else if(btnNewButton_8.getText().equals("")) {
+					 btnNewButton_8.setText(btnNewButton_4.getText());
+					 btnNewButton_4.setText("");
+				 }
+				 
+				 tablero.revalidate();
+				 
+				 tablero.repaint();
+				 
+				}
+			
+			});
 		
-		JButton btnNewButton_5 = new JButton("6");//Botón 6
+		btnNewButton_5 = new JButton(númerosTablero[5]);//Botón 6
+		//btnNewButton_5.setText(listaNúmerosTablero.get(5));
 		btnNewButton_5.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton_5);
+		btnNewButton_5.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				 if(btnNewButton_4.getText().equals("")) {
+					 btnNewButton_4.setText(btnNewButton_5.getText());
+					 btnNewButton_5.setText("");
+				 }
+				 else if(btnNewButton_1.getText().equals("")) {
+					 btnNewButton_1.setText(btnNewButton_5.getText());
+					 btnNewButton_5.setText("");
+				 }
+				 else if(btnNewButton_6.getText().equals("")) {
+					 btnNewButton_6.setText(btnNewButton_5.getText());
+					 btnNewButton_5.setText("");
+				 }
+				 else if(btnNewButton_9.getText().equals("")) {
+					 btnNewButton_9.setText(btnNewButton_5.getText());
+					 btnNewButton_5.setText("");
+				 }
+				 
+				 tablero.revalidate();
+				 
+				 tablero.repaint();
+				 
+				}
+			
+			});
 		
-		JButton btnNewButton_6 = new JButton("7");//Botón 7
+		btnNewButton_6 = new JButton(númerosTablero[6]);//Botón 7
+		//btnNewButton_6.setText(listaNúmerosTablero.get(6));
 		btnNewButton_6.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton_6);
+		btnNewButton_6.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				 if(btnNewButton_5.getText().equals("")) {
+					 btnNewButton_5.setText(btnNewButton_6.getText());
+					 btnNewButton_6.setText("");
+				 }
+				 else if(btnNewButton_2.getText().equals("")) {
+					 btnNewButton_2.setText(btnNewButton_6.getText());
+					 btnNewButton_6.setText("");
+				 }
+				 else if(btnNewButton_7.getText().equals("")) {
+					 btnNewButton_7.setText(btnNewButton_6.getText());
+					 btnNewButton_6.setText("");
+				 }
+				 else if(btnNewButton_10.getText().equals("")) {
+					 btnNewButton_10.setText(btnNewButton_6.getText());
+					 btnNewButton_6.setText("");
+				 }
+				 
+				 tablero.revalidate();
+				 
+				 tablero.repaint();
+				 
+				}
+			
+			});
 		
-		JButton btnNewButton_7 = new JButton("8");//Botón 8
+		btnNewButton_7 = new JButton(númerosTablero[7]);//Botón 8
+		//btnNewButton_7.setText(listaNúmerosTablero.get(7));
 		btnNewButton_7.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton_7);
+		btnNewButton_7.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				 if(btnNewButton_3.getText().equals("")) {
+					 btnNewButton_3.setText(btnNewButton_7.getText());
+					 btnNewButton_7.setText("");
+				 }
+				 else if(btnNewButton_6.getText().equals("")) {
+					 btnNewButton_6.setText(btnNewButton_7.getText());
+					 btnNewButton_7.setText("");
+				 }
+				 else if(btnNewButton_11.getText().equals("")) {
+					 btnNewButton_11.setText(btnNewButton_7.getText());
+					 btnNewButton_7.setText("");
+				 }
+				
+				 
+				 tablero.revalidate();
+				 
+				 tablero.repaint();
+				 
+				}
+			
+			});
 		
-		JButton btnNewButton_8 = new JButton("9");//Botón 9
+		btnNewButton_8 = new JButton(númerosTablero[8]);//Botón 9
+		//btnNewButton_8.setText(listaNúmerosTablero.get(8));
 		btnNewButton_8.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton_8);
+		btnNewButton_8.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				 if(btnNewButton_4.getText().equals("")) {
+					 btnNewButton_4.setText(btnNewButton_8.getText());
+					 btnNewButton_8.setText("");
+				 }
+				 else if(btnNewButton_9.getText().equals("")) {
+					 btnNewButton_9.setText(btnNewButton_8.getText());
+					 btnNewButton_8.setText("");
+				 }
+				 else if(btnNewButton_12.getText().equals("")) {
+					 btnNewButton_12.setText(btnNewButton_8.getText());
+					 btnNewButton_8.setText("");
+				 }
+				
+				 tablero.revalidate();
+				 
+				 tablero.repaint();
+				 
+				}
+			
+			});
 		
-		JButton btnNewButton_9 = new JButton("10");//Botón 10
+		btnNewButton_9 = new JButton(númerosTablero[9]);//Botón 10
+		//btnNewButton_9.setText(listaNúmerosTablero.get(9));
 		btnNewButton_9.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton_9);
+		btnNewButton_9.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				 if(btnNewButton_8.getText().equals("")) {
+					 btnNewButton_8.setText(btnNewButton_9.getText());
+					 btnNewButton_9.setText("");
+				 }
+				 else if(btnNewButton_5.getText().equals("")) {
+					 btnNewButton_5.setText(btnNewButton_9.getText());
+					 btnNewButton_9.setText("");
+				 }
+				 else if(btnNewButton_10.getText().equals("")) {
+					 btnNewButton_10.setText(btnNewButton_9.getText());
+					 btnNewButton_9.setText("");
+				 }
+				 else if(btnNewButton_13.getText().equals("")) {
+					 btnNewButton_13.setText(btnNewButton_9.getText());
+					 btnNewButton_9.setText("");
+				 }
+				 
+				 tablero.revalidate();
+				 
+				 tablero.repaint();
+				 
+				}
+			
+			});
 		
-		JButton btnNewButton_10 = new JButton("11");//Botón 11
+		btnNewButton_10 = new JButton(númerosTablero[10]);//Botón 11
+		//btnNewButton_10.setText(listaNúmerosTablero.get(10));
 		btnNewButton_10.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton_10);
+		btnNewButton_10.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				 if(btnNewButton_9.getText().equals("")) {
+					 btnNewButton_9.setText(btnNewButton_10.getText());
+					 btnNewButton_10.setText("");
+				 }
+				 else if(btnNewButton_6.getText().equals("")) {
+					 btnNewButton_6.setText(btnNewButton_10.getText());
+					 btnNewButton_10.setText("");
+				 }
+				 else if(btnNewButton_11.getText().equals("")) {
+					 btnNewButton_11.setText(btnNewButton_10.getText());
+					 btnNewButton_10.setText("");
+				 }
+				 else if(btnNewButton_14.getText().equals("")) {
+					 btnNewButton_14.setText(btnNewButton_10.getText());
+					 btnNewButton_10.setText("");
+				 }
+				 
+				 tablero.revalidate();
+				 
+				 tablero.repaint();
+				 
+				}
+			
+			});
 		
-		JButton btnNewButton_11 = new JButton("12");//Botón 12
+		btnNewButton_11 = new JButton(númerosTablero[11]);//Botón 12
+		//btnNewButton_11.setText(listaNúmerosTablero.get(11));
 		btnNewButton_11.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton_11);
+		btnNewButton_11.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				 if(btnNewButton_10.getText().equals("")) {
+					 btnNewButton_10.setText(btnNewButton_11.getText());
+					 btnNewButton_11.setText("");
+				 }
+				 else if(btnNewButton_7.getText().equals("")) {
+					 btnNewButton_7.setText(btnNewButton_11.getText());
+					 btnNewButton_11.setText("");
+				 }
+				 else if(btnNewButton_15.getText().equals("")) {
+					 btnNewButton_15.setText(btnNewButton_11.getText());
+					 btnNewButton_11.setText("");
+				 }
+				 
+				 tablero.revalidate();
+				 
+				 tablero.repaint();
+				 
+				}
+			
+			});
 		
-		JButton btnNewButton_12 = new JButton("13");//Botón 13
+		btnNewButton_12 = new JButton(númerosTablero[12]);//Botón 13
+		//btnNewButton_12.setText(listaNúmerosTablero.get(12));
 		btnNewButton_12.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton_12);
+		btnNewButton_12.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				 if(btnNewButton_8.getText().equals("")) {
+					 btnNewButton_8.setText(btnNewButton_12.getText());
+					 btnNewButton_12.setText("");
+				 }
+				 else if(btnNewButton_13.getText().equals("")) {
+					 btnNewButton_13.setText(btnNewButton_12.getText());
+					 btnNewButton_12.setText("");
+				 }
+				 
+				 tablero.revalidate();
+				 
+				 tablero.repaint();
+				 
+				}
+			
+			});
 		
-		JButton btnNewButton_13 = new JButton("14");//Botón 14
+		btnNewButton_13 = new JButton(númerosTablero[13]);//Botón 14
+		//btnNewButton_13.setText(listaNúmerosTablero.get(13));
 		btnNewButton_13.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton_13);
+		btnNewButton_13.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				 if(btnNewButton_12.getText().equals("")) {
+					 btnNewButton_12.setText(btnNewButton_13.getText());
+					 btnNewButton_13.setText("");
+				 }
+				 else if(btnNewButton_9.getText().equals("")) {
+					 btnNewButton_9.setText(btnNewButton_13.getText());
+					 btnNewButton_13.setText("");
+				 }
+				 else if(btnNewButton_14.getText().equals("")) {
+					 btnNewButton_14.setText(btnNewButton_13.getText());
+					 btnNewButton_13.setText("");
+				 }
+				 
+				 tablero.revalidate();
+				 
+				 tablero.repaint();
+				 
+				}
+			
+			});
 		
-		JButton btnNewButton_14 = new JButton("15");//Botón 15
+		btnNewButton_14 = new JButton(númerosTablero[14]);//Botón 15
+		//btnNewButton_14.setText(listaNúmerosTablero.get(14));
 		btnNewButton_14.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton_14);
+		btnNewButton_14.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				 if(btnNewButton_13.getText().equals("")) {
+					 btnNewButton_13.setText(btnNewButton_14.getText());
+					 btnNewButton_14.setText("");
+				 }
+				 else if(btnNewButton_10.getText().equals("")) {
+					 btnNewButton_10.setText(btnNewButton_14.getText());
+					 btnNewButton_14.setText("");
+				 }
+				 else if(btnNewButton_15.getText().equals("")) {
+					 btnNewButton_15.setText(btnNewButton_14.getText());
+					 btnNewButton_14.setText("");
+				 }
+				 
+				 tablero.revalidate();
+				 
+				 tablero.repaint();
+				 
+				}
+			
+			});
 		
-		JButton btnNewButton_15 = new JButton("");//Botón 16
+		btnNewButton_15 = new JButton(númerosTablero[15]);//Botón 16
+		//btnNewButton_15.setText(listaNúmerosTablero.get(15));
 		btnNewButton_15.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton_15);
+		btnNewButton_15.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				 if(btnNewButton_14.getText().equals("")) {
+					 btnNewButton_14.setText(btnNewButton_15.getText());
+					 btnNewButton_15.setText("");
+				 }
+				 else if(btnNewButton_11.getText().equals("")) {
+					 btnNewButton_11.setText(btnNewButton_15.getText());
+					 btnNewButton_15.setText("");
+				 }
+				
+				 tablero.revalidate();
+				 
+				 tablero.repaint();
+				 
+				}
+			
+			});
 		
 	}
 

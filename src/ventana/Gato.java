@@ -130,6 +130,7 @@ public class Gato {
 				btnNewButton.setText(Jugador);
 				btnNewButton.setEnabled(false);
 				verificarGanador();
+				
 			}
 			
 		});
