@@ -1,13 +1,11 @@
 package ventana;
 
 import java.awt.EventQueue;
-
 import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import java.awt.GridLayout;
-
 import javax.swing.BorderFactory;
 import javax.swing.ImageIcon;
 import javax.swing.JButton;
@@ -113,7 +111,6 @@ public class Gato {
 					Jugador = "X";
 					
 					btnNewButton.setIcon(new ImageIcon(Gato.class.getResource("/ventana/X Corp.png")));
-					
 					btnNewButton.setDisabledIcon(new ImageIcon(Gato.class.getResource("/ventana/X Corp.png")));
 					
 					Contador_Jugadas++;
@@ -124,7 +121,6 @@ public class Gato {
 					Jugador = "O";
 					
 					btnNewButton.setIcon(new ImageIcon(Gato.class.getResource("/ventana/Opera Software.png")));
-					
 					btnNewButton.setDisabledIcon(new ImageIcon(Gato.class.getResource("/ventana/Opera Software.png")));
 					
 					Contador_Jugadas++;
@@ -154,7 +150,6 @@ public class Gato {
 					Jugador = "X";
 					
 					btnNewButton_1.setIcon(new ImageIcon(Gato.class.getResource("/ventana/X Corp.png")));
-					
 					btnNewButton_1.setDisabledIcon(new ImageIcon(Gato.class.getResource("/ventana/X Corp.png")));
 					
 					Contador_Jugadas++;
@@ -165,7 +160,6 @@ public class Gato {
 					Jugador = "O";
 					
 					btnNewButton_1.setIcon(new ImageIcon(Gato.class.getResource("/ventana/Opera Software.png")));
-					
 					btnNewButton_1.setDisabledIcon(new ImageIcon(Gato.class.getResource("/ventana/Opera Software.png")));
 					
 					Contador_Jugadas++;
@@ -195,7 +189,6 @@ public class Gato {
 					Jugador = "X";
 					
 					btnNewButton_2.setIcon(new ImageIcon(Gato.class.getResource("/ventana/X Corp.png")));
-					
 					btnNewButton_2.setDisabledIcon(new ImageIcon(Gato.class.getResource("/ventana/X Corp.png")));
 					
 					Contador_Jugadas++;
@@ -206,7 +199,6 @@ public class Gato {
 					Jugador = "O";
 					
 					btnNewButton_2.setIcon(new ImageIcon(Gato.class.getResource("/ventana/Opera Software.png")));
-					
 					btnNewButton_2.setDisabledIcon(new ImageIcon(Gato.class.getResource("/ventana/Opera Software.png")));
 					
 					Contador_Jugadas++;
@@ -236,7 +228,6 @@ public class Gato {
 					Jugador = "X";
 					
 					btnNewButton_3.setIcon(new ImageIcon(Gato.class.getResource("/ventana/X Corp.png")));
-					
 					btnNewButton_3.setDisabledIcon(new ImageIcon(Gato.class.getResource("/ventana/X Corp.png")));
 					
 					Contador_Jugadas++;
@@ -247,7 +238,6 @@ public class Gato {
 					Jugador = "O";
 					
 					btnNewButton_3.setIcon(new ImageIcon(Gato.class.getResource("/ventana/Opera Software.png")));
-					
 					btnNewButton_3.setDisabledIcon(new ImageIcon(Gato.class.getResource("/ventana/Opera Software.png")));
 					
 					Contador_Jugadas++;
@@ -277,7 +267,6 @@ public class Gato {
 					Jugador = "X";
 					
 					btnNewButton_4.setIcon(new ImageIcon(Gato.class.getResource("/ventana/X Corp.png")));
-					
 					btnNewButton_4.setDisabledIcon(new ImageIcon(Gato.class.getResource("/ventana/X Corp.png")));
 					
 					Contador_Jugadas++;
@@ -288,7 +277,6 @@ public class Gato {
 					Jugador = "O";
 					
 					btnNewButton_4.setIcon(new ImageIcon(Gato.class.getResource("/ventana/Opera Software.png")));
-					
 					btnNewButton_4.setDisabledIcon(new ImageIcon(Gato.class.getResource("/ventana/Opera Software.png")));
 					
 					Contador_Jugadas++;
@@ -318,7 +306,6 @@ public class Gato {
 					Jugador = "X";
 					
 					btnNewButton_5.setIcon(new ImageIcon(Gato.class.getResource("/ventana/X Corp.png")));
-					
 					btnNewButton_5.setDisabledIcon(new ImageIcon(Gato.class.getResource("/ventana/X Corp.png")));
 					
 					Contador_Jugadas++;
@@ -329,7 +316,6 @@ public class Gato {
 					Jugador = "O";
 					
 					btnNewButton_5.setIcon(new ImageIcon(Gato.class.getResource("/ventana/Opera Software.png")));
-					
 					btnNewButton_5.setDisabledIcon(new ImageIcon(Gato.class.getResource("/ventana/Opera Software.png")));
 					
 					Contador_Jugadas++;
@@ -359,7 +345,6 @@ public class Gato {
 					Jugador = "X";
 					
 					btnNewButton_6.setIcon(new ImageIcon(Gato.class.getResource("/ventana/X Corp.png")));
-					
 					btnNewButton_6.setDisabledIcon(new ImageIcon(Gato.class.getResource("/ventana/X Corp.png")));
 					
 					Contador_Jugadas++;
@@ -370,7 +355,6 @@ public class Gato {
 					Jugador = "O";
 					
 					btnNewButton_6.setIcon(new ImageIcon(Gato.class.getResource("/ventana/Opera Software.png")));
-					
 					btnNewButton_6.setDisabledIcon(new ImageIcon(Gato.class.getResource("/ventana/Opera Software.png")));
 					
 					Contador_Jugadas++;
@@ -400,7 +384,6 @@ public class Gato {
 					Jugador = "X";
 					
 					btnNewButton_7.setIcon(new ImageIcon(Gato.class.getResource("/ventana/X Corp.png")));
-					
 					btnNewButton_7.setDisabledIcon(new ImageIcon(Gato.class.getResource("/ventana/X Corp.png")));
 					
 					Contador_Jugadas++;
@@ -411,7 +394,6 @@ public class Gato {
 					Jugador = "O";
 					
 					btnNewButton_7.setIcon(new ImageIcon(Gato.class.getResource("/ventana/Opera Software.png")));
-					
 					btnNewButton_7.setDisabledIcon(new ImageIcon(Gato.class.getResource("/ventana/Opera Software.png")));
 					
 					Contador_Jugadas++;
@@ -441,7 +423,6 @@ public class Gato {
 					Jugador = "X";
 					
 					btnNewButton_8.setIcon(new ImageIcon(Gato.class.getResource("/ventana/X Corp.png")));
-					
 					btnNewButton_8.setDisabledIcon(new ImageIcon(Gato.class.getResource("/ventana/X Corp.png")));
 					
 					Contador_Jugadas++;
@@ -452,7 +433,6 @@ public class Gato {
 					Jugador = "O";
 					
 					btnNewButton_8.setIcon(new ImageIcon(Gato.class.getResource("/ventana/Opera Software.png")));
-					
 					btnNewButton_8.setDisabledIcon(new ImageIcon(Gato.class.getResource("/ventana/Opera Software.png")));
 					
 					Contador_Jugadas++;
@@ -466,7 +446,7 @@ public class Gato {
 			
 		});
 		
-		panel_1 = new JPanel();
+		panel_1 = new JPanel();//Área del marcador
 		panel_1.setBackground(Color.decode("#04a4a6"));
 		panel_1.setBorder(BorderFactory.createLineBorder(Color.black,10));
 		frmGato.getContentPane().add(panel_1, BorderLayout.NORTH);
@@ -484,12 +464,12 @@ public class Gato {
 		lblNewLabel_1.setHorizontalAlignment(JLabel.CENTER);
 		panel_1.add(lblNewLabel_1);
 		
-		panel_2 = new JPanel();
+		panel_2 = new JPanel();//Área del botón reiniciar
 		panel_2.setBackground(Color.decode("#04a4a6"));
 		panel_2.setBorder(BorderFactory.createLineBorder(Color.black,10));
 		frmGato.getContentPane().add(panel_2, BorderLayout.SOUTH);
 		
-		btnNewButton_9 = new JButton("Reiniciar");//Botón: Reiniciar
+		btnNewButton_9 = new JButton("Reiniciar");//Botón Reiniciar
 		btnNewButton_9.setPreferredSize(new Dimension(80, 25));
 		btnNewButton_9.setBackground(Color.ORANGE);
 		btnNewButton_9.setFont(new Font("Tahoma", Font.BOLD, 10));
