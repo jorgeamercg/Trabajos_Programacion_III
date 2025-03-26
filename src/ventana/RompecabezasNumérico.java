@@ -6,6 +6,8 @@ package ventana;
 
 import java.awt.EventQueue;
 import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import java.awt.BorderLayout;
 import javax.swing.BorderFactory;
@@ -19,6 +21,8 @@ import java.awt.event.ActionListener;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
+import javax.swing.Timer;
+import java.awt.Font;
 
 //CLASE
 
@@ -46,6 +50,12 @@ public class RompecabezasNumérico {
 	JButton btnNewButton_13;
 	JButton btnNewButton_14;
 	JButton btnNewButton_15;
+	
+	JLabel etiquetaTemporizador;
+	
+	int centésimas = 0;
+	
+	Timer temporizador;
 	
 	/**
 	 * Launch the application.
@@ -89,6 +99,29 @@ public class RompecabezasNumérico {
 		marcoSuperior.setBackground(new Color(0, 128, 128));
 		frame.getContentPane().add(marcoSuperior, BorderLayout.NORTH);
 		
+		etiquetaTemporizador = new JLabel("|Tiempo: 00:00:00:00|");//Etiqueta del tiempo
+		etiquetaTemporizador.setForeground(new Color(0, 0, 0));
+		etiquetaTemporizador.setFont(new Font("Tahoma", Font.BOLD, 20));
+		marcoSuperior.add(etiquetaTemporizador);
+		
+		int delay = 10;//Temporizador
+		
+        ActionListener taskPerformer = new ActionListener() {
+        	
+        	@Override
+            public void actionPerformed(ActionEvent evt) {
+            	
+                centésimas++;//Aumenta en 1 centésima cada 10ms
+                actualizarEtiquetaTemporizador();
+                
+            }
+            
+        };
+
+        temporizador = new Timer(delay, taskPerformer);
+        		
+        temporizador.start();//Inicia el temporizador
+		
 		//MARCO DE LA DERECHA
 		
 		JPanel marcoDerecha = new JPanel();//Panel
@@ -111,40 +144,105 @@ public class RompecabezasNumérico {
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
+		        temporizador.stop();//Detener el temporizador
+		        
+		        centésimas = 0;//Reiniciar el contador de centésimas
+		        
+		        actualizarEtiquetaTemporizador();//Actualizar la etiqueta del temporizador
+		        
+		        temporizador.start();//Iniciar el temporizador
+				
 				Collections.shuffle(listaNúmerosTablero);//Revolver números en el tablero
 				
 				btnNewButton.setText(listaNúmerosTablero.get(0));//Reescribir botón 1
-				
 				btnNewButton_1.setText(listaNúmerosTablero.get(1));//Reescribir botón 2
-				
 				btnNewButton_2.setText(listaNúmerosTablero.get(2));//Reescribir botón 3
-				
 				btnNewButton_3.setText(listaNúmerosTablero.get(3));//Reescribir botón 4
-				
 				btnNewButton_4.setText(listaNúmerosTablero.get(4));//Reescribir botón 5
-				
 				btnNewButton_5.setText(listaNúmerosTablero.get(5));//Reescribir botón 6
-				
 				btnNewButton_6.setText(listaNúmerosTablero.get(6));//Reescribir botón 7
-				
 				btnNewButton_7.setText(listaNúmerosTablero.get(7));//Reescribir botón 8
-				
 				btnNewButton_8.setText(listaNúmerosTablero.get(8));//Reescribir botón 9
-				
 				btnNewButton_9.setText(listaNúmerosTablero.get(9));//Reescribir botón 10
-				
 				btnNewButton_10.setText(listaNúmerosTablero.get(10));//Reescribir botón 11
-				
 				btnNewButton_11.setText(listaNúmerosTablero.get(11));//Reescribir botón 12
-				
 				btnNewButton_12.setText(listaNúmerosTablero.get(12));//Reescribir botón 13
-				
 				btnNewButton_13.setText(listaNúmerosTablero.get(13));//Reescribir botón 14
-				
 				btnNewButton_14.setText(listaNúmerosTablero.get(14));//Reescribir botón 15
-				
 				btnNewButton_15.setText(listaNúmerosTablero.get(15));//Reescribir botón 16
 				
+				}
+			
+			});
+		
+		JButton pausar = new JButton("Pausar");//Botón Pausar
+		pausar.setPreferredSize(new Dimension(80, 25));
+		pausar.setBackground(Color.ORANGE);
+		pausar.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+		marcoInferior.add(pausar);
+		pausar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				temporizador.stop();
+				
+				btnNewButton.setEnabled(false);//Desactiva el botón 1
+				btnNewButton_1.setEnabled(false);//Desactiva el botón 2
+				btnNewButton_2.setEnabled(false);//Desactiva el botón 3
+				btnNewButton_3.setEnabled(false);//Desactiva el botón 4
+				btnNewButton_4.setEnabled(false);//Desactiva el botón 5
+				btnNewButton_5.setEnabled(false);//Desactiva el botón 6
+				btnNewButton_6.setEnabled(false);//Desactiva el botón 7
+				btnNewButton_7.setEnabled(false);//Desactiva el botón 8
+				btnNewButton_8.setEnabled(false);//Desactiva el botón 9
+				btnNewButton_9.setEnabled(false);//Desactiva el botón 10
+				btnNewButton_10.setEnabled(false);//Desactiva el botón 11
+				btnNewButton_11.setEnabled(false);//Desactiva el botón 12
+				btnNewButton_12.setEnabled(false);//Desactiva el botón 13
+				btnNewButton_13.setEnabled(false);//Desactiva el botón 14
+				btnNewButton_14.setEnabled(false);//Desactiva el botón 15
+				btnNewButton_15.setEnabled(false);//Desactiva el botón 16
+				
+		        pausar.setEnabled(false);//Desactiva el botón "Pausar"
+		        reiniciar.setEnabled(false);//Desactiva el botón "Reiniciar"
+				 
+				}
+			
+			});
+		
+		JButton reanudar = new JButton("Reanudar");//Botón Reanudar
+		reanudar.setPreferredSize(new Dimension(80, 25));
+		reanudar.setBackground(Color.ORANGE);
+		reanudar.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
+		marcoInferior.add(reanudar);
+		reanudar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				temporizador.start();
+				
+				btnNewButton.setEnabled(true);//Activa el botón 1
+				btnNewButton_1.setEnabled(true);//Activa el botón 2
+				btnNewButton_2.setEnabled(true);//Activa el botón 3
+				btnNewButton_3.setEnabled(true);//Activa el botón 4
+				btnNewButton_4.setEnabled(true);//Activa el botón 5
+				btnNewButton_5.setEnabled(true);//Activa el botón 6
+				btnNewButton_6.setEnabled(true);//Activa el botón 7
+				btnNewButton_7.setEnabled(true);//Activa el botón 8
+				btnNewButton_8.setEnabled(true);//Activa el botón 9
+				btnNewButton_9.setEnabled(true);//Activa el botón 10
+				btnNewButton_10.setEnabled(true);//Activa el botón 11
+				btnNewButton_11.setEnabled(true);//Activa el botón 12
+				btnNewButton_12.setEnabled(true);//Activa el botón 13
+				btnNewButton_13.setEnabled(true);//Activa el botón 14
+				btnNewButton_14.setEnabled(true);//Activa el botón 15
+				btnNewButton_15.setEnabled(true);//Activa el botón 16
+				
+		        pausar.setEnabled(true);//Activa el botón "Pausar"
+		        reiniciar.setEnabled(true);//Activa el botón "Reiniciar"
+				 
 				}
 			
 			});
@@ -166,6 +264,7 @@ public class RompecabezasNumérico {
 		Collections.shuffle(listaNúmerosTablero);//Revolver números en el tablero
 		
 		btnNewButton = new JButton(listaNúmerosTablero.get(0));//Botón 1
+		btnNewButton.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnNewButton.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton);
 		btnNewButton.addActionListener(new ActionListener() {
@@ -188,11 +287,14 @@ public class RompecabezasNumérico {
 				 
 				 tablero.repaint();
 				 
+				 verificarGanador();
+				 
 				}
 			
 			});
 		
 		btnNewButton_1 = new JButton(listaNúmerosTablero.get(1));//Botón 2
+		btnNewButton_1.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnNewButton_1.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton_1);
 		btnNewButton_1.addActionListener(new ActionListener() {
@@ -220,11 +322,14 @@ public class RompecabezasNumérico {
 				 
 				 tablero.repaint();
 				 
+				 verificarGanador();
+				 
 				}
 			
 			});
 		
 		btnNewButton_2 = new JButton(listaNúmerosTablero.get(2));//Botón 3
+		btnNewButton_2.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnNewButton_2.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton_2);
 		btnNewButton_2.addActionListener(new ActionListener() {
@@ -252,11 +357,14 @@ public class RompecabezasNumérico {
 				 
 				 tablero.repaint();
 				 
+				 verificarGanador();
+				 
 				}
 			
 			});
 		
 		btnNewButton_3 = new JButton(listaNúmerosTablero.get(3));//Botón 4
+		btnNewButton_3.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnNewButton_3.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton_3);
 		btnNewButton_3.addActionListener(new ActionListener() {
@@ -279,11 +387,14 @@ public class RompecabezasNumérico {
 				 
 				 tablero.repaint();
 				 
+				 verificarGanador();
+				 
 				}
 			
 			});
 		
 		btnNewButton_4 = new JButton(listaNúmerosTablero.get(4));//Botón 5
+		btnNewButton_4.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnNewButton_4.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton_4);
 		btnNewButton_4.addActionListener(new ActionListener() {
@@ -311,11 +422,14 @@ public class RompecabezasNumérico {
 				 
 				 tablero.repaint();
 				 
+				 verificarGanador();
+				 
 				}
 			
 			});
 		
 		btnNewButton_5 = new JButton(listaNúmerosTablero.get(5));//Botón 6
+		btnNewButton_5.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnNewButton_5.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton_5);
 		btnNewButton_5.addActionListener(new ActionListener() {
@@ -348,11 +462,14 @@ public class RompecabezasNumérico {
 				 
 				 tablero.repaint();
 				 
+				 verificarGanador();
+				 
 				}
 			
 			});
 		
 		btnNewButton_6 = new JButton(listaNúmerosTablero.get(6));//Botón 7
+		btnNewButton_6.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnNewButton_6.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton_6);
 		btnNewButton_6.addActionListener(new ActionListener() {
@@ -385,11 +502,14 @@ public class RompecabezasNumérico {
 				 
 				 tablero.repaint();
 				 
+				 verificarGanador();
+				 
 				}
 			
 			});
 		
 		btnNewButton_7 = new JButton(listaNúmerosTablero.get(7));//Botón 8
+		btnNewButton_7.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnNewButton_7.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton_7);
 		btnNewButton_7.addActionListener(new ActionListener() {
@@ -417,11 +537,14 @@ public class RompecabezasNumérico {
 				 
 				 tablero.repaint();
 				 
+				 verificarGanador();
+				 
 				}
 			
 			});
 		
 		btnNewButton_8 = new JButton(listaNúmerosTablero.get(8));//Botón 9
+		btnNewButton_8.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnNewButton_8.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton_8);
 		btnNewButton_8.addActionListener(new ActionListener() {
@@ -449,11 +572,14 @@ public class RompecabezasNumérico {
 				 
 				 tablero.repaint();
 				 
+				 verificarGanador();
+				 
 				}
 			
 			});
 		
 		btnNewButton_9 = new JButton(listaNúmerosTablero.get(9));//Botón 10
+		btnNewButton_9.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnNewButton_9.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton_9);
 		btnNewButton_9.addActionListener(new ActionListener() {
@@ -485,11 +611,14 @@ public class RompecabezasNumérico {
 				 
 				 tablero.repaint();
 				 
+				 verificarGanador();
+				 
 				}
 			
 			});
 		
 		btnNewButton_10 = new JButton(listaNúmerosTablero.get(10));//Botón 11
+		btnNewButton_10.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnNewButton_10.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton_10);
 		btnNewButton_10.addActionListener(new ActionListener() {
@@ -522,11 +651,14 @@ public class RompecabezasNumérico {
 				 
 				 tablero.repaint();
 				 
+				 verificarGanador();
+				 
 				}
 			
 			});
 		
 		btnNewButton_11 = new JButton(listaNúmerosTablero.get(11));//Botón 12
+		btnNewButton_11.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnNewButton_11.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton_11);
 		btnNewButton_11.addActionListener(new ActionListener() {
@@ -554,11 +686,14 @@ public class RompecabezasNumérico {
 				 
 				 tablero.repaint();
 				 
+				 verificarGanador();
+				 
 				}
 			
 			});
 		
 		btnNewButton_12 = new JButton(listaNúmerosTablero.get(12));//Botón 13
+		btnNewButton_12.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnNewButton_12.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton_12);
 		btnNewButton_12.addActionListener(new ActionListener() {
@@ -581,11 +716,14 @@ public class RompecabezasNumérico {
 				 
 				 tablero.repaint();
 				 
+				 verificarGanador();
+				 
 				}
 			
 			});
 		
 		btnNewButton_13 = new JButton(listaNúmerosTablero.get(13));//Botón 14
+		btnNewButton_13.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnNewButton_13.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton_13);
 		btnNewButton_13.addActionListener(new ActionListener() {
@@ -613,11 +751,14 @@ public class RompecabezasNumérico {
 				 
 				 tablero.repaint();
 				 
+				 verificarGanador();
+				 
 				}
 			
 			});
 		
 		btnNewButton_14 = new JButton(listaNúmerosTablero.get(14));//Botón 15
+		btnNewButton_14.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnNewButton_14.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton_14);
 		btnNewButton_14.addActionListener(new ActionListener() {
@@ -645,11 +786,14 @@ public class RompecabezasNumérico {
 				 
 				 tablero.repaint();
 				 
+				 verificarGanador();
+				 
 				}
 			
 			});
 		
 		btnNewButton_15 = new JButton(listaNúmerosTablero.get(15));//Botón 16
+		btnNewButton_15.setFont(new Font("Tahoma", Font.BOLD, 20));
 		btnNewButton_15.setBackground(new Color(192, 192, 192));
 		tablero.add(btnNewButton_15);
 		btnNewButton_15.addActionListener(new ActionListener() {
@@ -672,10 +816,52 @@ public class RompecabezasNumérico {
 				 
 				 tablero.repaint();
 				 
+				 verificarGanador();
+				 
 				}
 			
 			});
 		
 	}
+
+    private void actualizarEtiquetaTemporizador() {
+    	
+        int horas = (centésimas / 360000);
+        int minutos = (centésimas / 6000) % 60;
+        int segundos = (centésimas / 100) % 60;
+        int cent = centésimas % 100;
+
+        String tiempo = String.format("|Tiempo: %02d:%02d:%02d:%02d|", horas, minutos, segundos, cent);
+        etiquetaTemporizador.setText(tiempo);
+        
+    }
+    
+    private void verificarGanador() {
+    	
+    	if (btnNewButton.getText().equals("1") &&
+			btnNewButton_1.getText().equals("2") &&
+			btnNewButton_2.getText().equals("3") &&
+			btnNewButton_3.getText().equals("4") &&
+			btnNewButton_4.getText().equals("5") &&
+			btnNewButton_5.getText().equals("6") &&
+			btnNewButton_6.getText().equals("7") &&
+			btnNewButton_7.getText().equals("8") &&
+			btnNewButton_8.getText().equals("9") &&
+			btnNewButton_9.getText().equals("10") &&
+			btnNewButton_10.getText().equals("11") &&
+			btnNewButton_11.getText().equals("12") &&
+			btnNewButton_12.getText().equals("13") &&
+			btnNewButton_13.getText().equals("14") &&
+			btnNewButton_14.getText().equals("15") &&
+			btnNewButton_15.getText().equals("")){
+	    		temporizador.stop();
+	    		
+	    		JOptionPane.showMessageDialog(frame,
+					    "Has Completado el Juego, !Felicidades¡",
+					    "Verificación de Ganador",
+					    JOptionPane.PLAIN_MESSAGE);
+			}
+    
+    }
 
 }
