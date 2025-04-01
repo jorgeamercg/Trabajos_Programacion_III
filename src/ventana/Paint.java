@@ -1,25 +1,47 @@
 package ventana;
 
 import java.awt.EventQueue;
+import java.awt.Graphics;
+import java.awt.Graphics2D;
 import java.awt.Toolkit;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
+import java.awt.BasicStroke;
 import java.awt.Color;
 import java.awt.event.ActionListener;
+import java.awt.event.MouseEvent;
+import java.awt.event.MouseListener;
+import java.awt.event.MouseMotionListener;
+import java.util.ArrayList;
+import java.util.List;
 import java.awt.event.ActionEvent;
 import javax.swing.ImageIcon;
 import javax.swing.JLabel;
 import java.awt.Dimension;
 import java.awt.GridLayout;
+import java.awt.Point;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
 
-public class Paint {
+public class Paint implements MouseListener, MouseMotionListener{
 
 	private JFrame frmPaint;
+	
 	private JTextField código;
+	
+	private PaintPanel lienzo;
+	
+	private ArrayList<Point> puntos = new ArrayList<Point>();
+	
+	List<Trazo> listaDePuntos = new ArrayList<>();
+	
+	int tamaño = 0;
+	
+	private Color color = Color.BLACK;//El color es negro por defecto
+	
+	private boolean pincelActivo = false;
 
 	/**
 	 * Launch the application.
@@ -55,10 +77,16 @@ public class Paint {
 		frmPaint.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		frmPaint.getContentPane().setLayout(null);
 		
-		JPanel lienzo = new JPanel();
+		//LIENZO
+		
+		lienzo = new PaintPanel();
 		lienzo.setBounds(204, 0, 840, 549);
 		lienzo.setBorder(BorderFactory.createTitledBorder("Lienzo"));
 		frmPaint.getContentPane().add(lienzo);
+		lienzo.addMouseListener(this);
+		lienzo.addMouseMotionListener(this);
+		
+		//HERRAMIENTAS
 		
 		JPanel herramientas = new JPanel();
 		herramientas.setBackground(new Color(192, 192, 192));
@@ -67,6 +95,8 @@ public class Paint {
 		frmPaint.getContentPane().add(herramientas);
 		herramientas.setLayout(null);
 		
+		//Dibujo
+		
 		JPanel dibujo = new JPanel();
 		dibujo.setBackground(new Color(192, 192, 192));
 		dibujo.setBounds(10, 20, 185, 254);
@@ -74,34 +104,44 @@ public class Paint {
 		herramientas.add(dibujo);
 		dibujo.setLayout(null);
 		
+		//Pincel
+		
 		JButton pincel = new JButton("Pincel");
-		pincel.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		pincel.setIcon(new ImageIcon(Paint.class.getResource("/ventana/Pincel.png")));
 		pincel.setBackground(new Color(128, 128, 128));
 		pincel.setBounds(33, 47, 122, 21);
 		pincel.setBorder(BorderFactory.createLineBorder(Color.decode("#bacbdb")));
 		dibujo.add(pincel);
+		pincel.addActionListener(new ActionListener() {
+			
+		    @Override
+		    public void actionPerformed(ActionEvent e) {
+		    	
+		    	pincelActivo = !pincelActivo;//Cambia entre activo/inactivo
+		    	
+		        pincel.setBackground(pincelActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		    	
+		    }
+		    
+		});
+		
+		//Borrador
 		
 		JButton borrador = new JButton("Borrador");
-		borrador.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		borrador.setIcon(new ImageIcon(Paint.class.getResource("/ventana/Borrador.png")));
 		borrador.setBackground(new Color(128, 128, 128));
 		borrador.setBounds(33, 108, 122, 21);
 		borrador.setBorder(BorderFactory.createLineBorder(Color.decode("#bacbdb")));
 		dibujo.add(borrador);
 		
+		//Grosor
+		
 		JLabel grosor = new JLabel("Grosor");
 		grosor.setBounds(69, 161, 45, 13);
 		grosor.setHorizontalAlignment(JLabel.CENTER);
 		dibujo.add(grosor);
 		
-		JLabel tamañoGrosor = new JLabel("5");
+		JLabel tamañoGrosor = new JLabel("" + tamaño);
 		tamañoGrosor.setMaximumSize(new Dimension(5, 21));
 		tamañoGrosor.setMinimumSize(new Dimension(5, 21));
 		tamañoGrosor.setPreferredSize(new Dimension(5, 21));
@@ -117,12 +157,48 @@ public class Paint {
 		menos.setBounds(14, 184, 45, 21);
 		menos.setBorder(BorderFactory.createLineBorder(Color.decode("#bacbdb")));
 		dibujo.add(menos);
+		menos.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				if(tamaño>0) {
+					tamaño--;
+				}
+				
+				tamañoGrosor.setText("" + tamaño);
+				
+				tamañoGrosor.revalidate();
+				 
+				tamañoGrosor.repaint();
+				  
+			}
+			
+		});
 		
 		JButton más = new JButton("+");
 		más.setBackground(new Color(128, 128, 128));
 		más.setBounds(124, 184, 45, 21);
 		más.setBorder(BorderFactory.createLineBorder(Color.decode("#bacbdb")));
 		dibujo.add(más);
+		más.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				tamaño++;
+				
+				tamañoGrosor.setText("" + tamaño);
+				 
+				tamañoGrosor.revalidate();
+				 
+				tamañoGrosor.repaint();
+				  
+			}
+			
+		});
+		
+		//FORMAS
 		
 		JPanel formas = new JPanel();
 		formas.setBackground(new Color(192, 192, 192));
@@ -131,16 +207,16 @@ public class Paint {
 		herramientas.add(formas);
 		formas.setLayout(null);
 		
+		//Rectángulo
+		
 		JButton rectángulo = new JButton("Rectángulo");
 		rectángulo.setIcon(new ImageIcon(Paint.class.getResource("/ventana/Rectángulo.png")));
 		rectángulo.setBackground(new Color(128, 128, 128));
-		rectángulo.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent e) {
-			}
-		});
 		rectángulo.setBounds(32, 52, 122, 21);
 		rectángulo.setBorder(BorderFactory.createLineBorder(Color.decode("#bacbdb")));
 		formas.add(rectángulo);
+		
+		//Círculo
 		
 		JButton círculo = new JButton("Círculo");
 		círculo.setIcon(new ImageIcon(Paint.class.getResource("/ventana/Círculo.png")));
@@ -149,12 +225,16 @@ public class Paint {
 		círculo.setBorder(BorderFactory.createLineBorder(Color.decode("#bacbdb")));
 		formas.add(círculo);
 		
+		//Triángulo
+		
 		JButton triángulo = new JButton("Triángulo");
 		triángulo.setIcon(new ImageIcon(Paint.class.getResource("/ventana/Triángulo.png")));
 		triángulo.setBackground(new Color(128, 128, 128));
 		triángulo.setBounds(32, 144, 122, 21);
 		triángulo.setBorder(BorderFactory.createLineBorder(Color.decode("#bacbdb")));
 		formas.add(triángulo);
+		
+		//Línea
 		
 		JButton línea = new JButton("Línea");
 		línea.setIcon(new ImageIcon(Paint.class.getResource("/ventana/Línea.png")));
@@ -163,36 +243,7 @@ public class Paint {
 		línea.setBorder(BorderFactory.createLineBorder(Color.decode("#bacbdb")));
 		formas.add(línea);
 		
-		JPanel formas_1 = new JPanel();
-		formas_1.setBounds(0, 291, 185, 124);
-		formas.add(formas_1);
-		formas_1.setLayout(null);
-		formas_1.setBorder(BorderFactory.createTitledBorder("Formas"));
-		formas_1.setBackground(Color.LIGHT_GRAY);
-		
-		JButton rectángulo_1 = new JButton("Rectángulo");
-		rectángulo_1.setBorder(BorderFactory.createLineBorder(Color.decode("#bacbdb")));
-		rectángulo_1.setBackground(Color.GRAY);
-		rectángulo_1.setBounds(32, 52, 122, 21);
-		formas_1.add(rectángulo_1);
-		
-		JButton círculo_1 = new JButton("Círculo");
-		círculo_1.setBorder(BorderFactory.createLineBorder(Color.decode("#bacbdb")));
-		círculo_1.setBackground(Color.GRAY);
-		círculo_1.setBounds(32, 98, 122, 21);
-		formas_1.add(círculo_1);
-		
-		JButton triángulo_1 = new JButton("Triángulo");
-		triángulo_1.setBorder(BorderFactory.createLineBorder(Color.decode("#bacbdb")));
-		triángulo_1.setBackground(Color.GRAY);
-		triángulo_1.setBounds(32, 144, 122, 21);
-		formas_1.add(triángulo_1);
-		
-		JButton línea_3 = new JButton("Línea");
-		línea_3.setBorder(BorderFactory.createLineBorder(Color.decode("#bacbdb")));
-		línea_3.setBackground(Color.GRAY);
-		línea_3.setBounds(32, 187, 122, 21);
-		formas_1.add(línea_3);
+		//ACCIONES
 		
 		JPanel acciones = new JPanel();
 		acciones.setLayout(null);
@@ -201,17 +252,23 @@ public class Paint {
 		acciones.setBounds(10, 546, 185, 115);
 		herramientas.add(acciones);
 		
+		//Limpiar lienzo
+		
 		JButton limpiarLienzo = new JButton("Limpiar Lienzo");
 		limpiarLienzo.setBorder(BorderFactory.createLineBorder(Color.decode("#bacbdb")));
 		limpiarLienzo.setBackground(Color.GRAY);
 		limpiarLienzo.setBounds(32, 33, 122, 21);
 		acciones.add(limpiarLienzo);
 		
+		//Guardar
+		
 		JButton guardar = new JButton("Guardar");
 		guardar.setBorder(BorderFactory.createLineBorder(Color.decode("#bacbdb")));
 		guardar.setBackground(Color.GRAY);
 		guardar.setBounds(32, 64, 122, 21);
 		acciones.add(guardar);
+		
+		//COLORES
 		
 		JPanel colores = new JPanel();
 		colores.setBackground(new Color(192, 192, 192));
@@ -220,47 +277,112 @@ public class Paint {
 		frmPaint.getContentPane().add(colores);
 		colores.setLayout(new GridLayout(1, 3, 0, 0));
 		
+		//Paleta
+		
 		JPanel paleta = new JPanel();
 		paleta.setBackground(new Color(192, 192, 192));
 		paleta.setBorder(BorderFactory.createTitledBorder("Paleta"));
 		colores.add(paleta);
 		paleta.setLayout(null);
 		
-		JPanel caja = new JPanel();
+		JPanel caja = new JPanel();///Caja de colores
 		caja.setBackground(new Color(192, 192, 192));
 		caja.setBounds(10, 43, 258, 35);
 		paleta.add(caja);
 		caja.setLayout(new GridLayout(0, 6, 10, 0));
 		
-		JButton blanco = new JButton("");
+		JButton blanco = new JButton("");//Color blanco
 		blanco.setBackground(new Color(255, 255, 255));
 		blanco.setBorder(BorderFactory.createLineBorder(Color.decode("#bacbdb")));
 		caja.add(blanco);
+		blanco.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				color = Color.WHITE;
+				  
+			}
+			
+		});
 		
-		JButton negro = new JButton("");
+		JButton negro = new JButton("");//Color negro
 		negro.setBackground(new Color(0, 0, 0));
 		negro.setBorder(BorderFactory.createLineBorder(Color.decode("#bacbdb")));
 		caja.add(negro);
+		negro.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				 color = Color.BLACK;
+				  
+			}
+			
+		});
 		
-		JButton gris = new JButton("");
+		JButton gris = new JButton("");//Color gris
 		gris.setBackground(new Color(128, 128, 128));
 		gris.setBorder(BorderFactory.createLineBorder(Color.decode("#bacbdb")));
 		caja.add(gris);
+		gris.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				color = Color.GRAY;
+				  
+			}
+			
+		});
 		
-		JButton azul = new JButton("");
+		JButton azul = new JButton("");//Color azul
 		azul.setBackground(new Color(0, 0, 255));
 		azul.setBorder(BorderFactory.createLineBorder(Color.decode("#bacbdb")));
 		caja.add(azul);
+		azul.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				color = Color.BLUE;
+				  
+			}
+			
+		});
 		
-		JButton rojo = new JButton("");
+		
+		JButton rojo = new JButton("");//Color rojo
 		rojo.setBackground(new Color(255, 0, 0));
 		rojo.setBorder(BorderFactory.createLineBorder(Color.decode("#bacbdb")));
 		caja.add(rojo);
+		rojo.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				 color = Color.RED;
+				  
+			}
+			
+		});
 		
-		JButton verde = new JButton("");
+		JButton verde = new JButton("");//Color verde
 		verde.setBackground(new Color(0, 255, 0));
 		verde.setBorder(BorderFactory.createLineBorder(Color.decode("#bacbdb")));
 		caja.add(verde);
+		verde.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				color = Color.GREEN;
+				  
+			}
+			
+		});
+		
+		//Personalizado
 		
 		JPanel personalizado = new JPanel();
 		personalizado.setBackground(new Color(192, 192, 192));
@@ -268,18 +390,26 @@ public class Paint {
 		colores.add(personalizado);
 		personalizado.setLayout(null);
 		
-		JLabel códigoHexadecimal = new JLabel("Código Hexadecimal");
+		JLabel códigoHexadecimal = new JLabel("Código Hexadecimal");//Color personalizado con un código hexadecimal
 		códigoHexadecimal.setHorizontalAlignment(SwingConstants.CENTER);
-		códigoHexadecimal.setBounds(84, 38, 116, 13);
+		códigoHexadecimal.setBounds(82, 22, 122, 19);
 		personalizado.add(códigoHexadecimal);
 		
 		código = new JTextField();
 		código.setBackground(new Color(192, 192, 192));
 		código.setBorder(BorderFactory.createLineBorder(Color.decode("#bacbdb")));
 		código.setText("#c0c0c0");
-		código.setBounds(82, 61, 122, 19);
+		código.setBounds(82, 51, 122, 19);
 		personalizado.add(código);
 		código.setColumns(10);
+		
+		JButton establecer_color_personalizado = new JButton("Establecer");//Establecer color personalizado
+		establecer_color_personalizado.setBorder(BorderFactory.createLineBorder(Color.decode("#bacbdb")));
+		establecer_color_personalizado.setBackground(Color.GRAY);
+		establecer_color_personalizado.setBounds(82, 80, 122, 19);
+		personalizado.add(establecer_color_personalizado);
+		
+		//Fondo
 		
 		JPanel fondo = new JPanel();
 		fondo.setBackground(new Color(192, 192, 192));
@@ -287,11 +417,137 @@ public class Paint {
 		colores.add(fondo);
 		fondo.setLayout(null);
 		
-		JButton establecer = new JButton("Establecer");
-		establecer.setBorder(BorderFactory.createLineBorder(Color.decode("#bacbdb")));
-		establecer.setBackground(Color.GRAY);
-		establecer.setBounds(83, 50, 122, 21);
-		fondo.add(establecer);
+		JButton establecer_color_fondo = new JButton("Establecer");//Establecer color de fondo del lienzo
+		establecer_color_fondo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				lienzo.setBackground(color);
+				
+			}
+		});
+		establecer_color_fondo.setBorder(BorderFactory.createLineBorder(Color.decode("#bacbdb")));
+		establecer_color_fondo.setBackground(Color.GRAY);
+		establecer_color_fondo.setBounds(83, 50, 122, 21);
+		fondo.add(establecer_color_fondo);
 		
+	}
+
+	@Override
+	public void mouseClicked(MouseEvent e) {
+		
+		
+		
+	}
+
+	@Override
+	public void mousePressed(MouseEvent e) {
+	
+		
+		
+	}
+
+	@Override
+	public void mouseReleased(MouseEvent e) {
+		
+		if (!puntos.isEmpty()) {
+	        listaDePuntos.add(new Trazo(new ArrayList<>(puntos), color, tamaño));//Guardar trazo con color y grosor
+	        
+	        puntos.clear();
+	    }
+		
+	}
+
+	@Override
+	public void mouseEntered(MouseEvent e) {
+	
+		
+		
+	}
+
+	@Override
+	public void mouseExited(MouseEvent e) {
+		
+		
+		
+	}
+
+	@Override
+	public void mouseDragged(MouseEvent e) {
+		
+		if (pincelActivo) {//Sólo dibujar si el pincel está activo
+			lienzo.repaint();
+			
+			puntos.add(e.getPoint());
+	    }
+		
+	}
+
+	@Override
+	public void mouseMoved(MouseEvent e) {
+		
+		
+		
+	}
+	
+	class PaintPanel extends JPanel{
+		
+		public PaintPanel()
+		{
+			
+			this.setBackground(color.WHITE);//Color de fondo del lienzo
+			
+		}
+		
+		@Override
+		public void paintComponent(Graphics g) {
+			
+			super.paintComponent(g);
+			
+		    Graphics2D g2 = (Graphics2D) g;
+	
+		    for (Trazo trazo : listaDePuntos) {//Dibujar trazos anteriores con sus propiedades guardadas
+		        g2.setColor(trazo.color_trazo);
+		        g2.setStroke(new BasicStroke(trazo.grosor));
+		        
+		        for (int i = 1; i < trazo.puntos.size(); i++) {
+		            Point p1 = trazo.puntos.get(i - 1);
+		            Point p2 = trazo.puntos.get(i);
+		            g2.drawLine(p1.x, p1.y, p2.x, p2.y);
+		        }
+		    }
+	
+		    g2.setColor(color);//Dibujar el trazo actual con la configuración actual
+		    g2.setStroke(new BasicStroke(tamaño));
+		    
+		    for (int i = 1; i < puntos.size(); i++) {
+		        Point p1 = puntos.get(i - 1);
+		        
+		        Point p2 = puntos.get(i);
+		        
+		        g2.drawLine(p1.x, p1.y, p2.x, p2.y);
+		    }
+	       
+	   }
+		
+	}
+
+	class Trazo {
+		
+	    List<Point> puntos;
+	    
+	    Color color_trazo;
+	    
+	    int grosor;
+
+	    public Trazo(List<Point> puntos, Color color_trazo, int grosor) {
+	    	
+	        this.puntos = puntos;//Almacena los puntos de un trazo
+	        
+	        this.color_trazo = color;//Almacena el color de un trazo
+	        
+	        this.grosor = grosor;//Almacena el grosor de un trazo
+	        
+	    }
+	    
 	}
 }
