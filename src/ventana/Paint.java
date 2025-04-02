@@ -34,14 +34,22 @@ public class Paint implements MouseListener, MouseMotionListener{
 	private PaintPanel lienzo;
 	
 	private ArrayList<Point> puntos = new ArrayList<Point>();
+	private ArrayList<Figura> figuras = new ArrayList<Figura>();
 	
 	List<Trazo> listaDePuntos = new ArrayList<>();
 	
 	int tamaño = 0;
-	
+
 	private Color color = Color.BLACK;//El color es negro por defecto
 	
-	private boolean pincelActivo = false;
+	private boolean pincelActivo = false;//Interruptor del pincel
+	private boolean borradorActivo = false;//Interruptor del borrador
+	private boolean rectánguloActivo = false;//Interruptor del rectángulo
+	private boolean círculoActivo = false;//Interruptor del círculo
+	private boolean triánguloActivo = false;//Interruptor del triángulo
+	private boolean líneaActiva = false;//Interruptor de la línea
+	
+	JButton pincel, borrador, rectángulo, círculo, triángulo, línea;//variables globales para botones de herramientas
 
 	/**
 	 * Launch the application.
@@ -106,7 +114,7 @@ public class Paint implements MouseListener, MouseMotionListener{
 		
 		//Pincel
 		
-		JButton pincel = new JButton("Pincel");
+		pincel = new JButton("Pincel");
 		pincel.setIcon(new ImageIcon(Paint.class.getResource("/ventana/Pincel.png")));
 		pincel.setBackground(new Color(128, 128, 128));
 		pincel.setBounds(33, 47, 122, 21);
@@ -118,8 +126,22 @@ public class Paint implements MouseListener, MouseMotionListener{
 		    public void actionPerformed(ActionEvent e) {
 		    	
 		    	pincelActivo = !pincelActivo;//Cambia entre activo/inactivo
-		    	
 		        pincel.setBackground(pincelActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		    	
+		        borradorActivo = false;//Apagar el interruptor del borrador
+		        borrador.setBackground(borradorActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		    	
+		    	rectánguloActivo = false;//Apagar el interruptor del rectángulo
+		    	rectángulo.setBackground(rectánguloActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		    	
+		    	círculoActivo = false;//Apagar el interruptor del círculo
+		    	círculo.setBackground(círculoActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		    	
+		    	triánguloActivo = false;//Apagar el interruptor del triángulo
+		    	triángulo.setBackground(triánguloActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		    	
+		    	líneaActiva = false;//Apagar el interruptor de la línea
+		    	línea.setBackground(líneaActiva ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
 		    	
 		    }
 		    
@@ -127,7 +149,32 @@ public class Paint implements MouseListener, MouseMotionListener{
 		
 		//Borrador
 		
-		JButton borrador = new JButton("Borrador");
+		borrador = new JButton("Borrador");
+		borrador.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				borradorActivo = !borradorActivo;//Cambia entre activo/inactivo
+		        borrador.setBackground(borradorActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		        
+		        pincelActivo = false;//Apagar el interruptor del pincel
+		        pincel.setBackground(pincelActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		    	
+		    	rectánguloActivo = false;//Apagar el interruptor del rectángulo
+		    	rectángulo.setBackground(rectánguloActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		    	
+		    	círculoActivo = false;//Apagar el interruptor del círculo
+		    	círculo.setBackground(círculoActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		    	
+		    	triánguloActivo = false;//Apagar el interruptor del triángulo
+		    	triángulo.setBackground(triánguloActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		    	
+		    	líneaActiva = false;//Apagar el interruptor de la línea
+		    	línea.setBackground(líneaActiva ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+				
+			}
+			
+		});
 		borrador.setIcon(new ImageIcon(Paint.class.getResource("/ventana/Borrador.png")));
 		borrador.setBackground(new Color(128, 128, 128));
 		borrador.setBounds(33, 108, 122, 21);
@@ -209,7 +256,32 @@ public class Paint implements MouseListener, MouseMotionListener{
 		
 		//Rectángulo
 		
-		JButton rectángulo = new JButton("Rectángulo");
+		rectángulo = new JButton("Rectángulo");
+		rectángulo.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				rectánguloActivo = !rectánguloActivo;//Cambia entre activo/inactivo
+		        rectángulo.setBackground(rectánguloActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		        
+		        borradorActivo = false;//Apagar el interruptor del borrador
+		        borrador.setBackground(borradorActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		    	
+		    	pincelActivo = false;//Apagar el interruptor del pincel
+		    	pincel.setBackground(pincelActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		    	
+		    	círculoActivo = false;//Apagar el interruptor del círculo
+		    	círculo.setBackground(círculoActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		    	
+		    	triánguloActivo = false;//Apagar el interruptor del triángulo
+		    	triángulo.setBackground(triánguloActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		    	
+		    	líneaActiva = false;//Apagar el interruptor de la línea
+		    	línea.setBackground(líneaActiva ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		        
+			}
+			
+		});
 		rectángulo.setIcon(new ImageIcon(Paint.class.getResource("/ventana/Rectángulo.png")));
 		rectángulo.setBackground(new Color(128, 128, 128));
 		rectángulo.setBounds(32, 52, 122, 21);
@@ -218,7 +290,32 @@ public class Paint implements MouseListener, MouseMotionListener{
 		
 		//Círculo
 		
-		JButton círculo = new JButton("Círculo");
+		círculo = new JButton("Círculo");
+		círculo.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				círculoActivo = !círculoActivo;//Cambia entre activo/inactivo
+		        círculo.setBackground(círculoActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		        
+		        borradorActivo = false;//Apagar el interruptor del borrador
+		        borrador.setBackground(borradorActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		    	
+		    	rectánguloActivo = false;//Apagar el interruptor del rectángulo
+		    	rectángulo.setBackground(rectánguloActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		    	
+		    	pincelActivo = false;//Apagar el interruptor del pincel
+		    	pincel.setBackground(pincelActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		    	
+		    	triánguloActivo = false;//Apagar el interruptor del triángulo
+		    	triángulo.setBackground(triánguloActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		    	
+		    	líneaActiva = false;//Apagar el interruptor de la línea
+		    	línea.setBackground(líneaActiva ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado 
+				
+			}
+			
+		});
 		círculo.setIcon(new ImageIcon(Paint.class.getResource("/ventana/Círculo.png")));
 		círculo.setBackground(new Color(128, 128, 128));
 		círculo.setBounds(32, 98, 122, 21);
@@ -227,7 +324,32 @@ public class Paint implements MouseListener, MouseMotionListener{
 		
 		//Triángulo
 		
-		JButton triángulo = new JButton("Triángulo");
+		triángulo = new JButton("Triángulo");
+		triángulo.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				triánguloActivo = !triánguloActivo;//Cambia entre activo/inactivo	
+		        triángulo.setBackground(triánguloActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		        
+		        borradorActivo = false;//Apagar el interruptor del borrador
+		        borrador.setBackground(borradorActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		    	
+		    	rectánguloActivo = false;//Apagar el interruptor del rectángulo
+		    	rectángulo.setBackground(rectánguloActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		    	
+		    	círculoActivo = false;//Apagar el interruptor del círculo
+		    	círculo.setBackground(círculoActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		    	
+		    	pincelActivo = false;//Apagar el interruptor del pincel
+		    	pincel.setBackground(pincelActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		    	
+		    	líneaActiva = false;//Apagar el interruptor de la línea
+		    	línea.setBackground(líneaActiva ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+				
+			}
+			
+		});
 		triángulo.setIcon(new ImageIcon(Paint.class.getResource("/ventana/Triángulo.png")));
 		triángulo.setBackground(new Color(128, 128, 128));
 		triángulo.setBounds(32, 144, 122, 21);
@@ -236,7 +358,32 @@ public class Paint implements MouseListener, MouseMotionListener{
 		
 		//Línea
 		
-		JButton línea = new JButton("Línea");
+		línea = new JButton("Línea");
+		línea.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				líneaActiva = !líneaActiva;//Cambia entre activo/inactivo		    	
+		        línea.setBackground(líneaActiva ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		        
+		        borradorActivo = false;//Apagar el interruptor del borrador
+		        borrador.setBackground(borradorActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		    	
+		    	rectánguloActivo = false;//Apagar el interruptor del rectángulo
+		    	rectángulo.setBackground(rectánguloActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		    	
+		    	círculoActivo = false;//Apagar el interruptor del círculo
+		    	círculo.setBackground(círculoActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		    	
+		    	triánguloActivo = false;//Apagar el interruptor del triángulo
+		    	triángulo.setBackground(triánguloActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+		    	
+		    	pincelActivo = false;//Apagar el interruptor del pincel
+		    	pincel.setBackground(pincelActivo ? Color.decode("#04a4a6") : new Color(128, 128, 128));//Cambia el color del botón para indicar el estado
+				
+			}
+			
+		});
 		línea.setIcon(new ImageIcon(Paint.class.getResource("/ventana/Línea.png")));
 		línea.setBackground(new Color(128, 128, 128));
 		línea.setBounds(32, 187, 122, 21);
@@ -255,6 +402,17 @@ public class Paint implements MouseListener, MouseMotionListener{
 		//Limpiar lienzo
 		
 		JButton limpiarLienzo = new JButton("Limpiar Lienzo");
+		limpiarLienzo.addActionListener(new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				
+				puntos.clear();
+				listaDePuntos.clear();
+				figuras.clear();
+				
+				lienzo.repaint();
+				
+			}
+		});
 		limpiarLienzo.setBorder(BorderFactory.createLineBorder(Color.decode("#bacbdb")));
 		limpiarLienzo.setBackground(Color.GRAY);
 		limpiarLienzo.setBounds(32, 33, 122, 21);
@@ -435,7 +593,26 @@ public class Paint implements MouseListener, MouseMotionListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
-		
+		if (rectánguloActivo) {//Sólo dibujar si el rectángulo está activo
+			figuras.add(new Figura(e.getX(),e.getY(),80,80));
+			
+			lienzo.repaint();
+	    }
+		else if (círculoActivo) {//Sólo dibujar si el círculo está activo
+			lienzo.repaint();
+			
+			figuras.add(new Figura(e.getX(),e.getY(),80,80));
+	    }
+		else if (triánguloActivo) {//Sólo dibujar si el triángulo está activo
+			lienzo.repaint();
+			
+			figuras.add(new Figura(e.getX(),e.getY(),80,80));
+	    }
+		/*else if (líneaActiva) {//Sólo dibujar si la línea está activa
+			lienzo.repaint();
+			
+			puntos.add(e.getPoint());
+	    }*/
 		
 	}
 
@@ -479,6 +656,11 @@ public class Paint implements MouseListener, MouseMotionListener{
 			
 			puntos.add(e.getPoint());
 	    }
+		else if (borradorActivo) {//Sólo borrar si el borrador está activo
+			lienzo.repaint();
+			
+			puntos.add(e.getPoint());
+	    }
 		
 	}
 
@@ -505,26 +687,52 @@ public class Paint implements MouseListener, MouseMotionListener{
 			
 		    Graphics2D g2 = (Graphics2D) g;
 	
-		    for (Trazo trazo : listaDePuntos) {//Dibujar trazos anteriores con sus propiedades guardadas
-		        g2.setColor(trazo.color_trazo);
-		        g2.setStroke(new BasicStroke(trazo.grosor));
-		        
-		        for (int i = 1; i < trazo.puntos.size(); i++) {
-		            Point p1 = trazo.puntos.get(i - 1);
-		            Point p2 = trazo.puntos.get(i);
-		            g2.drawLine(p1.x, p1.y, p2.x, p2.y);
-		        }
+		    if (pincelActivo) {
+		    	for (Trazo trazo : listaDePuntos) {//Dibujar trazos anteriores con sus propiedades guardadas
+			        g2.setColor(trazo.color_trazo);
+			        g2.setStroke(new BasicStroke(trazo.grosor));
+			        
+			        for (int i = 1; i < trazo.puntos.size(); i++) {
+			            Point p1 = trazo.puntos.get(i - 1);
+			            Point p2 = trazo.puntos.get(i);
+			            
+			            g2.drawLine(p1.x, p1.y, p2.x, p2.y);
+			        }
+			    }
+		
+			    g2.setColor(color);//Dibujar el trazo actual con la configuración actual
+			    g2.setStroke(new BasicStroke(tamaño));
+			    
+			    for (int i = 1; i < puntos.size(); i++) {
+			        Point p1 = puntos.get(i - 1);
+			        Point p2 = puntos.get(i);
+			        
+			        g2.drawLine(p1.x, p1.y, p2.x, p2.y);
+			    }
 		    }
-	
-		    g2.setColor(color);//Dibujar el trazo actual con la configuración actual
-		    g2.setStroke(new BasicStroke(tamaño));
-		    
-		    for (int i = 1; i < puntos.size(); i++) {
-		        Point p1 = puntos.get(i - 1);
-		        
-		        Point p2 = puntos.get(i);
-		        
-		        g2.drawLine(p1.x, p1.y, p2.x, p2.y);
+		    else if (borradorActivo) {
+		    	for (Trazo trazo : listaDePuntos) {//Dibujar borrados anteriores con sus propiedades guardadas
+		    		g2.setColor(trazo.color_trazo);
+			        g2.setStroke(new BasicStroke(trazo.grosor));
+			        
+			        for (int i = 1; i < trazo.puntos.size(); i++) {
+			            Point p1 = trazo.puntos.get(i - 1);
+			            Point p2 = trazo.puntos.get(i);
+			            
+			            g2.drawLine(p1.x, p1.y, p2.x, p2.y);
+			        }
+			    }
+		    	
+			    g2.setColor(color);//Dibujar el borrado actual con la configuración actual
+			    g2.setStroke(new BasicStroke(tamaño));
+			    
+			    for (int i = 1; i < puntos.size(); i++) {
+			    	color = lienzo.getBackground();
+			        Point p1 = puntos.get(i - 1);
+			        Point p2 = puntos.get(i);
+			        
+			        g2.drawLine(p1.x, p1.y, p2.x, p2.y);
+			    }
 		    }
 	       
 	   }
@@ -550,4 +758,20 @@ public class Paint implements MouseListener, MouseMotionListener{
 	    }
 	    
 	}
+	
+	class Figura {
+		
+		public int x, y, w, h;
+		
+		public Figura(int x, int y, int w, int h) {
+			
+			this.x = x;
+			this.y = y;
+			this.w = w;
+			this.h = h;
+			
+		}
+		
+	}
+	
 }
