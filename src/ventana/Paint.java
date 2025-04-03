@@ -50,6 +50,12 @@ public class Paint implements MouseListener, MouseMotionListener{
 	private boolean líneaActiva = false;//Interruptor de la línea
 	
 	JButton pincel, borrador, rectángulo, círculo, triángulo, línea;//variables globales para botones de herramientas
+	
+	private Point puntoActual; // Para seguir el movimiento del ratón
+
+	private boolean dibujandoLinea = false; // Controlar estado de dibujo de línea
+	
+	private Point primerPuntoLinea = null;
 
 	/**
 	 * Launch the application.
@@ -593,33 +599,45 @@ public class Paint implements MouseListener, MouseMotionListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
-		if (rectánguloActivo) {//Sólo dibujar si el rectángulo está activo
-			figuras.add(new Figura(e.getX(),e.getY(),80,80));
+		if (rectánguloActivo) {//Sólo dibujar si el botón del rectángulo está activo
+			figuras.add(new Figura(e.getX()-40, e.getY()-40, 80, 80, "rectángulo", tamaño, color));
 			
 			lienzo.repaint();
 	    }
-		else if (círculoActivo) {//Sólo dibujar si el círculo está activo
-			lienzo.repaint();
+		else if (círculoActivo) {//Sólo dibujar si el botón del círculo está activo
+			figuras.add(new Figura(e.getX()-40, e.getY()-40, 80, 80, "círculo", tamaño, color));
 			
-			figuras.add(new Figura(e.getX(),e.getY(),80,80));
+			lienzo.repaint();
 	    }
-		else if (triánguloActivo) {//Sólo dibujar si el triángulo está activo
-			lienzo.repaint();
+		else if (triánguloActivo) {//Sólo dibujar si el botón del triángulo está activo
+			figuras.add(new Figura(e.getX()-40, e.getY()-40, 80, 80, "triángulo", tamaño, color));
 			
-			figuras.add(new Figura(e.getX(),e.getY(),80,80));
+			lienzo.repaint();
 	    }
-		/*else if (líneaActiva) {//Sólo dibujar si la línea está activa
-			lienzo.repaint();
-			
-			puntos.add(e.getPoint());
-	    }*/
+		else if (líneaActiva) {//Sólo dibujar si el botón de la línea está activa
+			if (primerPuntoLinea == null) {
+	            //Primer click - guardar punto inicial
+	            primerPuntoLinea = e.getPoint();
+	        } else {
+	            //Segundo click - crear la línea
+	        	figuras.add(new Figura(primerPuntoLinea, e.getPoint(), tamaño, color));
+	        	
+	            primerPuntoLinea = null;//Resetear para la próxima línea
+	            
+	            lienzo.repaint();
+	        }
+	    }
 		
 	}
 
 	@Override
 	public void mousePressed(MouseEvent e) {
 	
-		
+		if (líneaActiva) {
+	        puntos.clear();
+	        puntos.add(e.getPoint());
+	        dibujandoLinea = true;
+	    }
 		
 	}
 
@@ -630,6 +648,12 @@ public class Paint implements MouseListener, MouseMotionListener{
 	        listaDePuntos.add(new Trazo(new ArrayList<>(puntos), color, tamaño));//Guardar trazo con color y grosor
 	        
 	        puntos.clear();
+	    }
+		else if (líneaActiva && dibujandoLinea && puntos.size() == 1) {
+	        figuras.add(new Figura(puntos.get(0), e.getPoint(), tamaño, color));
+	        puntos.clear();
+	        dibujandoLinea = false;
+	        lienzo.repaint();
 	    }
 		
 	}
@@ -651,15 +675,19 @@ public class Paint implements MouseListener, MouseMotionListener{
 	@Override
 	public void mouseDragged(MouseEvent e) {
 		
-		if (pincelActivo) {//Sólo dibujar si el pincel está activo
+		if (pincelActivo) {//Sólo dibujar si el botón del pincel está activo
 			lienzo.repaint();
 			
 			puntos.add(e.getPoint());
 	    }
-		else if (borradorActivo) {//Sólo borrar si el borrador está activo
+		else if (borradorActivo) {//Sólo borrar si el botón del borrador está activo
 			lienzo.repaint();
 			
 			puntos.add(e.getPoint());
+	    }
+		else if (líneaActiva && dibujandoLinea) {
+	        puntoActual = e.getPoint();
+	        lienzo.repaint();
 	    }
 		
 	}
@@ -687,7 +715,7 @@ public class Paint implements MouseListener, MouseMotionListener{
 			
 		    Graphics2D g2 = (Graphics2D) g;
 	
-		    if (pincelActivo) {
+		    if (pincelActivo) {//Dibujar pincel
 		    	for (Trazo trazo : listaDePuntos) {//Dibujar trazos anteriores con sus propiedades guardadas
 			        g2.setColor(trazo.color_trazo);
 			        g2.setStroke(new BasicStroke(trazo.grosor));
@@ -710,7 +738,7 @@ public class Paint implements MouseListener, MouseMotionListener{
 			        g2.drawLine(p1.x, p1.y, p2.x, p2.y);
 			    }
 		    }
-		    else if (borradorActivo) {
+		    else if (borradorActivo) {//Dibujar borrador
 		    	for (Trazo trazo : listaDePuntos) {//Dibujar borrados anteriores con sus propiedades guardadas
 		    		g2.setColor(trazo.color_trazo);
 			        g2.setStroke(new BasicStroke(trazo.grosor));
@@ -733,6 +761,37 @@ public class Paint implements MouseListener, MouseMotionListener{
 			        
 			        g2.drawLine(p1.x, p1.y, p2.x, p2.y);
 			    }
+		    }
+		    
+		    //Dibujar todas las figuras almacenadas
+		    for (Figura figura : figuras) {
+		        g2.setColor(figura.color);
+		        //g2.setStroke(new BasicStroke(figura.grosor));*/
+		        g2.setStroke(new BasicStroke(5));
+		        
+		        switch(figura.tipo) {
+		            case "rectángulo":
+		                g2.drawRect(figura.x, figura.y, figura.w, figura.h);
+		                break;
+		            case "círculo":
+		                g2.drawOval(figura.x, figura.y, figura.w, figura.h);
+		                break;
+		            case "triángulo":
+		                int[] xPoints = {figura.x, figura.x + figura.w/2, figura.x + figura.w};
+		                int[] yPoints = {figura.y + figura.h, figura.y, figura.y + figura.h};
+		                g2.drawPolygon(xPoints, yPoints, 3);
+		                break;
+		            case "línea":
+		                g2.drawLine(figura.inicioLinea.x, figura.inicioLinea.y, 
+		                           figura.finLinea.x, figura.finLinea.y);
+		                break;
+		        }
+		    }
+		    
+		    //Dibujar línea temporal (durante el arrastre)
+		    if (líneaActiva && puntos.size() >= 1 && puntoActual != null) {
+		        g2.drawLine(puntos.get(0).x, puntos.get(0).y, 
+		                    puntoActual.x, puntoActual.y);
 		    }
 	       
 	   }
@@ -762,16 +821,32 @@ public class Paint implements MouseListener, MouseMotionListener{
 	class Figura {
 		
 		public int x, y, w, h;
-		
-		public Figura(int x, int y, int w, int h) {
-			
-			this.x = x;
-			this.y = y;
-			this.w = w;
-			this.h = h;
-			
-		}
-		
+	    public String tipo;//"rectángulo", "círculo", "triángulo", "línea"
+	    public Point inicioLinea;// Sólo para líneas
+	    public Point finLinea;//Sólo para líneas
+	    public int grosor;//Grosor específico de esta figura
+	    public Color color;//Color específico de esta figura
+	    
+	    //Constructor para formas (rectángulo, círculo, triángulo)
+	    public Figura(int x, int y, int w, int h, String tipo, int grosor, Color color) {
+	        this.x = x;
+	        this.y = y;
+	        this.w = w;
+	        this.h = h;
+	        this.tipo = tipo;
+	        this.grosor = grosor;
+	        this.color = color;
+	    }
+	    
+	    //Constructor para líneas
+	    public Figura(Point inicio, Point fin, int grosor, Color color) {
+	        this.inicioLinea = inicio;
+	        this.finLinea = fin;
+	        this.tipo = "línea";
+	        this.grosor = grosor;
+	        this.color = color;
+	    }
+	    
 	}
 	
 }
