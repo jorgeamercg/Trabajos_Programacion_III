@@ -24,6 +24,7 @@ import java.awt.GridLayout;
 import java.awt.Point;
 import javax.swing.SwingConstants;
 import javax.swing.JTextField;
+import javax.swing.JCheckBox;
 
 public class Paint implements MouseListener, MouseMotionListener{
 
@@ -56,6 +57,8 @@ public class Paint implements MouseListener, MouseMotionListener{
 	private boolean dibujandoLinea = false; // Controlar estado de dibujo de línea
 	
 	private Point primerPuntoLinea = null;
+	
+	JCheckBox rellenar;
 
 	/**
 	 * Launch the application.
@@ -396,6 +399,12 @@ public class Paint implements MouseListener, MouseMotionListener{
 		línea.setBorder(BorderFactory.createLineBorder(Color.decode("#bacbdb")));
 		formas.add(línea);
 		
+		rellenar = new JCheckBox("Rellenar");
+		rellenar.setBackground(new Color(192, 192, 192));
+		rellenar.setBounds(60, 220, 70, 15);
+		rellenar.setBorder(BorderFactory.createLineBorder(Color.decode("#bacbdb")));
+		formas.add(rellenar);
+		
 		//ACCIONES
 		
 		JPanel acciones = new JPanel();
@@ -599,31 +608,26 @@ public class Paint implements MouseListener, MouseMotionListener{
 	@Override
 	public void mouseClicked(MouseEvent e) {
 		
-		if (rectánguloActivo) {//Sólo dibujar si el botón del rectángulo está activo
-			figuras.add(new Figura(e.getX()-40, e.getY()-40, 80, 80, "rectángulo", tamaño, color));
-			
-			lienzo.repaint();
+		if (rectánguloActivo) {
+	        figuras.add(new Figura(e.getX(), e.getY(), tamaño*10, tamaño*10, "rectángulo", tamaño, color, rellenar.isSelected()));
+	        lienzo.repaint();
 	    }
-		else if (círculoActivo) {//Sólo dibujar si el botón del círculo está activo
-			figuras.add(new Figura(e.getX()-40, e.getY()-40, 80, 80, "círculo", tamaño, color));
-			
-			lienzo.repaint();
+	    else if (círculoActivo) {
+	        figuras.add(new Figura(e.getX(), e.getY(), tamaño*10, tamaño*10, "círculo", tamaño, color, rellenar.isSelected()));
+	                             
+	        lienzo.repaint();
 	    }
-		else if (triánguloActivo) {//Sólo dibujar si el botón del triángulo está activo
-			figuras.add(new Figura(e.getX()-40, e.getY()-40, 80, 80, "triángulo", tamaño, color));
-			
-			lienzo.repaint();
+	    else if (triánguloActivo) {
+	        figuras.add(new Figura(e.getX(), e.getY(), tamaño*10, tamaño*10, "triángulo", tamaño, color, rellenar.isSelected()));
+	                             
+	        lienzo.repaint();
 	    }
-		else if (líneaActiva) {//Sólo dibujar si el botón de la línea está activa
-			if (primerPuntoLinea == null) {
-	            //Primer click - guardar punto inicial
+	    else if (líneaActiva) {
+	        if (primerPuntoLinea == null) {
 	            primerPuntoLinea = e.getPoint();
 	        } else {
-	            //Segundo click - crear la línea
-	        	figuras.add(new Figura(primerPuntoLinea, e.getPoint(), tamaño, color));
-	        	
-	            primerPuntoLinea = null;//Resetear para la próxima línea
-	            
+	            figuras.add(new Figura(primerPuntoLinea, e.getPoint(), tamaño, color));
+	            primerPuntoLinea = null;
 	            lienzo.repaint();
 	        }
 	    }
@@ -715,71 +719,55 @@ public class Paint implements MouseListener, MouseMotionListener{
 			
 		    Graphics2D g2 = (Graphics2D) g;
 	
-		    if (pincelActivo) {//Dibujar pincel
-		    	for (Trazo trazo : listaDePuntos) {//Dibujar trazos anteriores con sus propiedades guardadas
-			        g2.setColor(trazo.color_trazo);
-			        g2.setStroke(new BasicStroke(trazo.grosor));
-			        
-			        for (int i = 1; i < trazo.puntos.size(); i++) {
-			            Point p1 = trazo.puntos.get(i - 1);
-			            Point p2 = trazo.puntos.get(i);
-			            
-			            g2.drawLine(p1.x, p1.y, p2.x, p2.y);
-			        }
-			    }
-		
-			    g2.setColor(color);//Dibujar el trazo actual con la configuración actual
-			    g2.setStroke(new BasicStroke(tamaño));
-			    
-			    for (int i = 1; i < puntos.size(); i++) {
-			        Point p1 = puntos.get(i - 1);
-			        Point p2 = puntos.get(i);
-			        
-			        g2.drawLine(p1.x, p1.y, p2.x, p2.y);
-			    }
+		    //Dibujar todos los trazos almacenados (siempre)
+		    for (Trazo trazo : listaDePuntos) {
+		        g2.setColor(trazo.color_trazo);
+		        g2.setStroke(new BasicStroke(trazo.grosor));
+		        for (int i = 1; i < trazo.puntos.size(); i++) {
+		            Point p1 = trazo.puntos.get(i - 1);
+		            Point p2 = trazo.puntos.get(i);
+		            g2.drawLine(p1.x, p1.y, p2.x, p2.y);
+		        }
 		    }
-		    else if (borradorActivo) {//Dibujar borrador
-		    	for (Trazo trazo : listaDePuntos) {//Dibujar borrados anteriores con sus propiedades guardadas
-		    		g2.setColor(trazo.color_trazo);
-			        g2.setStroke(new BasicStroke(trazo.grosor));
-			        
-			        for (int i = 1; i < trazo.puntos.size(); i++) {
-			            Point p1 = trazo.puntos.get(i - 1);
-			            Point p2 = trazo.puntos.get(i);
-			            
-			            g2.drawLine(p1.x, p1.y, p2.x, p2.y);
-			        }
-			    }
-		    	
-			    g2.setColor(color);//Dibujar el borrado actual con la configuración actual
-			    g2.setStroke(new BasicStroke(tamaño));
-			    
-			    for (int i = 1; i < puntos.size(); i++) {
-			    	color = lienzo.getBackground();
-			        Point p1 = puntos.get(i - 1);
-			        Point p2 = puntos.get(i);
-			        
-			        g2.drawLine(p1.x, p1.y, p2.x, p2.y);
-			    }
+
+		    //Dibujar el trazo actual sólo si estamos en modo pincel o borrador
+		    if (pincelActivo || borradorActivo) {
+		        g2.setColor(pincelActivo ? color : getBackground());
+		        g2.setStroke(new BasicStroke(tamaño));
+		        for (int i = 1; i < puntos.size(); i++) {
+		            Point p1 = puntos.get(i - 1);
+		            Point p2 = puntos.get(i);
+		            g2.drawLine(p1.x, p1.y, p2.x, p2.y);
+		        }
 		    }
-		    
-		    //Dibujar todas las figuras almacenadas
+
+		    //Dibujar todas las figuras almacenadas (siempre)
 		    for (Figura figura : figuras) {
 		        g2.setColor(figura.color);
-		        //g2.setStroke(new BasicStroke(figura.grosor));*/
 		        g2.setStroke(new BasicStroke(5));
-		        
 		        switch(figura.tipo) {
 		            case "rectángulo":
-		                g2.drawRect(figura.x, figura.y, figura.w, figura.h);
+		                if (figura.relleno) {
+		                    g2.fillRect(figura.x, figura.y, figura.w, figura.h);
+		                } else {
+		                    g2.drawRect(figura.x, figura.y, figura.w, figura.h);
+		                }
 		                break;
 		            case "círculo":
-		                g2.drawOval(figura.x, figura.y, figura.w, figura.h);
+		                if (figura.relleno) {
+		                    g2.fillOval(figura.x, figura.y, figura.w, figura.h);
+		                } else {
+		                    g2.drawOval(figura.x, figura.y, figura.w, figura.h);
+		                }
 		                break;
 		            case "triángulo":
 		                int[] xPoints = {figura.x, figura.x + figura.w/2, figura.x + figura.w};
 		                int[] yPoints = {figura.y + figura.h, figura.y, figura.y + figura.h};
-		                g2.drawPolygon(xPoints, yPoints, 3);
+		                if (figura.relleno) {
+		                    g2.fillPolygon(xPoints, yPoints, 3);
+		                } else {
+		                    g2.drawPolygon(xPoints, yPoints, 3);
+		                }
 		                break;
 		            case "línea":
 		                g2.drawLine(figura.inicioLinea.x, figura.inicioLinea.y, 
@@ -787,11 +775,11 @@ public class Paint implements MouseListener, MouseMotionListener{
 		                break;
 		        }
 		    }
-		    
-		    //Dibujar línea temporal (durante el arrastre)
+
+		    //Dibujar línea temporal (durante el arrastre en modo línea)
 		    if (líneaActiva && puntos.size() >= 1 && puntoActual != null) {
 		        g2.drawLine(puntos.get(0).x, puntos.get(0).y, 
-		                    puntoActual.x, puntoActual.y);
+		                   puntoActual.x, puntoActual.y);
 		    }
 	       
 	   }
@@ -826,9 +814,10 @@ public class Paint implements MouseListener, MouseMotionListener{
 	    public Point finLinea;//Sólo para líneas
 	    public int grosor;//Grosor específico de esta figura
 	    public Color color;//Color específico de esta figura
+	    public boolean relleno;//Estatus de relleno
 	    
 	    //Constructor para formas (rectángulo, círculo, triángulo)
-	    public Figura(int x, int y, int w, int h, String tipo, int grosor, Color color) {
+	    public Figura(int x, int y, int w, int h, String tipo, int grosor, Color color, boolean relleno) {
 	        this.x = x;
 	        this.y = y;
 	        this.w = w;
@@ -836,6 +825,7 @@ public class Paint implements MouseListener, MouseMotionListener{
 	        this.tipo = tipo;
 	        this.grosor = grosor;
 	        this.color = color;
+	        this.relleno = relleno;
 	    }
 	    
 	    //Constructor para líneas
@@ -845,6 +835,7 @@ public class Paint implements MouseListener, MouseMotionListener{
 	        this.tipo = "línea";
 	        this.grosor = grosor;
 	        this.color = color;
+	        this.relleno = false;
 	    }
 	    
 	}
