@@ -103,6 +103,29 @@ public class Teclado implements KeyListener{
 		//REINICIAR
 		
 		JButton reiniciar = new JButton("Reiniciar");
+		reiniciar.addActionListener(new ActionListener() {
+			
+			public void actionPerformed(ActionEvent e) {
+				
+				x = 377;//Regresar a la coordenada x inicial
+		        
+		        y = 230;//Regresar a la coordenada y inicial
+		        
+		        panelTablero.repaint();//Repintar tablero
+		        
+				cronómetro.stop();//Detener el temporizador
+			        
+		        centésimas = 0;//Reiniciar el contador de centésimas
+		        
+		        actualizarEtiquetaCronómetro();//Actualizar la etiqueta del temporizador
+		        
+		        cronómetro.start();//Iniciar el temporizador
+		        
+		        panelTablero.requestFocusInWindow();//Regresar el foco al tablero
+
+			}
+			
+		});
 		reiniciar.setPreferredSize(new Dimension(80, 25));
 		reiniciar.setBackground(Color.ORANGE);
 		reiniciar.setBorder(BorderFactory.createLineBorder(Color.BLACK, 5));
@@ -147,27 +170,54 @@ public class Teclado implements KeyListener{
 	@Override
 	public void keyPressed(KeyEvent e) {
 		
-		System.out.println(e.getKeyCode());
+		//System.out.println(panelTablero.getWidth());//Obtener el ancho en píxeles del tablero
+		//System.out.println(panelTablero.getHeight());//Obtener la altura en píxeles del tablero
+		//System.out.println(e.getKeyCode());//Obtener el número de la tecla presionada
 		
-		if (e.getKeyCode() == 87) {//w
+		if (e.getKeyCode() == 87) {//Tecla: W
 			y -= 5;
 			
 			panelTablero.repaint();
 		}
-		if (e.getKeyCode() == 83) {//s
+		
+		if (e.getKeyCode() == 83) {//Tecla: S
 			y += 5;
 			
 			panelTablero.repaint();
 		}
-		if (e.getKeyCode() == 65) {//a
+		
+		if (e.getKeyCode() == 65) {//Tecla: A
 			x -= 5;
 			
 			panelTablero.repaint();
 		}
-		if (e.getKeyCode() == 68) {//d
+		
+		if (e.getKeyCode() == 68) {//Tecla: D
 			x += 5;
 			
 			panelTablero.repaint();
+		}
+		
+		//EFECTO PORTAL
+		
+		//Teletransporte horizontal
+		
+		if (x > 786) {//Sale por la derecha, aparece por la izquierda
+		    x = -35;
+		}
+		
+		if (x < -35) {//Sale por la izquierda, aparece por la derecha
+		    x = 786;
+		}
+
+		// Teletransporte vertical
+		
+		if (y > 499) {//Sale por abajo, aparece por arriba
+		    y = -35;
+		}
+		
+		if (y < -35) {//Sale por arriba, aparece por abajo
+		    y = 499;
 		}
 	
 	}
