@@ -35,7 +35,11 @@ public class Teclado implements KeyListener{
 	private Player jugador, sombra;
 	
 	private ArrayList<Player> obstáculos = new ArrayList<Player>();//Creación de arreglo de obstáculos
-
+	
+	Timer cronómetroMovimientoAutomático;
+	
+	int últimaTeclaPresionada = 0;
+	
 	/**
 	 * Launch the application.
 	 */
@@ -94,9 +98,9 @@ public class Teclado implements KeyListener{
 		etiquetaCronómetro.setFont(new Font("Tahoma", Font.BOLD, 15));
 		panelCronómetro.add(etiquetaCronómetro);
 		
-		int delay = 10;//Retraso del cronómetro
+		int retraso = 10;//Retraso del cronómetro del juego
 		
-        ActionListener taskPerformer = new ActionListener() {
+        ActionListener cronómetroAction = new ActionListener() {
         	
         	@Override
             public void actionPerformed(ActionEvent evt) {
@@ -108,9 +112,9 @@ public class Teclado implements KeyListener{
             
         };
 
-        cronómetro = new Timer(delay, taskPerformer);
+        cronómetro = new Timer(retraso, cronómetroAction);
         		
-        cronómetro.start();//Inicia el cronómetro
+        //cronómetro.start();//Iniciar el cronómetro automáticamente (sin presionar ninguna tecla)
 		
 		JPanel panelReiniciar = new JPanel();
 		panelReiniciar.setBackground(new Color(192, 192, 192));
@@ -124,18 +128,24 @@ public class Teclado implements KeyListener{
 			public void actionPerformed(ActionEvent e) {
 				
 				jugador.x = 377;//Regresar a la coordenada 'x' inicial
-		        
 		        jugador.y = 230;//Regresar a la coordenada 'y' inicial
+		        
+		        sombra.x = 377;//Regresar a la coordenada 'x' inicial
+		        sombra.y = 230;//Regresar a la coordenada 'y' inicial
 		        
 		        panelTablero.repaint();//Repintar tablero
 		        
-				cronómetro.stop();//Detener el cronómetro
+				cronómetro.stop();//Detener el cronómetro del juego
+				
+				centésimas = 0;//Reiniciar el contador de centésimas del cronómetro del juego
+				
+				cronómetroMovimientoAutomático.stop();//Detener el cronómetro del movimiento automático del jugador
 			        
-		        centésimas = 0;//Reiniciar el contador de centésimas
+		        últimaTeclaPresionada = 0;//Reiniciar el movimiento automático del jugador
 		        
-		        actualizarEtiquetaCronómetro();//Actualizar la etiqueta del cronómetro
+		        actualizarEtiquetaCronómetro();//Actualizar la etiqueta del cronómetro del juego
 		        
-		        cronómetro.start();//Iniciar el cronómetro
+		        //cronómetro.start();//Iniciar el cronómetro automáticamente (sin presionar ninguna tecla)
 		        
 		        panelTablero.requestFocusInWindow();//Regresar el foco al tablero
 		        //panelTablero.setFocusable(true);
@@ -157,6 +167,25 @@ public class Teclado implements KeyListener{
 		panelTablero.addKeyListener(this);
 		panelTablero.setFocusable(true);
 		
+		//MOVIMIENTO AUTÓMATICO DEL JUGADOR
+		
+		int retrasoMovimientoAutomático = 15;//Retraso del cronómetro del movimiento automático del jugador
+		
+        ActionListener movimientoAutomático = new ActionListener() {
+        	
+        	@Override
+            public void actionPerformed(ActionEvent evt) {
+            	
+                //System.out.println("|Movimiento automático del jugador verificado|");
+                
+                ActualizarMovimiento();
+                
+            }
+            
+        };
+
+        cronómetroMovimientoAutomático = new Timer(retrasoMovimientoAutomático, movimientoAutomático);
+		
 	}
 	
 	class PaintPanel extends JPanel {
@@ -177,7 +206,8 @@ public class Teclado implements KeyListener{
 			
 			for (Player muro : obstáculos) {
 				g2.setColor(muro.color);
-				g2.fillRect(muro.x + 5, muro.y + 5, muro.anchura - 10, muro.altura - 10);
+				//g2.fillRect(muro.x, muro.y, muro.anchura, muro.altura);//Efecto normal
+				g2.fillRect(muro.x + 5, muro.y + 5, muro.anchura - 10, muro.altura - 10);//Efecto rebote
 			}
 			
 		}
@@ -197,91 +227,13 @@ public class Teclado implements KeyListener{
 		//System.out.println(panelTablero.getHeight());//Obtener la altura en píxeles del tablero
 		//System.out.println(e.getKeyCode());//Obtener el número de la tecla presionada
 		
-		Boolean definición = true;
+		cronómetro.start();//Iniciar el cronómetro del juego sólo al presionar una tecla
 		
-		for (Player muro : obstáculos) {
-			if (jugador.colisión(muro)) {
-				definición = false;
-			}
-		}
+		cronómetroMovimientoAutomático.start();//Iniciar el cronómetro del movimiento automático del jugador sólo al presionar una tecla
 		
-		if (!definición) {
-		    System.out.println("|Colisión con un obstáculo detectada|");
-		}
+		últimaTeclaPresionada = e.getKeyCode();//Iniciar el movimiento automático del jugador sólo al presionar una tecla
 		
-		if(definición) {
-			sombra.x = jugador.x;
-			
-			sombra.y = jugador.y;
-		}
-		
-		if (e.getKeyCode() == 87) {//Tecla: W
-			if (definición) {
-				jugador.y -= 5;
-			}
-			else {//Colisión
-				jugador.y = sombra.y;
-				
-				jugador.x = sombra.x;
-			}
-		}
-		
-		if (e.getKeyCode() == 83) {//Tecla: S
-			if (definición) {
-				jugador.y += 5;
-			}
-			else {//Colisión
-				jugador.y = sombra.y;
-				
-				jugador.x = sombra.x;
-			}
-		}
-		
-		if (e.getKeyCode() == 65) {//Tecla: A
-			if (definición) {
-				jugador.x -= 5;
-			}
-			else {//Colisión
-				jugador.y = sombra.y;
-				
-				jugador.x = sombra.x;
-			}
-		}
-		
-		if (e.getKeyCode() == 68) {//Tecla: D
-			if (definición) {
-				jugador.x += 5;
-			}
-			else {//Colisión
-				jugador.y = sombra.y;
-				
-				jugador.x = sombra.x;
-			}
-		}
-		
-		panelTablero.repaint();
-		
-		//EFECTO PORTAL
-		
-		//Teletransporte horizontal
-		
-		if (jugador.x > 786) {//Sale por la derecha, aparece por la izquierda
-		    jugador.x = -35;
-		}
-		
-		if (jugador.x < -35) {//Sale por la izquierda, aparece por la derecha
-		    jugador.x = 786;
-		}
-
-		// Teletransporte vertical
-		
-		if (jugador.y > 499) {//Sale por abajo, aparece por arriba
-		    jugador.y = -35;
-		}
-		
-		if (jugador.y < -35) {//Sale por arriba, aparece por abajo
-		    jugador.y = 499;
-		}
+		ActualizarMovimiento();//Ejecutar el método para actualizar el movimiento del jugador
 		
 	}
 
@@ -327,6 +279,99 @@ public class Teclado implements KeyListener{
 			
 			return rectángulo1.intersects(rectángulo2);
 		
+		}
+		
+	}
+	
+	public void ActualizarMovimiento() {
+		
+		Boolean definición = true;
+		
+		for (Player muro : obstáculos) {
+			if (jugador.colisión(muro)) {
+				definición = false;
+			}
+		}
+		
+		if (!definición) {
+		    System.out.println("|Colisión con un obstáculo detectada|");
+		}
+		
+		if(definición) {
+			sombra.x = jugador.x;
+			sombra.y = jugador.y;
+		}
+		
+		if (últimaTeclaPresionada == 87) {//Tecla: W
+			if (definición) {
+				jugador.y -= 5;
+			}
+			else {//Colisión
+				jugador.y = sombra.y;
+				jugador.x = sombra.x;
+				
+				últimaTeclaPresionada = 0;
+			}
+		}
+		
+		if (últimaTeclaPresionada == 83) {//Tecla: S
+			if (definición) {
+				jugador.y += 5;
+			}
+			else {//Colisión
+				jugador.y = sombra.y;
+				jugador.x = sombra.x;
+				
+				últimaTeclaPresionada = 0;
+			}
+		}
+		
+		if (últimaTeclaPresionada == 65) {//Tecla: A
+			if (definición) {
+				jugador.x -= 5;
+			}
+			else {//Colisión
+				jugador.y = sombra.y;
+				jugador.x = sombra.x;
+				
+				últimaTeclaPresionada = 0;
+			}
+		}
+		
+		if (últimaTeclaPresionada == 68) {//Tecla: D
+			if (definición) {
+				jugador.x += 5;
+			}
+			else {//Colisión
+				jugador.y = sombra.y;
+				jugador.x = sombra.x;
+				
+				últimaTeclaPresionada = 0;
+			}
+		}
+		
+		panelTablero.repaint();
+		
+		//EFECTO PORTAL
+		
+		//Teletransporte horizontal
+		
+		if (jugador.x > 786) {//Sale por la derecha, aparece por la izquierda
+		    jugador.x = -35;
+		}
+		
+		if (jugador.x < -35) {//Sale por la izquierda, aparece por la derecha
+		    jugador.x = 786;
+		}
+
+		// Teletransporte vertical
+		
+		if (jugador.y > 499) {//Sale por abajo, aparece por arriba
+		    jugador.y = -35;
+		}
+		
+		if (jugador.y < -35) {//Sale por arriba, aparece por abajo
+		    jugador.y = 499;
 		}
 		
 	}
