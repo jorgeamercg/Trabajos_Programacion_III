@@ -20,7 +20,7 @@ import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import java.awt.Rectangle;
 
-public class Teclado implements KeyListener{
+public class Teclado implements KeyListener {
 
 	private JFrame frame;
 	
@@ -271,7 +271,7 @@ public class Teclado implements KeyListener{
 			
 		}
 		
-		public Boolean colisión (Player blanco){
+		public Boolean colisión (Player blanco) {
 			
 			Rectangle rectángulo1 = new Rectangle(this.x, this.y, this.anchura, this.altura);
 			
